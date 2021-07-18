@@ -1,44 +1,53 @@
+import constants.ApplicationBuildConstants
+import dependencies.AndroidTestDependencies
+import dependencies.ReleaseDependencies
+import dependencies.AndroidXDependencies
+import dependencies.TestDependencies
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion ApplicationBuildConstants.COMPILE_SDK
 
     defaultConfig {
-        applicationId "com.mkchtv.cleantemplate"
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId ApplicationBuildConstants.ID
+        minSdkVersion ApplicationBuildConstants.MIN_SDK
+        targetSdkVersion ApplicationBuildConstants.TARGET_SDK
+        versionCode ApplicationBuildConstants.VERSION_CODE
+        versionName ApplicationBuildConstants.VERSION_NAME
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner AndroidTestDependencies.INSTRUMENTATION_RUNNER
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile(ApplicationBuildConstants.PROGUARD_ANDROID_OPTIMIZE_FILE), ApplicationBuildConstants.PROGUARD_RULES_FILE
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
+        targetCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = ApplicationBuildConstants.JAVA_VERSION
     }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation ReleaseDependencies.KOTLIN_STD_LIB
+    implementation ReleaseDependencies.MATERIAL
+
+    implementation AndroidXDependencies.CORE_KTX
+    implementation AndroidXDependencies.APP_COMPAT
+    implementation AndroidXDependencies.CONSTRAINT_LAYOUT
+
+    testImplementation TestDependencies.JUNIT_4
+
+    androidTestImplementation AndroidTestDependencies.ANDROIDX_TEST_EXT
+    androidTestImplementation AndroidTestDependencies.ESPRESSO_CORE
 }

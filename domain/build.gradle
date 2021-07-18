@@ -1,13 +1,16 @@
+import constants.ApplicationBuildConstants
+import dependencies.ReleaseDependencies
+
 plugins {
     id 'java-library'
     id 'kotlin'
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
+    targetCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation ReleaseDependencies.KOTLIN_STD_LIB
 }

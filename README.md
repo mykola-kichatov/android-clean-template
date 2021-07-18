@@ -9,5 +9,4 @@ There are 3 main modules in the project:
 - [app](app) is responsible for presentation. It's an android application module, based on MVVM. It delegates all the business logic to domain layer, staying as passive as possible
 
 # Features and practices
-## Gradle dependency management with Kotlin ([buildSrc](buildSrc))
-Helps to organise all gradle-build-related things in a concise structured way. Ispired by [this article](https://proandroiddev.com/gradle-dependency-management-with-kotlin-94eed4df9a28)
+1. **Gradle dependency management with Kotlin ([buildSrc](buildSrc))** helps to organise all gradle-build-related things in a concise structured way. Ispired by [this article](https://proandroiddev.com/gradle-dependency-management-with-kotlin-94eed4df9a28)

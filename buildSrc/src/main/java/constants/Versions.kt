@@ -8,6 +8,7 @@ object Versions {
     const val APP_COMPAT = "1.3.0"
     const val MATERIAL = "1.4.0"
     const val CONSTRAINT_LAYOUT = "2.0.4"
+    const val NAVIGATION_COMPONENT = "2.3.5"
 
     const val GRADLE_BUILD_TOOLS = "4.2.2"
 

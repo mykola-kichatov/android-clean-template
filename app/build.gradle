@@ -7,6 +7,7 @@ import dependencies.TestDependencies
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -28,6 +29,9 @@ android {
             proguardFiles getDefaultProguardFile(ApplicationBuildConstants.PROGUARD_ANDROID_OPTIMIZE_FILE), ApplicationBuildConstants.PROGUARD_RULES_FILE
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
         targetCompatibility ApplicationBuildConstants.JAVA_VERSION_ENUM
@@ -47,7 +51,6 @@ dependencies {
     implementation AndroidXDependencies.CONSTRAINT_LAYOUT
     implementation AndroidXDependencies.NAVIGATION_FRAGMENT_KTX
     implementation AndroidXDependencies.NAVIGATION_UI_KTX
-    implementation project(path: ':')
 
     testImplementation TestDependencies.JUNIT_4
 

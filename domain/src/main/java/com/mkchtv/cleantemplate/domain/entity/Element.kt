@@ -1,4 +1,4 @@
-package com.mkchtv.cleantemplate.domain
+package com.mkchtv.cleantemplate.domain.entity
 
 data class Element(
     val id: Int,

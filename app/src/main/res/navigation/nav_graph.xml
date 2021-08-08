@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.mkchtv.cleantemplate.list.ListFragment"
+        android:name="com.mkchtv.cleantemplate.list.ElementsListFragment"
         android:label="ListFragment" >
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.mkchtv.cleantemplate.details.DetailsFragment"
+        android:name="com.mkchtv.cleantemplate.details.ElementDetailsFragment"
         android:label="DetailsFragment" >
         <argument
             android:name="id"

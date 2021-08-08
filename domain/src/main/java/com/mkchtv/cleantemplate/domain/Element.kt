@@ -1,6 +1,6 @@
 package com.mkchtv.cleantemplate.domain
 
-data class Something(
+data class Element(
     val id: Int,
     val name: String,
     val description: String

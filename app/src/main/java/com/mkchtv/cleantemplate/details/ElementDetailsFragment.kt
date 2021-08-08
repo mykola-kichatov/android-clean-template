@@ -1,16 +1,16 @@
-package com.mkchtv.cleantemplate.list
+package com.mkchtv.cleantemplate.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mkchtv.cleantemplate.base.BaseFragment
-import com.mkchtv.cleantemplate.databinding.FragmentListBinding
+import com.mkchtv.cleantemplate.databinding.FragmentDetailsBinding
 
-class ListFragment : BaseFragment() {
+class ElementDetailsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, group: ViewGroup?, state: Bundle?): View {
-        val binding = FragmentListBinding.inflate(inflater, group, false)
+        val binding = FragmentDetailsBinding.inflate(inflater, group, false)
         return binding.root
     }
 

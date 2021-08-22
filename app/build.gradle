@@ -1,5 +1,6 @@
 import constants.ApplicationBuildConstants
 import dependencies.AndroidTestDependencies
+import dependencies.AnnotationProcessingDependencies
 import dependencies.ReleaseDependencies
 import dependencies.AndroidXDependencies
 import dependencies.TestDependencies
@@ -48,7 +49,7 @@ dependencies {
     implementation ReleaseDependencies.KOTLIN_STD_LIB
     implementation ReleaseDependencies.MATERIAL
     implementation ReleaseDependencies.HILT_ANDROID
-    kapt ReleaseDependencies.HILT_ANDROID_COMPILER
+    kapt AnnotationProcessingDependencies.HILT_ANDROID_COMPILER
 
     implementation AndroidXDependencies.CORE_KTX
     implementation AndroidXDependencies.APP_COMPAT

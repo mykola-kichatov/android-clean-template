@@ -13,4 +13,6 @@ java {
 
 dependencies {
     implementation ReleaseDependencies.KOTLIN_STD_LIB
+    implementation ReleaseDependencies.COROUTINES
+    implementation ReleaseDependencies.JAVAX_INJECT
 }

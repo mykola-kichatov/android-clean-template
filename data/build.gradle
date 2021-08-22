@@ -1,8 +1,5 @@
 import constants.ApplicationBuildConstants
-import dependencies.AndroidTestDependencies
-import dependencies.ReleaseDependencies
-import dependencies.AndroidXDependencies
-import dependencies.TestDependencies
+import dependencies.*
 
 plugins {
     id 'com.android.library'
@@ -43,6 +40,7 @@ dependencies {
 
     implementation ReleaseDependencies.KOTLIN_STD_LIB
     implementation ReleaseDependencies.MATERIAL
+    implementation ReleaseDependencies.JAVAX_INJECT
 
     implementation AndroidXDependencies.CORE_KTX
     implementation AndroidXDependencies.APP_COMPAT

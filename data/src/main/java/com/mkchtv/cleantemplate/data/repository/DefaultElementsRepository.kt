@@ -2,8 +2,13 @@ package com.mkchtv.cleantemplate.data.repository
 
 import com.mkchtv.cleantemplate.domain.entity.Element
 import com.mkchtv.cleantemplate.domain.repository.ElementsRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DefaultElementsRepository : ElementsRepository {
+@Singleton
+class DefaultElementsRepository @Inject constructor(
+
+) : ElementsRepository {
 
     override suspend fun getAll(): List<Element> {
         TODO("Not yet implemented")

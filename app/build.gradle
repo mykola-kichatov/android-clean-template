@@ -1,17 +1,11 @@
 import constants.ApplicationBuildConstants
-import dependencies.AndroidTestDependencies
-import dependencies.AnnotationProcessingDependencies
-import dependencies.ReleaseDependencies
-import dependencies.AndroidXDependencies
-import dependencies.TestDependencies
+import dependencies.*
 
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
-    id 'androidx.navigation.safeargs.kotlin'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion ApplicationBuildConstants.COMPILE_SDK
@@ -42,6 +36,10 @@ android {
     kotlinOptions {
         jvmTarget = ApplicationBuildConstants.JAVA_VERSION
     }
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 dependencies {

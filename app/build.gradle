@@ -46,6 +46,9 @@ android {
 
 dependencies {
 
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
     implementation ReleaseDependencies.KOTLIN_STD_LIB
     implementation ReleaseDependencies.MATERIAL
     implementation ReleaseDependencies.HILT_ANDROID

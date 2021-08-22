@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.mkchtv.cleantemplate.base.BaseFragment
 import com.mkchtv.cleantemplate.databinding.FragmentListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ElementsListFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, group: ViewGroup?, state: Bundle?): View {

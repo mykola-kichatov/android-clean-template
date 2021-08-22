@@ -7,7 +7,9 @@ import dependencies.TestDependencies
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id("androidx.navigation.safeargs.kotlin")
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -45,6 +47,8 @@ dependencies {
 
     implementation ReleaseDependencies.KOTLIN_STD_LIB
     implementation ReleaseDependencies.MATERIAL
+    implementation ReleaseDependencies.HILT_ANDROID
+    kapt ReleaseDependencies.HILT_ANDROID_COMPILER
 
     implementation AndroidXDependencies.CORE_KTX
     implementation AndroidXDependencies.APP_COMPAT

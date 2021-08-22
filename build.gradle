@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath BuildDependencies.GRADLE_BUILD_TOOLS
         classpath BuildDependencies.KOTLIN_GRADLE_PLUGIN
+        classpath BuildDependencies.HILT_GRADLE_PLUGIN
         classpath BuildDependencies.NAVIGATION_SAFE_ARGS
     }
 }

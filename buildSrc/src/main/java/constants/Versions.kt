@@ -4,6 +4,7 @@ object Versions {
 
     const val KOTLIN = "1.5.20"
     const val KTX = "1.5.0"
+    const val HILT = "2.38.1"
 
     const val APP_COMPAT = "1.3.0"
     const val MATERIAL = "1.4.0"

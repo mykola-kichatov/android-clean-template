@@ -57,6 +57,7 @@ dependencies {
     implementation AndroidXDependencies.CONSTRAINT_LAYOUT
     implementation AndroidXDependencies.NAVIGATION_FRAGMENT_KTX
     implementation AndroidXDependencies.NAVIGATION_UI_KTX
+    implementation AndroidXDependencies.ROOM
 
     testImplementation TestDependencies.JUNIT_4
 

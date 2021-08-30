@@ -14,21 +14,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Volatile
-    private var INSTANCE: ElementsDatabase? = null
-
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): ElementsDatabase {
-        return INSTANCE ?: synchronized(this) {
-            val databaseInstance = Room.databaseBuilder(
-                context,
-                ElementsDatabase::class.java, "elements.db"
-            ).build()
-            INSTANCE = databaseInstance
-            return databaseInstance
-        }
-    }
+    fun provideDatabase(@ApplicationContext context: Context): ElementsDatabase =
+        Room.databaseBuilder(
+            context,
+            ElementsDatabase::class.java, "elements.db"
+        ).build()
 
     @Provides
     @Singleton

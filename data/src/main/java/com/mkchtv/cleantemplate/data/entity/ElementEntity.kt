@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "elements")
 data class ElementEntity(
     @PrimaryKey val id: Int,
     @NonNull @ColumnInfo val name: String,

@@ -38,6 +38,7 @@ dependencies {
     implementation project(path: ':domain')
 
     implementation ReleaseDependencies.KOTLIN_STD_LIB
+    implementation ReleaseDependencies.COROUTINES
     implementation ReleaseDependencies.MATERIAL
     implementation ReleaseDependencies.JAVAX_INJECT
 

@@ -10,5 +10,6 @@ object AndroidXDependencies {
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION_COMPONENT}"
     const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION_COMPONENT}"
     const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
 
 }

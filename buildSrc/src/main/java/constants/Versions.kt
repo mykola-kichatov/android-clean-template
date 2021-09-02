@@ -13,6 +13,7 @@ object Versions {
     const val MATERIAL = "1.4.0"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val NAVIGATION_COMPONENT = "2.3.5"
+    const val LIFECYCLE = "2.4.0-alpha03"
 
     const val GRADLE_BUILD_TOOLS = "7.0.1"
 

@@ -58,6 +58,7 @@ dependencies {
     implementation AndroidXDependencies.NAVIGATION_FRAGMENT_KTX
     implementation AndroidXDependencies.NAVIGATION_UI_KTX
     implementation AndroidXDependencies.ROOM
+    implementation AndroidXDependencies.LIFECYCLE_RUNTIME
 
     testImplementation TestDependencies.JUNIT_4
 

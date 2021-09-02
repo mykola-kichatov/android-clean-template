@@ -11,7 +11,7 @@ abstract class BaseViewModel<T : UILogic>(
 ) : AndroidViewModel(application) {
 
     init {
-        logic.init(viewModelScope)
+        logic.onUIInit(viewModelScope)
     }
 
 }

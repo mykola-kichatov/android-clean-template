@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 
 interface UILogic {
 
-    fun init(uiScope: CoroutineScope)
+    fun onUIInit(uiScope: CoroutineScope)
 
 }
 
@@ -12,7 +12,8 @@ abstract class BaseUILogic : UILogic {
 
     protected lateinit var uiScope: CoroutineScope
 
-    override fun init(uiScope: CoroutineScope) {
+    override fun onUIInit(uiScope: CoroutineScope) {
         this.uiScope = uiScope
     }
+
 }

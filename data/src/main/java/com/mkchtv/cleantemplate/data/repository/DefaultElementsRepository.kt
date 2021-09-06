@@ -17,6 +17,9 @@ class DefaultElementsRepository @Inject constructor(
     override fun elementsFlow(): Flow<List<Element>> =
         dao.elementsFlow().map { it.toDomain() }
 
+    override fun elementFlow(elementId: Int): Flow<Element> =
+        dao.elementFlow(elementId).map { it?.toDomain() ?: Element.NEW }
+
     override suspend fun createOrUpdate(element: Element) {
         TODO("Not yet implemented")
     }

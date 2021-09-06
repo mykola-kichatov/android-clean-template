@@ -7,6 +7,8 @@ interface ElementsRepository {
 
     fun elementsFlow(): Flow<List<Element>>
 
+    fun elementFlow(elementId: Int): Flow<Element>
+
     suspend fun createOrUpdate(element: Element)
 
     suspend fun delete(id: Int)

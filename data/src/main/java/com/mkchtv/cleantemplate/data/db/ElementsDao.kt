@@ -11,4 +11,7 @@ interface ElementsDao {
     @Query("SELECT * FROM elements ORDER BY id ASC")
     fun elementsFlow(): Flow<List<ElementEntity>>
 
+    @Query("SELECT * FROM elements WHERE id = :elementId LIMIT 1")
+    fun elementFlow(elementId: Int): Flow<ElementEntity?>
+
 }

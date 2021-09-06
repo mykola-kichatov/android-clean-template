@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">CleanTemplate</string>
+
     <string name="info_element_deleted">Element is deleted</string>
     <string name="info_element_created">Element is created</string>
     <string name="info_element_updated">Element is updated</string>
+
+    <string name="hint_element_name">Element name</string>
+    <string name="hint_element_description">Element description</string>
 </resources>

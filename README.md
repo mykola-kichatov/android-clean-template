@@ -12,4 +12,5 @@ There are 3 main modules in the project:
 1. **Gradle dependency management with Kotlin ([buildSrc](buildSrc))** helps to organise all gradle-build-related things in a concise structured way. Ispired by [this article](https://proandroiddev.com/gradle-dependency-management-with-kotlin-94eed4df9a28)
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 3. Single activity and navigation with [Jetpack Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started)
-4. etc.
+4. Material design [navigation transitions](https://material.io/design/navigation/navigation-transitions.html)
+5. etc.

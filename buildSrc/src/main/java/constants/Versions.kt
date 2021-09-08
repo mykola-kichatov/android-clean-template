@@ -4,12 +4,12 @@ object Versions {
 
     const val JAVAX_INJECT="1"
     const val KOTLIN = "1.5.21"
-    const val KTX = "1.5.0"
+    const val KTX = "1.6.0"
     const val HILT = "2.38.1"
     const val COROUTINES = "1.3.9"
     const val ROOM = "2.3.0"
 
-    const val APP_COMPAT = "1.3.0"
+    const val APP_COMPAT = "1.3.1"
     const val MATERIAL = "1.4.0"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val NAVIGATION_COMPONENT = "2.3.5"

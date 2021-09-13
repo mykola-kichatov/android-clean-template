@@ -2,15 +2,14 @@ package com.mkchtv.cleantemplate.details
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import com.mkchtv.cleantemplate.R
 import com.mkchtv.cleantemplate.base.BaseFragment
@@ -28,9 +27,11 @@ import kotlinx.coroutines.launch
 class ElementDetailsFragment : BaseFragment() {
 
     private val viewModel: ElementDetailsViewModel by viewModels()
+    private val args: ElementDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         setupEnterTransitions()
     }
 
@@ -67,5 +68,16 @@ class ElementDetailsFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val menuId = if (args.id == Constants.NEW_ELEMENT_ID) R.menu.create else R.menu.update
+        inflater.inflate(menuId, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.onCreateUpdateClick()
+        return super.onOptionsItemSelected(item)
     }
 }

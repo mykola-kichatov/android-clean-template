@@ -1,8 +1,10 @@
 package com.mkchtv.cleantemplate.data.repository
 
 import com.mkchtv.cleantemplate.data.db.ElementsDao
+import com.mkchtv.cleantemplate.data.mapper.toDbEntity
 import com.mkchtv.cleantemplate.data.mapper.toDomain
 import com.mkchtv.cleantemplate.domain.entity.Element
+import com.mkchtv.cleantemplate.domain.entity.isNew
 import com.mkchtv.cleantemplate.domain.repository.ElementsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,11 +23,12 @@ class DefaultElementsRepository @Inject constructor(
         dao.elementFlow(elementId).map { it?.toDomain() ?: Element.NEW }
 
     override suspend fun createOrUpdate(element: Element) {
-        TODO("Not yet implemented")
+        if (element.isNew())
+            dao.insert(element.toDbEntity())
+        else
+            dao.update(element.toDbEntity())
     }
 
-    override suspend fun delete(id: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun delete(element: Element) = dao.delete(element.toDbEntity())
 
 }

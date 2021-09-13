@@ -11,6 +11,6 @@ interface ElementsRepository {
 
     suspend fun createOrUpdate(element: Element)
 
-    suspend fun delete(id: Int)
+    suspend fun delete(element: Element)
 
 }

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "elements")
 data class ElementEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @NonNull @ColumnInfo val name: String,
     @NonNull @ColumnInfo val description: String
 )

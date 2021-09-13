@@ -7,4 +7,7 @@
 
     <string name="hint_element_name">Element name</string>
     <string name="hint_element_description">Element description</string>
+
+    <string name="menu_create">Create</string>
+    <string name="menu_update">Update</string>
 </resources>

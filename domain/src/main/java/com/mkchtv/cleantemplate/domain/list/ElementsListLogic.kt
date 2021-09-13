@@ -30,7 +30,7 @@ class DefaultElementsListLogic @Inject constructor(
 
     override fun onDeleteConfirmed(element: Element) {
         uiScope.launch {
-            repository.delete(element.id)
+            repository.delete(element)
             val info = l10N.getString(Constants.KEY_INFO_MESSAGE_ELEMENT_DELETED)
             uiMessageNotifier.notifyInfo(info)
         }

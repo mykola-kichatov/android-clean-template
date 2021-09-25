@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.core.view.ViewCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +51,7 @@ class ElementDetailsFragment : BaseFragment() {
         val binding = FragmentDetailsBinding.inflate(inflater, group, false)
 
         setupTransitionsFor(binding)
+        setupTextWatchers(binding)
         collectElementFlow(binding.name, binding.description)
 
         return binding.root
@@ -59,12 +61,23 @@ class ElementDetailsFragment : BaseFragment() {
         ViewCompat.setTransitionName(binding.cardView, Constants.TRANSITION_NAME_ELEMENT_DETAILS)
     }
 
+    private fun setupTextWatchers(binding: FragmentDetailsBinding) {
+        binding.name.doAfterTextChanged {
+            viewModel.onNameTextChanged(it?.toString() ?: "")
+        }
+        binding.description.doAfterTextChanged {
+            viewModel.onDescriptionTextChanged(it?.toString() ?: "")
+        }
+    }
+
     private fun collectElementFlow(name: TextView, description: TextView) {
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {//todo move to extension function
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.elementState.collect { item ->
-                    name.text = item.name
-                    description.text = item.description
+                    if (!name.text.toString().equals(item.name))
+                        name.text = item.name
+                    if (!description.text.toString().equals(item.description))
+                        description.text = item.description
                 }
             }
         }

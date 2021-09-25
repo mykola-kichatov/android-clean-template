@@ -7,12 +7,14 @@ import com.mkchtv.cleantemplate.base.BaseViewModel
 import com.mkchtv.cleantemplate.domain.common.Constants
 import com.mkchtv.cleantemplate.domain.details.ElementDetailsLogic
 import com.mkchtv.cleantemplate.list.ElementItem
-import com.mkchtv.cleantemplate.mapper.toUiItem
+import com.mkchtv.cleantemplate.mapper.toDomain
+import com.mkchtv.cleantemplate.util.getIntOrDefault
+import com.mkchtv.cleantemplate.util.getStringOrDefault
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,19 +25,62 @@ class ElementDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel<ElementDetailsLogic>(application, logic) {
 
-    private val _elementState = MutableStateFlow<ElementItem>(ElementItem.NEW)
-    val elementState: StateFlow<ElementItem> = _elementState
+    private val _elementState = MutableStateFlow(makeInitialState())
+    val elementState = _elementState.asStateFlow()
 
     init {
         collectElementFlow()
     }
 
-    private fun collectElementFlow() {
+    private fun makeInitialState() =
+        ElementItem(
+            id = getElementId(),
+            name = getSavedStateName(),
+            description = getSavedStateDescription()
+        )
+
+    private fun getElementId() =
+        savedStateHandle.getIntOrDefault(Constants.ARG_KEY_ELEMENT_ID, Constants.NEW_ELEMENT_ID)
+
+    private fun getSavedStateName() =
+        savedStateHandle.getStringOrDefault(STATE_KEY_NAME, ElementItem.NEW.name)
+
+    private fun getSavedStateDescription() = savedStateHandle.getStringOrDefault(
+        STATE_KEY_DESCRIPTION,
+        ElementItem.NEW.description
+    )
+
+    private fun collectElementFlow() =
         viewModelScope.launch {
-            val elementId = savedStateHandle.get<Int>(Constants.ARG_KEY_ELEMENT_ID)
-                ?: Constants.NEW_ELEMENT_ID
-            logic.elementFlow(elementId).map { it.toUiItem() }.collect { _elementState.value = it }
+            logic.elementFlow(getElementId()).collect { element ->
+                if (alreadyHaveSavedStateData())
+                    return@collect
+                _elementState.update {
+                    it.copy(
+                        id = element.id,
+                        name = element.name,
+                        description = element.description
+                    )
+                }
+            }
         }
+
+    private fun alreadyHaveSavedStateData(): Boolean = getSavedStateName().isNotEmpty()
+            && getSavedStateDescription().isNotEmpty()
+
+    fun onCreateUpdateClick() = logic.onCreateUpdateConfirmed(_elementState.value.toDomain())
+
+    fun onNameTextChanged(text: String) {
+        _elementState.update { it.copy(name = text) }
+        savedStateHandle.set(STATE_KEY_NAME, text)
+    }
+
+    fun onDescriptionTextChanged(text: String) {
+        _elementState.update { it.copy(description = text) }
+        savedStateHandle.set(STATE_KEY_DESCRIPTION, text)
     }
 
 }
+
+private const val STATE_KEY_NAME = "name_state"
+private const val STATE_KEY_DESCRIPTION = "description_state"

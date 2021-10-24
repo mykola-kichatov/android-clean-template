@@ -65,4 +65,5 @@ dependencies {
     androidTestImplementation AndroidTestDependencies.ANDROIDX_TEST_EXT
     androidTestImplementation AndroidTestDependencies.ESPRESSO_CORE
     androidTestImplementation AndroidTestDependencies.NAVIGATION_TESTING
+    debugImplementation DebugDependencies.LEAK_CANARY
 }

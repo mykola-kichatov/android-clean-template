@@ -22,4 +22,6 @@ object Versions {
     const val ANDROIDX_TEST_EXT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
 
+    const val LEAK_CANARY = "2.7"
+
 }

@@ -68,7 +68,7 @@ class ElementDetailsViewModel @Inject constructor(
     private fun alreadyHaveSavedStateData(): Boolean = getSavedStateName().isNotEmpty()
             && getSavedStateDescription().isNotEmpty()
 
-    fun onCreateUpdateClick() = logic.onCreateUpdateConfirmed(_elementState.value.toDomain())
+    fun onCreateUpdateConfirmed() = logic.onCreateUpdateConfirmed(_elementState.value.toDomain())
 
     fun onNameTextChanged(text: String) {
         _elementState.update { it.copy(name = text) }

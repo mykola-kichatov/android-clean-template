@@ -74,9 +74,9 @@ class ElementDetailsFragment : BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {//todo move to extension function
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.elementState.collect { item ->
-                    if (!name.text.toString().equals(item.name))
+                    if (name.text.toString() != item.name)
                         name.text = item.name
-                    if (!description.text.toString().equals(item.description))
+                    if (description.text.toString() != item.description)
                         description.text = item.description
                 }
             }

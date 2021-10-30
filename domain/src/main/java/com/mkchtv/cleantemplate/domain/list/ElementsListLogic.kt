@@ -2,9 +2,6 @@ package com.mkchtv.cleantemplate.domain.list
 
 import com.mkchtv.cleantemplate.domain.base.BaseUILogic
 import com.mkchtv.cleantemplate.domain.base.UILogic
-import com.mkchtv.cleantemplate.domain.common.Constants
-import com.mkchtv.cleantemplate.domain.common.L10N
-import com.mkchtv.cleantemplate.domain.common.UIMessageNotifier
 import com.mkchtv.cleantemplate.domain.di.AppIoScope
 import com.mkchtv.cleantemplate.domain.entity.Element
 import com.mkchtv.cleantemplate.domain.repository.ElementsRepository
@@ -23,8 +20,6 @@ interface ElementsListLogic : UILogic {
 
 class DefaultElementsListLogic @Inject constructor(
     private val repository: ElementsRepository,
-    private val uiMessageNotifier: UIMessageNotifier,
-    private val l10N: L10N,
     @AppIoScope private val appIoScope: CoroutineScope
 ) : BaseUILogic(), ElementsListLogic {
 
@@ -34,10 +29,6 @@ class DefaultElementsListLogic @Inject constructor(
     override fun onDeleteConfirmed(element: Element) {
         appIoScope.launch {
             repository.delete(element)
-            uiScope.launch {
-                val info = l10N.getString(Constants.KEY_INFO_MESSAGE_ELEMENT_DELETED)
-                uiMessageNotifier.notifyInfo(info)
-            }
         }
     }
 }

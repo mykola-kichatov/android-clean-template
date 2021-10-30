@@ -90,7 +90,10 @@ class ElementDetailsFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.onCreateUpdateConfirmed()
+        when (item.itemId) {
+            R.id.delete -> viewModel.onDeleteConfirmed()
+            R.id.create, R.id.update -> viewModel.onCreateUpdateConfirmed()
+        }
         activity?.onBackPressed()
         return super.onOptionsItemSelected(item)
     }

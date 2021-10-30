@@ -10,4 +10,5 @@
 
     <string name="menu_create">Create</string>
     <string name="menu_update">Update</string>
+    <string name="menu_delete">Delete</string>
 </resources>

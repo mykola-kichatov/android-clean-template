@@ -17,6 +17,8 @@ interface ElementDetailsLogic : UILogic {
 
     fun onCreateUpdateConfirmed(element: Element)
 
+    fun onDeleteConfirmed(element: Element)
+
 }
 
 @ExperimentalCoroutinesApi
@@ -34,4 +36,9 @@ class DefaultElementDetailsLogic @Inject constructor(
         }
     }
 
+    override fun onDeleteConfirmed(element: Element) {
+        appIoScope.launch {
+            repository.delete(element)
+        }
+    }
 }

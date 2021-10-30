@@ -70,6 +70,8 @@ class ElementDetailsViewModel @Inject constructor(
 
     fun onCreateUpdateConfirmed() = logic.onCreateUpdateConfirmed(_elementState.value.toDomain())
 
+    fun onDeleteConfirmed() = logic.onDeleteConfirmed(_elementState.value.toDomain())
+
     fun onNameTextChanged(text: String) {
         _elementState.update { it.copy(name = text) }
         savedStateHandle.set(STATE_KEY_NAME, text)

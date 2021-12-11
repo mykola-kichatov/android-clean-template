@@ -1,0 +1,21 @@
+# Default ignored files
+/shelf/
+
+# Exclude
+*.iml
+*.xml
+
+caches
+libraries
+
+# Retain
+!compiler.xml
+!gradle.xml
+!runConfigurations.xml
+!vcs.xml
+
+!codeStyles/*.xml
+!dictionaries/*.xml
+!fileTemplates/*.*
+!inspectionProfiles/*.xml
+!runConfigurations/*.xml

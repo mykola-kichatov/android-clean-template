@@ -8,9 +8,9 @@ object ApplicationBuildConstants {
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0"
 
-    const val COMPILE_SDK = 30
-    const val MIN_SDK = 19
-    const val TARGET_SDK = 30
+    const val COMPILE_SDK = 31
+    const val MIN_SDK = 21
+    const val TARGET_SDK = 31
 
     const val CONSUMER_PROGUARD_FILES = "consumer-rules.pro"
     const val PROGUARD_RULES_FILE = "proguard-rules.pro"

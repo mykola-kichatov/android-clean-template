@@ -6,7 +6,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion ApplicationBuildConstants.COMPILE_SDK
+    namespace "${ApplicationBuildConstants.ID}.data"
+    compileSdk ApplicationBuildConstants.COMPILE_SDK
 
     defaultConfig {
         minSdkVersion ApplicationBuildConstants.MIN_SDK

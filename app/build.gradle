@@ -8,7 +8,8 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion ApplicationBuildConstants.COMPILE_SDK
+    namespace ApplicationBuildConstants.ID
+    compileSdk ApplicationBuildConstants.COMPILE_SDK
 
     defaultConfig {
         applicationId ApplicationBuildConstants.ID

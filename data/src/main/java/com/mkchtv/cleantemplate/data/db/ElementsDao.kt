@@ -1,7 +1,6 @@
 package com.mkchtv.cleantemplate.data.db
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import com.mkchtv.cleantemplate.data.entity.ElementEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,7 +13,7 @@ interface ElementsDao {
     @Query("SELECT * FROM elements WHERE id = :elementId LIMIT 1")
     fun elementFlow(elementId: Int): Flow<ElementEntity?>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg entities: ElementEntity)
 
     @Update

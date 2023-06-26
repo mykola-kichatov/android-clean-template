@@ -9,7 +9,7 @@ There are 3 main modules in the project:
 - [app](app) is responsible for presentation. It's an android application module, based on MVVM. It delegates all the business logic to domain layer, staying as passive as possible
 
 # Features and technologies
-1. **Gradle dependency management with Kotlin ([buildSrc](buildSrc))** helps to organise all gradle-build-related things in a concise structured way. Ispired by [this article](https://proandroiddev.com/gradle-dependency-management-with-kotlin-94eed4df9a28)
+1. Gradle build config is based on Kotlin DSL and [version catalogs](https://developer.android.com/build/migrate-to-catalogs)
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 3. Single activity and navigation with [Jetpack Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started)
 4. Material design [navigation transitions](https://material.io/design/navigation/navigation-transitions.html)

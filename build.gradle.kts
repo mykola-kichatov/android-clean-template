@@ -9,7 +9,7 @@ plugins {
 }
 
 val applicationId by extra("com.mkchtv.cleantemplate")
-val minSdk by extra(19)
+val minSdk by extra(21)
 val compileSdk by extra(33)
 val targetSdk by extra(33)
 val versionCode by extra(1)

@@ -9,6 +9,7 @@ constraintlayout = "2.0.4"
 coroutines = "1.7.1"
 espresso = "3.4.0"
 hilt = "2.46.1"
+hiltNavCompose = "1.0.0"
 javaxInject = "1"
 jUnit = "4.+"
 kotlin = "1.8.21"
@@ -18,7 +19,7 @@ leakCanary = "2.8.1"
 lifecycle = "2.6.1"
 material = "1.9.0"
 multidex = "2.0.1"
-navigation = "2.5.3"
+navigation = "2.6.0"
 room = "2.5.2"
 
 [libraries]
@@ -27,6 +28,7 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "ktx" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
@@ -46,6 +48,7 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeViewModel" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavCompose" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 jUnit = { module = "junit:junit", version.ref = "jUnit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }

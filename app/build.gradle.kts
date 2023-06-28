@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.multidex)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.room)
@@ -87,6 +88,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.viewmodel)
     implementation(libs.hilt)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlin.stdlib)
     implementation(libs.material)
 

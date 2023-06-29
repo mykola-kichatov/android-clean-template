@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.multidex)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)

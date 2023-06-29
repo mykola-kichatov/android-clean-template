@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -34,11 +33,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @Composable
 fun ElementListScreen(
-    viewModel: ElementsListViewModel,
-    onListItemClick: (item: ElementItem) -> Unit = {},
+    elementList: List<ElementItem>,
+    onElementClick: (item: ElementItem) -> Unit = {},
     onAddNewElementClick: () -> Unit = {},
 ) {
-    val elementsState = viewModel.elementsState.collectAsState()
     val lazyColumnState = rememberLazyListState()
     val isFabVisible by remember {
         derivedStateOf {
@@ -52,12 +50,12 @@ fun ElementListScreen(
             contentPadding = PaddingValues(16.dp)
         ) {
             items(
-                items = elementsState.value,
+                items = elementList,
                 key = { element -> element.id }
             ) { element ->
                 ElementColumnItem(
                     element,
-                    onListItemClick = onListItemClick
+                    onItemClick = onElementClick
                 )
                 Divider(thickness = 8.dp, color = Color.Transparent)
             }
@@ -75,13 +73,13 @@ fun ElementListScreen(
 @Composable
 private fun ElementColumnItem(
     item: ElementItem,
-    onListItemClick: (item: ElementItem) -> Unit = {},
+    onItemClick: (item: ElementItem) -> Unit = {},
 ) {
     ListItem(
         overlineContent = { Text(text = item.name) },
         headlineContent = { Text(text = item.description) },
         shadowElevation = 1.0.dp,
-        modifier = Modifier.clickable { onListItemClick(item) }
+        modifier = Modifier.clickable { onItemClick(item) }
     )
 }
 

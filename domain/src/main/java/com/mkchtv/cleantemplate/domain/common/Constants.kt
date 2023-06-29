@@ -5,6 +5,7 @@ object Constants {
     const val NEW_ELEMENT_ID = 0
 
     const val ARG_KEY_ELEMENT_ID = "id"
+    const val NAV_DESTINATION_LIST = "list"
 
     const val TRANSITION_NAME_ELEMENT_ITEM = "element_item_transition"
     const val TRANSITION_NAME_ELEMENT_DETAILS = "element_details_transition"

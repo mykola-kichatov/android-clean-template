@@ -1,29 +1,33 @@
 package com.mkchtv.cleantemplate.details
 
-import android.app.Application
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkchtv.cleantemplate.base.BaseViewModel
 import com.mkchtv.cleantemplate.domain.common.Constants
-import com.mkchtv.cleantemplate.domain.details.ElementDetailsLogic
+import com.mkchtv.cleantemplate.domain.di.AppIoScope
+import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElementUseCase
+import com.mkchtv.cleantemplate.domain.usecase.DeleteElementUseCase
+import com.mkchtv.cleantemplate.domain.usecase.GetElementUseCase
 import com.mkchtv.cleantemplate.list.ElementItem
 import com.mkchtv.cleantemplate.mapper.toDomain
 import com.mkchtv.cleantemplate.util.getIntOrDefault
 import com.mkchtv.cleantemplate.util.getStringOrDefault
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ElementDetailsViewModel @Inject constructor(
-    application: Application,
-    logic: ElementDetailsLogic,
+    private val getElement: GetElementUseCase,
+    private val createOrUpdateElement: CreateOrUpdateElementUseCase,
+    private val deleteElement: DeleteElementUseCase,
+    @AppIoScope private val appIoScope: CoroutineScope,
     private val savedStateHandle: SavedStateHandle
-) : BaseViewModel<ElementDetailsLogic>(application, logic) {
+) : ViewModel() {
 
     private val _elementState = MutableStateFlow(makeInitialState())
     val elementState = _elementState.asStateFlow()
@@ -52,7 +56,7 @@ class ElementDetailsViewModel @Inject constructor(
 
     private fun collectElementFlow() =
         viewModelScope.launch {
-            logic.elementFlow(getElementId()).collect { element ->
+            getElement(getElementId()).collect { element ->
                 if (alreadyHaveSavedStateData())
                     return@collect
                 _elementState.update {
@@ -68,9 +72,13 @@ class ElementDetailsViewModel @Inject constructor(
     private fun alreadyHaveSavedStateData(): Boolean = getSavedStateName().isNotEmpty()
             && getSavedStateDescription().isNotEmpty()
 
-    fun onCreateUpdateConfirmed() = logic.onCreateUpdateConfirmed(_elementState.value.toDomain())
+    fun onCreateUpdateConfirmed() = appIoScope.launch {
+        createOrUpdateElement(_elementState.value.toDomain())
+    }
 
-    fun onDeleteConfirmed() = logic.onDeleteConfirmed(_elementState.value.toDomain())
+    fun onDeleteConfirmed() = appIoScope.launch {
+        deleteElement(_elementState.value.toDomain())
+    }
 
     fun onNameTextChanged(text: String) {
         _elementState.update { it.copy(name = text) }

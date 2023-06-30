@@ -1,9 +1,5 @@
 package com.mkchtv.cleantemplate.di
 
-import com.mkchtv.cleantemplate.domain.details.DefaultElementDetailsLogic
-import com.mkchtv.cleantemplate.domain.details.ElementDetailsLogic
-import com.mkchtv.cleantemplate.domain.list.DefaultElementsListLogic
-import com.mkchtv.cleantemplate.domain.list.ElementsListLogic
 import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElement
 import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElementUseCase
 import com.mkchtv.cleantemplate.domain.usecase.DeleteElement

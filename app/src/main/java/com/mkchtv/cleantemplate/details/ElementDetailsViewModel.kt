@@ -36,6 +36,24 @@ class ElementDetailsViewModel @Inject constructor(
         collectElementFlow()
     }
 
+    fun onCreateUpdateConfirmed() = appIoScope.launch {
+        createOrUpdateElement(_elementState.value.toDomain())
+    }
+
+    fun onDeleteConfirmed() = appIoScope.launch {
+        deleteElement(_elementState.value.toDomain())
+    }
+
+    fun onNameTextChanged(text: String) {
+        _elementState.update { it.copy(name = text) }
+        savedStateHandle[STATE_KEY_NAME] = text
+    }
+
+    fun onDescriptionTextChanged(text: String) {
+        _elementState.update { it.copy(description = text) }
+        savedStateHandle[STATE_KEY_DESCRIPTION] = text
+    }
+
     private fun makeInitialState() =
         ElementItem(
             id = getElementId(),
@@ -71,25 +89,6 @@ class ElementDetailsViewModel @Inject constructor(
 
     private fun alreadyHaveSavedStateData(): Boolean = getSavedStateName().isNotEmpty()
             && getSavedStateDescription().isNotEmpty()
-
-    fun onCreateUpdateConfirmed() = appIoScope.launch {
-        createOrUpdateElement(_elementState.value.toDomain())
-    }
-
-    fun onDeleteConfirmed() = appIoScope.launch {
-        deleteElement(_elementState.value.toDomain())
-    }
-
-    fun onNameTextChanged(text: String) {
-        _elementState.update { it.copy(name = text) }
-        savedStateHandle.set(STATE_KEY_NAME, text)
-    }
-
-    fun onDescriptionTextChanged(text: String) {
-        _elementState.update { it.copy(description = text) }
-        savedStateHandle.set(STATE_KEY_DESCRIPTION, text)
-    }
-
 }
 
 private const val STATE_KEY_NAME = "name_state"

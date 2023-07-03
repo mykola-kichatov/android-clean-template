@@ -29,6 +29,6 @@ class DefaultElementsRepository @Inject constructor(
             dao.update(element.toDbEntity())
     }
 
-    override suspend fun delete(element: Element) = dao.delete(element.toDbEntity())
+    override suspend fun delete(vararg ids: Int) = dao.delete(ids = ids)
 
 }

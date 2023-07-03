@@ -5,12 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkchtv.cleantemplate.domain.common.Constants
 import com.mkchtv.cleantemplate.domain.di.AppIoScope
-import com.mkchtv.cleantemplate.domain.entity.Element
 import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElementUseCase
 import com.mkchtv.cleantemplate.domain.usecase.DeleteElementUseCase
 import com.mkchtv.cleantemplate.domain.usecase.GetElementUseCase
 import com.mkchtv.cleantemplate.list.ElementItem
-import com.mkchtv.cleantemplate.mapper.toDomain
 import com.mkchtv.cleantemplate.mapper.toUiItem
 import com.mkchtv.cleantemplate.util.getIntOrDefault
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,7 +47,7 @@ class ElementDetailsViewModel @Inject constructor(
     }
 
     fun onDeleteConfirmed() = appIoScope.launch {
-        deleteElement(elementState.value.toDomain())
+        deleteElement(getElementId())
     }
 
     private fun getElementId() =

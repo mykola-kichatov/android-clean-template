@@ -19,7 +19,7 @@ interface ElementsDao {
     @Update
     suspend fun update(vararg entities: ElementEntity)
 
-    @Delete
-    suspend fun delete(vararg entities: ElementEntity)
+    @Query("DELETE FROM elements WHERE id IN (:ids)")
+    suspend fun delete(vararg ids: Int)
 
 }

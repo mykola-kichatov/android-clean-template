@@ -46,7 +46,6 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core)
     implementation(libs.androidx.room)
     implementation(libs.javax.inject)

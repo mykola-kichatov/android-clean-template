@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKapt)
-    alias(libs.plugins.navigationSafeArgs)
     alias(libs.plugins.hiltAndroid)
 }
 
@@ -71,15 +70,11 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.multidex)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.room)
     implementation(libs.compose.activity)
     implementation(platform(libs.compose.bom))

@@ -27,8 +27,8 @@ fun NavGraphBuilder.elementDetailsScreen(
         ElementDetailsScreen(
             element = element.value,
             onBackClick = onBackClick,
-            onCreateUpdateConfirmed = {
-                viewModel.onCreateUpdateConfirmed()
+            onCreateUpdateConfirmed = { name, desc ->
+                viewModel.onCreateUpdateConfirmed(name = name, description = desc)
                 onBackClick()
             },
             onDeleteConfirmed = {

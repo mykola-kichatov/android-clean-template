@@ -5,10 +5,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @ExperimentalMaterial3Api
 @Composable
 fun ConfirmDialog(
+    modifier: Modifier = Modifier,
     title: String,
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit,
@@ -16,6 +18,7 @@ fun ConfirmDialog(
     dismissButtonText: String = "Cancel",
 ) {
     AlertDialog(
+        modifier = modifier,
         title = { Text(title) },
         onDismissRequest = onDismissRequest,
         confirmButton = {

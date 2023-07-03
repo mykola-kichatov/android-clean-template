@@ -63,10 +63,10 @@ class ElementDetailsFragment : BaseFragment() {
 
     private fun setupTextWatchers(binding: FragmentDetailsBinding) {
         binding.name.doAfterTextChanged {
-            viewModel.onNameTextChanged(it?.toString() ?: "")
+//            viewModel.onNameTextChanged(it?.toString() ?: "")
         }
         binding.description.doAfterTextChanged {
-            viewModel.onDescriptionTextChanged(it?.toString() ?: "")
+//            viewModel.onDescriptionTextChanged(it?.toString() ?: "")
         }
     }
 
@@ -92,7 +92,7 @@ class ElementDetailsFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.delete -> viewModel.onDeleteConfirmed()
-            R.id.create, R.id.update -> viewModel.onCreateUpdateConfirmed()
+//            R.id.create, R.id.update -> viewModel.onCreateUpdateConfirmed()
         }
         activity?.onBackPressed()
         return super.onOptionsItemSelected(item)

@@ -1,6 +1,7 @@
 package com.mkchtv.cleantemplate.details
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -23,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mkchtv.cleantemplate.common.ConfirmDialog
+import com.mkchtv.cleantemplate.common.Input
+import com.mkchtv.cleantemplate.common.rememberInputState
 import com.mkchtv.cleantemplate.list.ElementItem
 import com.mkchtv.cleantemplate.list.isNew
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,13 +36,19 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun ElementDetailsScreen(
     element: ElementItem,
     onBackClick: () -> Unit = {},
-    onCreateUpdateConfirmed: () -> Unit = {},
+    onCreateUpdateConfirmed: (name: String, description: String) -> Unit = { _, _ -> },
     onDeleteConfirmed: () -> Unit = {}
 ) {
-    val title = remember {
+    val title = remember(element) {
         if (element.isNew()) "Create new element" else "Edit element details"
     }
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
+    val nameInputState = rememberInputState(hint = "name", initialValue = element.name)
+    val descInputState = rememberInputState(
+        hint = "description",
+        initialValue = element.description
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,15 +59,21 @@ fun ElementDetailsScreen(
                     }
                 },
                 actions = {
+                    val createUpdate = {
+                        onCreateUpdateConfirmed(
+                            nameInputState.value,
+                            descInputState.value
+                        )
+                    }
                     if (element.isNew()) {
-                        IconButton(onClick = onCreateUpdateConfirmed) {
+                        IconButton(onClick = createUpdate) {
                             Icon(Icons.Filled.Send, "Create")
                         }
                     } else {
                         IconButton(onClick = { showConfirmDeletionDialog = true }) {
                             Icon(Icons.Filled.Delete, "Delete")
                         }
-                        IconButton(onClick = onCreateUpdateConfirmed) {
+                        IconButton(onClick = createUpdate) {
                             Icon(Icons.Filled.Done, "Done")
                         }
                     }
@@ -71,11 +86,15 @@ fun ElementDetailsScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            ListItem(
-                overlineContent = { Text(text = element.name) },
-                headlineContent = { Text(text = element.description) },
-                shadowElevation = 1.0.dp
-            )
+            Column {
+                ListItem(
+                    overlineContent = { Text(text = element.name) },
+                    headlineContent = { Text(text = element.description) },
+                    shadowElevation = 1.0.dp
+                )
+                Input(state = nameInputState)
+                Input(state = descInputState)
+            }
             if (showConfirmDeletionDialog)
                 ConfirmDialog(
                     title = "Delete ${element.name}?",

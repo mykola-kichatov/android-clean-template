@@ -2,7 +2,9 @@ package com.mkchtv.cleantemplate.details
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -12,7 +14,6 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -86,13 +87,11 @@ fun ElementDetailsScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            Column {
-                ListItem(
-                    overlineContent = { Text(text = element.name) },
-                    headlineContent = { Text(text = element.description) },
-                    shadowElevation = 1.0.dp
-                )
+            Column(
+                modifier = Modifier.padding(16.dp),
+            ) {
                 Input(state = nameInputState)
+                Spacer(modifier = Modifier.height(8.dp))
                 Input(state = descInputState)
             }
             if (showConfirmDeletionDialog)

@@ -1,7 +1,8 @@
 package com.mkchtv.cleantemplate.common
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextField
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -18,8 +19,8 @@ fun Input(
     modifier: Modifier = Modifier,
     state: InputState = rememberInputState(hint = "", initialValue = "")
 ) {
-    TextField(
-        modifier = modifier,
+    OutlinedTextField(
+        modifier = modifier.fillMaxWidth(),
         value = state.value,
         onValueChange = state::onValueChange,
         textStyle = if (state.isHint) {

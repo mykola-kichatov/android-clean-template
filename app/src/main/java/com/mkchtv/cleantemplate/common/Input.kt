@@ -3,6 +3,7 @@ package com.mkchtv.cleantemplate.common
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -12,7 +13,6 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun Input(
@@ -21,18 +21,15 @@ fun Input(
 ) {
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
+        label = { Text(text = state.label) },
         value = state.value,
         onValueChange = state::onValueChange,
-        textStyle = if (state.isHint) {
-            MaterialTheme.typography.bodyMedium.copy(color = Color.Gray)
-        } else {
-            MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
-        },
+        textStyle = MaterialTheme.typography.bodyMedium,
     )
 }
 
 class InputState(
-    private val hint: String,
+    val label: String,
     private val initialValue: String
 ) {
     private var changed by mutableStateOf<String?>(null)
@@ -45,14 +42,12 @@ class InputState(
         changed ?: initialValue
     }
 
-    val isHint = value == hint
-
     companion object {
         val Saver: Saver<InputState, *> = listSaver(
-            save = { listOf(it.hint, it.initialValue, it.changed) },
+            save = { listOf(it.label, it.initialValue, it.changed) },
             restore = {
                 InputState(
-                    hint = it[0] ?: "",
+                    label = it[0] ?: "",
                     initialValue = it[1] ?: "",
                 ).also { state -> state.onValueChange(it[2]) }
             }
@@ -63,5 +58,5 @@ class InputState(
 @Composable
 fun rememberInputState(hint: String, initialValue: String): InputState =
     rememberSaveable(hint, initialValue, saver = InputState.Saver) {
-        InputState(hint = hint, initialValue = initialValue)
+        InputState(label = hint, initialValue = initialValue)
     }

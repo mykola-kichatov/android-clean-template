@@ -86,7 +86,6 @@ dependencies {
     implementation(libs.hilt)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlin.stdlib)
-    implementation(libs.material)
 
     kapt(libs.hilt.compiler)
 

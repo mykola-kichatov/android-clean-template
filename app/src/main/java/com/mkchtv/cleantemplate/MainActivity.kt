@@ -13,8 +13,10 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.mkchtv.cleantemplate.nav.AppNavHost
 import com.mkchtv.cleantemplate.theme.AppTheme
@@ -35,11 +37,13 @@ class MainActivity : ComponentActivity() {
 private fun AppContent() {
     AppTheme {
         val navController = rememberNavController()
-        Scaffold { innerPadding ->
-            AppNavHost(
-                navController = navController,
-                modifier = Modifier.padding(innerPadding)
-            )
+        Surface(tonalElevation = 5.dp) {
+            Scaffold { innerPadding ->
+                AppNavHost(
+                    navController = navController,
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
         }
     }
 }

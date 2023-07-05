@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.javax.inject)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.material)
 
     kapt(libs.androidx.room.compiler)
 

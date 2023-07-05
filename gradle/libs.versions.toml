@@ -15,7 +15,6 @@ kotlinCompilerExtension = "1.4.7"
 ktx = "1.10.1"
 leakCanary = "2.8.1"
 lifecycle = "2.6.1"
-material = "1.9.0"
 multidex = "2.0.1"
 navigation = "2.6.0"
 room = "2.5.2"
@@ -50,7 +49,6 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
-material = { module = "com.google.android.material:material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

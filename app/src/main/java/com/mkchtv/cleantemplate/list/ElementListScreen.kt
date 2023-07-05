@@ -14,10 +14,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -75,12 +78,18 @@ private fun ElementColumnItem(
     item: ElementItem,
     onItemClick: (item: ElementItem) -> Unit = {},
 ) {
-    ListItem(
-        overlineContent = { Text(text = item.name) },
-        headlineContent = { Text(text = item.description) },
-        shadowElevation = 1.0.dp,
-        modifier = Modifier.clickable { onItemClick(item) }
-    )
+    ElevatedCard(
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+    ) {
+        ListItem(
+            modifier = Modifier.clickable { onItemClick(item) },
+            overlineContent = { Text(text = item.name) },
+            headlineContent = { Text(text = item.description) },
+        )
+    }
 }
 
 @ExperimentalAnimationApi
@@ -97,7 +106,9 @@ private fun AddNewElementButton(
         exit = scaleOut(),
     ) {
         FloatingActionButton(
-            onClick = onClick
+            onClick = onClick,
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Add new element")
         }

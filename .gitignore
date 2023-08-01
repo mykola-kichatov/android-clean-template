@@ -12,6 +12,7 @@
 /.idea/kotlinc.xml
 /.idea/.name
 /.idea/deploymentTargetDropDown.xml
+/.idea/shelf/
 .DS_Store
 /build
 /captures

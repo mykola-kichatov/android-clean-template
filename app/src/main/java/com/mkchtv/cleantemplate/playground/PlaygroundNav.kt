@@ -9,6 +9,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.mkchtv.cleantemplate.playground.menu.NAV_DESTINATION_PLAYGROUND_MENU
 import com.mkchtv.cleantemplate.playground.menu.playgroundMenuScreen
+import com.mkchtv.cleantemplate.playground.topic.navigateToPlaygroundTopic
+import com.mkchtv.cleantemplate.playground.topic.playgroundTopicScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalAnimationApi
@@ -17,7 +19,12 @@ fun NavGraphBuilder.playgroundGraph(navController: NavController) {
         startDestination = NAV_DESTINATION_PLAYGROUND_MENU,
         route = NAV_DESTINATION_PLAYGROUND_GRAPH,
     ) {
-        playgroundMenuScreen()
+        playgroundMenuScreen(
+            onTopicClick = {
+                navController.navigateToPlaygroundTopic(it)
+            }
+        )
+        playgroundTopicScreen(onBackClick = { navController.popBackStack() })
     }
 }
 
@@ -31,4 +38,4 @@ fun NavController.navigateToPlaygroundGraph() {
     }
 }
 
-internal const val NAV_DESTINATION_PLAYGROUND_GRAPH = "playground"
+private const val NAV_DESTINATION_PLAYGROUND_GRAPH = "playground"

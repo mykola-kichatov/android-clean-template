@@ -7,10 +7,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
-internal fun NavGraphBuilder.playgroundMenuScreen() {
+fun NavGraphBuilder.playgroundMenuScreen(
+    onTopicClick: (item: PlaygroundTopic) -> Unit,
+) {
     composable(route = NAV_DESTINATION_PLAYGROUND_MENU) {
-        PlaygroundMenuScreen()
+        PlaygroundMenuScreen(onTopicClick = onTopicClick)
     }
 }
 
-internal const val NAV_DESTINATION_PLAYGROUND_MENU = "playground_menu"
+const val NAV_DESTINATION_PLAYGROUND_MENU = "playground_menu"

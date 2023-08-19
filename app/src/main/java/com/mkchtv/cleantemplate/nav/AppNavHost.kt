@@ -11,6 +11,8 @@ import com.mkchtv.cleantemplate.details.navigateToElementDetails
 import com.mkchtv.cleantemplate.domain.common.Constants
 import com.mkchtv.cleantemplate.domain.common.Constants.NEW_ELEMENT_ID
 import com.mkchtv.cleantemplate.list.elementListScreen
+import com.mkchtv.cleantemplate.playground.navigateToPlaygroundGraph
+import com.mkchtv.cleantemplate.playground.playgroundGraph
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api
@@ -28,8 +30,11 @@ fun AppNavHost(
     ) {
         elementListScreen(
             onElementClick = { item -> navController.navigateToElementDetails(item.id) },
-            onAddNewElementClick = { navController.navigateToElementDetails(NEW_ELEMENT_ID) }
+            onAddNewElementClick = { navController.navigateToElementDetails(NEW_ELEMENT_ID) },
+            goToPlayground = { navController.navigateToPlaygroundGraph() },
         )
         elementDetailsScreen(onBackClick = { navController.popBackStack() })
+
+        playgroundGraph(navController)
     }
 }

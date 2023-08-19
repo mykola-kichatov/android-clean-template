@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun NavGraphBuilder.elementListScreen(
     onElementClick: (item: ElementItem) -> Unit = {},
     onAddNewElementClick: () -> Unit = {},
+    goToPlayground: () -> Unit = {},
 ) {
     composable(route = Constants.NAV_DESTINATION_LIST) {
         val viewModel = hiltViewModel<ElementsListViewModel>()
@@ -20,7 +21,8 @@ fun NavGraphBuilder.elementListScreen(
         ElementListScreen(
             elementList = elementList.value,
             onElementClick = onElementClick,
-            onAddNewElementClick = onAddNewElementClick
+            onAddNewElementClick = onAddNewElementClick,
+            goToPlayground = goToPlayground
         )
     }
 }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
+
 package com.mkchtv.cleantemplate.list
 
 import androidx.compose.animation.AnimatedVisibility
@@ -9,19 +11,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -30,13 +38,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
-@ExperimentalAnimationApi
 @Composable
 fun ElementListScreen(
     elementList: List<ElementItem>,
+    onElementClick: (item: ElementItem) -> Unit = {},
+    onAddNewElementClick: () -> Unit = {},
+    goToPlayground: () -> Unit = {},
+) {
+    Scaffold(
+        modifier = Modifier.systemBarsPadding(),
+        topBar = topBar(goToPlayground = goToPlayground),
+    ) {
+        val modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                top = it.calculateTopPadding(),
+                bottom = it.calculateBottomPadding(),
+            )
+
+        Content(
+            modifier = modifier,
+            elementList = elementList,
+            onElementClick = onElementClick,
+            onAddNewElementClick = onAddNewElementClick,
+        )
+    }
+}
+
+@Composable
+private fun topBar(
+    goToPlayground: () -> Unit = {},
+): @Composable (() -> Unit) = {
+    TopAppBar(
+        title = { Text(text = "Elements") },
+        actions = {
+            IconButton(onClick = goToPlayground) {
+                Icon(Icons.Filled.List, "Playground")
+            }
+        }
+    )
+}
+
+@Composable
+private fun Content(
+    elementList: List<ElementItem>,
+    modifier: Modifier = Modifier,
     onElementClick: (item: ElementItem) -> Unit = {},
     onAddNewElementClick: () -> Unit = {},
 ) {
@@ -47,7 +94,7 @@ fun ElementListScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         LazyColumn(
             state = lazyColumnState,
             contentPadding = PaddingValues(16.dp)

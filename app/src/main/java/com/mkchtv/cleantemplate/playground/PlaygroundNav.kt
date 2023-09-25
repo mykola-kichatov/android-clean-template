@@ -22,7 +22,8 @@ fun NavGraphBuilder.playgroundGraph(navController: NavController) {
         playgroundMenuScreen(
             onTopicClick = {
                 navController.navigateToPlaygroundTopic(it)
-            }
+            },
+            onBackClick = { navController.popBackStack() },
         )
         playgroundTopicScreen(onBackClick = { navController.popBackStack() })
     }

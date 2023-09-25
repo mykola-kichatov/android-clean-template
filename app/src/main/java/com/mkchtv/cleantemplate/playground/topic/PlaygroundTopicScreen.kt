@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.mkchtv.cleantemplate.playground.menu.PlaygroundTopic
+import com.mkchtv.cleantemplate.playground.topic.animatedvisibility.AnimatedVisibilityTopic
 
 @Composable
 fun PlaygroundTopicScreen(
@@ -39,7 +40,9 @@ fun PlaygroundTopicScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-
+            when (topic) {
+                PlaygroundTopic.ANIMATED_VISIBILITY -> AnimatedVisibilityTopic()
+            }
         }
     }
 }

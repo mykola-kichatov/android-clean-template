@@ -9,9 +9,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.playgroundMenuScreen(
     onTopicClick: (item: PlaygroundTopic) -> Unit,
+    onBackClick: () -> Unit = {},
 ) {
     composable(route = NAV_DESTINATION_PLAYGROUND_MENU) {
-        PlaygroundMenuScreen(onTopicClick = onTopicClick)
+        PlaygroundMenuScreen(onTopicClick = onTopicClick, onBackClick = onBackClick)
     }
 }
 

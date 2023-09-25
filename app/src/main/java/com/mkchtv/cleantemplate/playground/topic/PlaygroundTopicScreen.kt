@@ -16,7 +16,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.mkchtv.cleantemplate.playground.menu.PlaygroundTopic
+import com.mkchtv.cleantemplate.playground.menu.PlaygroundTopic.*
 import com.mkchtv.cleantemplate.playground.topic.animatedvisibility.AnimatedVisibilityTopic
+import com.mkchtv.cleantemplate.playground.topic.deeplink.DeepLinkTopic
 
 @Composable
 fun PlaygroundTopicScreen(
@@ -41,7 +43,8 @@ fun PlaygroundTopicScreen(
                 .padding(paddingValues)
         ) {
             when (topic) {
-                PlaygroundTopic.ANIMATED_VISIBILITY -> AnimatedVisibilityTopic()
+                ANIMATED_VISIBILITY -> AnimatedVisibilityTopic()
+                DEEP_LINK -> DeepLinkTopic()
             }
         }
     }

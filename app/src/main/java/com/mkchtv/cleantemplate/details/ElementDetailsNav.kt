@@ -1,5 +1,6 @@
 package com.mkchtv.cleantemplate.details
 
+import android.content.Intent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -9,7 +10,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.mkchtv.cleantemplate.domain.common.Constants
+import com.mkchtv.cleantemplate.nav.DeepLinkPattern
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api
@@ -20,7 +23,13 @@ fun NavGraphBuilder.elementDetailsScreen(
 ) {
     composable(
         route = "details/{${Constants.ARG_KEY_ELEMENT_ID}}",
-        arguments = listOf(navArgument(Constants.ARG_KEY_ELEMENT_ID) { type = NavType.IntType })
+        arguments = listOf(navArgument(Constants.ARG_KEY_ELEMENT_ID) { type = NavType.IntType }),
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern = "${DeepLinkPattern.baseUrl}/details/{${Constants.ARG_KEY_ELEMENT_ID}}"
+                action = Intent.ACTION_VIEW
+            }
+        )
     ) {
         val viewModel = hiltViewModel<ElementDetailsViewModel>()
         val element = viewModel.elementState.collectAsStateWithLifecycle()

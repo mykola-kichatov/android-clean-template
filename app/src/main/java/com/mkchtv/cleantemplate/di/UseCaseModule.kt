@@ -6,8 +6,12 @@ import com.mkchtv.cleantemplate.domain.usecase.DeleteElement
 import com.mkchtv.cleantemplate.domain.usecase.DeleteElementUseCase
 import com.mkchtv.cleantemplate.domain.usecase.GetAllElements
 import com.mkchtv.cleantemplate.domain.usecase.GetAllElementsUseCase
+import com.mkchtv.cleantemplate.domain.usecase.GetAuthStateFlow
+import com.mkchtv.cleantemplate.domain.usecase.GetAuthStateFlowUseCase
 import com.mkchtv.cleantemplate.domain.usecase.GetElement
 import com.mkchtv.cleantemplate.domain.usecase.GetElementUseCase
+import com.mkchtv.cleantemplate.domain.usecase.OnAuthenticated
+import com.mkchtv.cleantemplate.domain.usecase.OnAuthenticatedUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,5 +37,13 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindDeleteElementUseCase(useCase: DeleteElement): DeleteElementUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetAuthStateFlowUseCase(useCase: GetAuthStateFlow): GetAuthStateFlowUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindOnAuthenticatedUseCase(useCase: OnAuthenticated): OnAuthenticatedUseCase
 
 }

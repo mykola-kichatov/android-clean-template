@@ -12,4 +12,5 @@ There are 3 main modules in the project:
 1. Gradle build config is based on Kotlin DSL and [version catalogs](https://developer.android.com/build/migrate-to-catalogs)
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 3. Jetpack Compose
-4. etc.
+4. Conditional navigation, using declarative approach
+5. etc.

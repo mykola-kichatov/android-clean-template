@@ -9,6 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import com.mkchtv.cleantemplate.domain.common.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -24,18 +25,20 @@ fun NavGraphBuilder.elementDetailsScreen(
     ) {
         val viewModel = hiltViewModel<ElementDetailsViewModel>()
         val element = viewModel.elementState.collectAsStateWithLifecycle()
-        ElementDetailsScreen(
-            element = element.value,
-            onBackClick = onBackClick,
-            onCreateUpdateConfirmed = { name, desc ->
-                viewModel.onCreateUpdateConfirmed(name = name, description = desc)
-                onBackClick()
-            },
-            onDeleteConfirmed = {
-                viewModel.onDeleteConfirmed()
-                onBackClick()
-            }
-        )
+        AuthProtectedScreen {
+            ElementDetailsScreen(
+                element = element.value,
+                onBackClick = onBackClick,
+                onCreateUpdateConfirmed = { name, desc ->
+                    viewModel.onCreateUpdateConfirmed(name = name, description = desc)
+                    onBackClick()
+                },
+                onDeleteConfirmed = {
+                    viewModel.onDeleteConfirmed()
+                    onBackClick()
+                }
+            )
+        }
     }
 }
 

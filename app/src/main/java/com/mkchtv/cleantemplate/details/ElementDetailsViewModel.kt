@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkchtv.cleantemplate.domain.common.Constants
 import com.mkchtv.cleantemplate.domain.di.AppIoScope
-import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElementUseCase
-import com.mkchtv.cleantemplate.domain.usecase.DeleteElementUseCase
-import com.mkchtv.cleantemplate.domain.usecase.GetElementUseCase
+import com.mkchtv.cleantemplate.domain.usecase.CreateOrUpdateElement
+import com.mkchtv.cleantemplate.domain.usecase.DeleteElement
+import com.mkchtv.cleantemplate.domain.usecase.GetElement
 import com.mkchtv.cleantemplate.list.ElementItem
 import com.mkchtv.cleantemplate.mapper.toUiItem
 import com.mkchtv.cleantemplate.util.getIntOrDefault
@@ -23,9 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ElementDetailsViewModel @Inject constructor(
-    getElement: GetElementUseCase,
-    private val createOrUpdateElement: CreateOrUpdateElementUseCase,
-    private val deleteElement: DeleteElementUseCase,
+    getElement: GetElement,
+    private val createOrUpdateElement: CreateOrUpdateElement,
+    private val deleteElement: DeleteElement,
     @AppIoScope private val appIoScope: CoroutineScope,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {

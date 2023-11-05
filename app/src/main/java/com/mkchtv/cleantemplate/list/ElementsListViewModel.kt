@@ -2,7 +2,7 @@ package com.mkchtv.cleantemplate.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkchtv.cleantemplate.domain.usecase.GetAllElementsUseCase
+import com.mkchtv.cleantemplate.domain.usecase.GetAllElements
 import com.mkchtv.cleantemplate.mapper.toUiItemsList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class ElementsListViewModel @Inject constructor(
-    getAllElements: GetAllElementsUseCase,
+    getAllElements: GetAllElements,
 ) : ViewModel() {
 
     val elementsState: StateFlow<List<ElementItem>> = getAllElements()

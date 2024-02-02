@@ -1,23 +1,22 @@
 [versions]
-agp = "8.1.0"
-androidxTest = "1.1.3"
-composeActivity = "1.7.2"
-composeBom = "2023.06.01"
-composeViewModel = "2.5.1"
-coroutines = "1.7.1"
-espresso = "3.4.0"
-hilt = "2.46.1"
-hiltNavCompose = "1.0.0"
+agp = "8.2.2"
+androidxTest = "1.1.5"
+composeActivity = "1.8.2"
+composeBom = "2024.01.00"
+composeViewModel = "2.7.0"
+coroutines = "1.7.3"
+espresso = "3.5.1"
+hilt = "2.48"
+hiltNavCompose = "1.1.0"
 javaxInject = "1"
 jUnit = "4.+"
-kotlin = "1.8.21"
-kotlinCompilerExtension = "1.4.7"
-ktx = "1.10.1"
-leakCanary = "2.8.1"
-lifecycle = "2.6.1"
+kotlin = "1.9.10"
+kotlinCompilerExtension = "1.5.3"
+ktx = "1.12.0"
+lifecycle = "2.7.0"
 multidex = "2.0.1"
-navigation = "2.6.0"
-room = "2.5.2"
+navigation = "2.7.6"
+room = "2.6.1"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "ktx" }
@@ -48,7 +47,6 @@ jUnit = { module = "junit:junit", version.ref = "jUnit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

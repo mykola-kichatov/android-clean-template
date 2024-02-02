@@ -9,8 +9,8 @@ plugins {
 
 val applicationId by extra("com.mkchtv.cleantemplate")
 val minSdk by extra(21)
-val compileSdk by extra(33)
-val targetSdk by extra(33)
+val compileSdk by extra(34)
+val targetSdk by extra(34)
 val versionCode by extra(1)
 val versionName by extra("1.0")
 val proguardRulesFile by extra("proguard-rules.pro")

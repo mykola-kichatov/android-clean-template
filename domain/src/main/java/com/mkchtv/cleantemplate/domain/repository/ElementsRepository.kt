@@ -11,6 +11,8 @@ interface ElementsRepository {
 
     suspend fun createOrUpdate(element: Element)
 
+    suspend fun fetchNewElement()
+
     suspend fun delete(vararg ids: Int)
 
 }

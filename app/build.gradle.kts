@@ -86,6 +86,8 @@ dependencies {
     implementation(libs.hilt)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlin.stdlib)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
 
     kapt(libs.hilt.compiler)
 

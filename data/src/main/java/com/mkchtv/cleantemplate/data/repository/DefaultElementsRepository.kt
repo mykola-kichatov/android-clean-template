@@ -3,6 +3,7 @@ package com.mkchtv.cleantemplate.data.repository
 import com.mkchtv.cleantemplate.data.db.ElementsDao
 import com.mkchtv.cleantemplate.data.mapper.toDbEntity
 import com.mkchtv.cleantemplate.data.mapper.toDomain
+import com.mkchtv.cleantemplate.data.network.ElementsService
 import com.mkchtv.cleantemplate.domain.entity.Element
 import com.mkchtv.cleantemplate.domain.entity.isNew
 import com.mkchtv.cleantemplate.domain.repository.ElementsRepository
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 
 @Singleton
 class DefaultElementsRepository @Inject constructor(
-    private val dao: ElementsDao
+    private val dao: ElementsDao,
+    private val service: ElementsService,
 ) : ElementsRepository {
 
     override fun elementsFlow(): Flow<List<Element>> =
@@ -27,6 +29,11 @@ class DefaultElementsRepository @Inject constructor(
             dao.insert(element.toDbEntity())
         else
             dao.update(element.toDbEntity())
+    }
+
+    override suspend fun fetchNewElement() {
+        val elementResponse = service.getRandomElement()
+        dao.insert(elementResponse.toDbEntity())
     }
 
     override suspend fun delete(vararg ids: Int) = dao.delete(ids = ids)

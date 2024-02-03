@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.javax.inject)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
 
     kapt(libs.androidx.room.compiler)
 

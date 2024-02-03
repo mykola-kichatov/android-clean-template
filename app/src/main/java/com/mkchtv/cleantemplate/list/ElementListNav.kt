@@ -1,6 +1,7 @@
 package com.mkchtv.cleantemplate.list
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -9,6 +10,7 @@ import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import com.mkchtv.cleantemplate.domain.common.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.elementListScreen(
@@ -22,7 +24,8 @@ fun NavGraphBuilder.elementListScreen(
             ElementListScreen(
                 elementList = elementList.value,
                 onElementClick = onElementClick,
-                onAddNewElementClick = onAddNewElementClick
+                onAddNewElementClick = onAddNewElementClick,
+                onFetchRequested = { viewModel.onFetchRequested() },
             )
         }
     }

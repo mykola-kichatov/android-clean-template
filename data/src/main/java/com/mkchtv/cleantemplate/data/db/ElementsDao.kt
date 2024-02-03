@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ElementsDao {
 
-    @Query("SELECT * FROM elements ORDER BY id ASC")
+    @Query("SELECT * FROM elements ORDER BY id DESC")
     fun elementsFlow(): Flow<List<ElementEntity>>
 
     @Query("SELECT * FROM elements WHERE id = :elementId LIMIT 1")

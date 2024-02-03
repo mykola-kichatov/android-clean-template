@@ -16,6 +16,7 @@ ktx = "1.12.0"
 lifecycle = "2.7.0"
 multidex = "2.0.1"
 navigation = "2.7.6"
+retrofit = "2.9.0"
 room = "2.6.1"
 
 [libraries]
@@ -47,6 +48,8 @@ jUnit = { module = "junit:junit", version.ref = "jUnit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

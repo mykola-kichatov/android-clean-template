@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKapt)
-    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.ktlintGradle)
 }
 
 android {
@@ -37,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile(proguardAndroidOptimizeFile),
-                proguardRulesFile
+                proguardRulesFile,
             )
         }
     }
@@ -101,4 +102,6 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    ktlintRuleset(project(":ktlint-rules"))
 }

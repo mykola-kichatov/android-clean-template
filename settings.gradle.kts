@@ -18,3 +18,4 @@ rootProject.name = "CleanTemplate"
 include(":app")
 include(":domain")
 include(":data")
+include(":ktlint-rules")

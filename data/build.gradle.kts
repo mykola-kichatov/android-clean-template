@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKapt)
+    alias(libs.plugins.ktlintGradle)
 }
 
 android {
@@ -30,7 +31,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile(proguardAndroidOptimizeFile),
-                proguardRulesFile
+                proguardRulesFile,
             )
         }
     }
@@ -60,4 +61,6 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    ktlintRuleset(project(":ktlint-rules"))
 }

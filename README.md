@@ -13,4 +13,5 @@ There are 3 main modules in the project:
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 3. Jetpack Compose
 4. Conditional navigation, using declarative approach
-5. etc.
+5. [Ktlint Gradle](https://github.com/JLLeitschuh/ktlint-gradle) with [custom rule set](ktlint-rules)
+6. etc.

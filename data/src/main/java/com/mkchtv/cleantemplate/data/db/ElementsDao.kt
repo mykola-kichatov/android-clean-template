@@ -1,6 +1,10 @@
 package com.mkchtv.cleantemplate.data.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.mkchtv.cleantemplate.data.entity.ElementEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -21,5 +25,4 @@ interface ElementsDao {
 
     @Query("DELETE FROM elements WHERE id IN (:ids)")
     suspend fun delete(vararg ids: Int)
-
 }

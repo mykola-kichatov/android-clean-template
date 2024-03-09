@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinKapt) apply false
-    alias(libs.plugins.ktlintGradle) apply false
+    alias(libs.plugins.ktlintGradle)
 }
 
 val applicationId by extra("com.mkchtv.cleantemplate")

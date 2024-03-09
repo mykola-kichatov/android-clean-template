@@ -27,5 +27,4 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideElementsDao(db: ElementsDatabase) = db.elementsDao()
-
 }

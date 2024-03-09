@@ -8,5 +8,4 @@ import com.mkchtv.cleantemplate.data.entity.ElementEntity
 abstract class ElementsDatabase : RoomDatabase() {
 
     abstract fun elementsDao(): ElementsDao
-
 }

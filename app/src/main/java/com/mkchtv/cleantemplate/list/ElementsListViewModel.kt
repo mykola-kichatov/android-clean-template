@@ -34,7 +34,7 @@ class ElementsListViewModel @Inject constructor(
     fun onFetchRequested() = viewModelScope.launch {
         runCatching { fetchNewElement() }
             .onFailure {
-                //TODO
+                // TODO
             }
     }
 }

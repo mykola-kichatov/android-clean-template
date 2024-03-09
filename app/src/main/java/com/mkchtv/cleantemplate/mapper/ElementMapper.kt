@@ -12,7 +12,6 @@ object ElementMapper {
         name = item.name,
         description = item.description
     )
-
 }
 
 fun ElementItem.toDomain() = ElementMapper.toDomain(this)

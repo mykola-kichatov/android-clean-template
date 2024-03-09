@@ -12,7 +12,6 @@ object ElementItemMapper {
         name = element.name,
         description = element.description
     )
-
 }
 
 fun Element.toUiItem() = ElementItemMapper.fromDomain(this)

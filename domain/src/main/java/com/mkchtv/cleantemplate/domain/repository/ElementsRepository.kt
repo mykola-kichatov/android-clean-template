@@ -14,5 +14,4 @@ interface ElementsRepository {
     suspend fun fetchNewElement()
 
     suspend fun delete(vararg ids: Int)
-
 }

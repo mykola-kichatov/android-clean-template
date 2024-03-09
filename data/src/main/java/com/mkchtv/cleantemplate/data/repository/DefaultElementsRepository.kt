@@ -37,5 +37,4 @@ class DefaultElementsRepository @Inject constructor(
     }
 
     override suspend fun delete(vararg ids: Int) = dao.delete(ids = ids)
-
 }

@@ -15,8 +15,8 @@ object ElementEntityMapper {
     )
 
     fun toDbEntity(response: ElementResponse) = ElementEntity(
-        name = "Element #${response.key}",
-        description = response.activity
+        name = "Author: ${response.author}",
+        description = response.quote
     )
 }
 

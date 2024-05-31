@@ -4,6 +4,6 @@ import retrofit2.http.GET
 
 interface ElementsService {
 
-    @GET("activity")
+    @GET("quotes/random")
     suspend fun getRandomElement(): ElementResponse
 }

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.ktlintGradle)
@@ -49,6 +50,7 @@ dependencies {
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.room)
+    implementation(libs.hilt)
     implementation(libs.javax.inject)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
@@ -56,6 +58,7 @@ dependencies {
     implementation(libs.retrofit.gson)
 
     kapt(libs.androidx.room.compiler)
+    kapt(libs.hilt.compiler)
 
     testImplementation(libs.jUnit)
 

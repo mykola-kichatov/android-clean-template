@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mkchtv.cleantemplate.common.LoadingScreen
-import com.mkchtv.cleantemplate.domain.common.AuthState
+import com.mkchtv.cleantemplate.common.component.LoadingScreen
+import com.mkchtv.cleantemplate.domain.auth.entity.AuthState
 
 @Composable
 fun AuthProtectedScreen(

@@ -1,4 +1,4 @@
-package com.mkchtv.cleantemplate.element.list
+package com.mkchtv.cleantemplate.element.entity
 
 import androidx.compose.runtime.Immutable
 import com.mkchtv.cleantemplate.domain.common.Constants

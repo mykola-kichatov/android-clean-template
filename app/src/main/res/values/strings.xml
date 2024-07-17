@@ -8,7 +8,7 @@
     <string name="description">Description</string>
     <string name="create_new_element">Create new element</string>
     <string name="edit_element_details">Edit element details</string>
-    <string name="confirm_delete">Delete %1$s?</string>
+    <string name="confirm_delete">Confirm Element deletion?</string>
 
     <!-- content description -->
     <string name="cd_pull_new_element">Pull new element</string>
@@ -17,4 +17,5 @@
     <string name="cd_create">Create</string>
     <string name="cd_delete">Delete</string>
     <string name="cd_done">Done</string>
+    <string name="cd_error">Error</string>
 </resources>

@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -22,11 +21,12 @@ class ElementsListViewModel @Inject constructor(
     private val pullNewElement: PullNewElement,
 ) : ViewModel() {
 
-    val elementsState: StateFlow<List<ElementItem>> = getAllElements()
-        .map { it.toUiItemsList() }
-        .catch { TODO("Flow throws some exception") }
+    val screenState: StateFlow<ElementListScreenState> = getAllElements()
+        .map { elements ->
+            ElementListScreenState.ListLoaded(elements.toUiItemsList())
+        }
         .stateIn(
-            initialValue = emptyList(),
+            initialValue = ElementListScreenState.Loading,
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000)
         )

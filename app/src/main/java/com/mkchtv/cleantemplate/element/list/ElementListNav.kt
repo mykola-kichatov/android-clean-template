@@ -7,6 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
+import com.mkchtv.cleantemplate.element.entity.ElementItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api
@@ -18,10 +19,10 @@ fun NavGraphBuilder.elementListScreen(
 ) {
     composable(route = NAV_DESTINATION_LIST) {
         val viewModel = hiltViewModel<ElementsListViewModel>()
-        val elementList = viewModel.elementsState.collectAsStateWithLifecycle()
+        val screenState = viewModel.screenState.collectAsStateWithLifecycle()
         AuthProtectedScreen {
             ElementListScreen(
-                elementList = elementList.value,
+                screenState = screenState.value,
                 onElementClick = onElementClick,
                 onAddNewElementClick = onAddNewElementClick,
                 onPullNewElementRequested = { viewModel.onPullNewElementRequested() },

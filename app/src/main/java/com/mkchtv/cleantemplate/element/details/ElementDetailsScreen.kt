@@ -29,8 +29,8 @@ import com.mkchtv.cleantemplate.R
 import com.mkchtv.cleantemplate.common.component.ConfirmDialog
 import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.rememberInputState
-import com.mkchtv.cleantemplate.element.list.ElementItem
-import com.mkchtv.cleantemplate.element.list.isNew
+import com.mkchtv.cleantemplate.element.entity.ElementItem
+import com.mkchtv.cleantemplate.element.entity.isNew
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api
@@ -42,10 +42,6 @@ fun ElementDetailsScreen(
     onCreateUpdateConfirmed: (name: String, description: String) -> Unit,
     onDeleteConfirmed: () -> Unit,
 ) {
-    val title = if (element.isNew())
-        stringResource(id = R.string.create_new_element)
-    else
-        stringResource(id = R.string.edit_element_details)
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
     val nameInputState = rememberInputState(
         hint = stringResource(id = R.string.name),
@@ -58,39 +54,16 @@ fun ElementDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(text = title) },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            stringResource(id = R.string.cd_go_back)
-                        )
-                    }
+            TopBar(
+                element = element,
+                onBackClick = onBackClick,
+                onDeleteRequested = { showConfirmDeletionDialog = true },
+                onCreateUpdateConfirmed = {
+                    onCreateUpdateConfirmed(
+                        nameInputState.value,
+                        descInputState.value,
+                    )
                 },
-                actions = {
-                    val createUpdate = {
-                        onCreateUpdateConfirmed(
-                            nameInputState.value,
-                            descInputState.value,
-                        )
-                    }
-                    if (element.isNew()) {
-                        IconButton(onClick = createUpdate) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.Send,
-                                stringResource(id = R.string.cd_create)
-                            )
-                        }
-                    } else {
-                        IconButton(onClick = { showConfirmDeletionDialog = true }) {
-                            Icon(Icons.Filled.Delete, stringResource(id = R.string.cd_delete))
-                        }
-                        IconButton(onClick = createUpdate) {
-                            Icon(Icons.Filled.Done, stringResource(id = R.string.cd_done))
-                        }
-                    }
-                }
             )
         }
     ) { paddingValues ->
@@ -108,10 +81,54 @@ fun ElementDetailsScreen(
             }
             if (showConfirmDeletionDialog)
                 ConfirmDialog(
-                    title = stringResource(id = R.string.confirm_delete, element.name),
+                    title = stringResource(id = R.string.confirm_delete),
                     onDismissRequest = { showConfirmDeletionDialog = false },
                     onConfirm = onDeleteConfirmed
                 )
         }
     }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+private fun TopBar(
+    element: ElementItem,
+    onBackClick: () -> Unit,
+    onDeleteRequested: () -> Unit,
+    onCreateUpdateConfirmed: () -> Unit,
+) {
+    val title = if (element.isNew())
+        stringResource(id = R.string.create_new_element)
+    else
+        stringResource(id = R.string.edit_element_details)
+
+    TopAppBar(
+        title = { Text(text = title) },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(id = R.string.cd_go_back),
+                )
+            }
+        },
+        actions = {
+
+            if (element.isNew()) {
+                IconButton(onClick = onCreateUpdateConfirmed) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Send,
+                        stringResource(id = R.string.cd_create),
+                    )
+                }
+            } else {
+                IconButton(onClick = onDeleteRequested) {
+                    Icon(Icons.Filled.Delete, stringResource(id = R.string.cd_delete))
+                }
+                IconButton(onClick = onCreateUpdateConfirmed) {
+                    Icon(Icons.Filled.Done, stringResource(id = R.string.cd_done))
+                }
+            }
+        }
+    )
 }

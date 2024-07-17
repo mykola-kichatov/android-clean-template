@@ -1,7 +1,7 @@
 package com.mkchtv.cleantemplate.element.mapper
 
 import com.mkchtv.cleantemplate.domain.element.entity.Element
-import com.mkchtv.cleantemplate.element.list.ElementItem
+import com.mkchtv.cleantemplate.element.entity.ElementItem
 
 object ElementItemMapper {
 

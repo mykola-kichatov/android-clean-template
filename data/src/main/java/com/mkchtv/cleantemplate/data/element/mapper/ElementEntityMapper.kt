@@ -6,8 +6,6 @@ import com.mkchtv.cleantemplate.domain.element.entity.Element
 
 object ElementEntityMapper {
 
-    fun fromList(elements: List<Element>) = elements.map { it.toDbEntity() }
-
     fun toDbEntity(element: Element) = ElementEntity(
         id = element.id,
         name = element.name,
@@ -23,5 +21,3 @@ object ElementEntityMapper {
 fun Element.toDbEntity() = ElementEntityMapper.toDbEntity(this)
 
 fun ElementResponse.toDbEntity() = ElementEntityMapper.toDbEntity(this)
-
-fun List<Element>.toDbEntity() = ElementEntityMapper.fromList(this)

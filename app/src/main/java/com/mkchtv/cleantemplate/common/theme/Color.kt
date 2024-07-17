@@ -1,4 +1,5 @@
 package com.mkchtv.cleantemplate.common.theme
+
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF9A4612)
@@ -27,7 +28,6 @@ val md_theme_light_outline = Color(0xFF85736C)
 val md_theme_light_inverseOnSurface = Color(0xFFFBEEE9)
 val md_theme_light_inverseSurface = Color(0xFF362F2C)
 val md_theme_light_inversePrimary = Color(0xFFFFB692)
-val md_theme_light_shadow = Color(0xFF000000)
 val md_theme_light_surfaceTint = Color(0xFF9A4612)
 val md_theme_light_outlineVariant = Color(0xFFD7C2B9)
 val md_theme_light_scrim = Color(0xFF000000)
@@ -58,9 +58,6 @@ val md_theme_dark_outline = Color(0xFFA08D85)
 val md_theme_dark_inverseOnSurface = Color(0xFF201A18)
 val md_theme_dark_inverseSurface = Color(0xFFEDE0DB)
 val md_theme_dark_inversePrimary = Color(0xFF9A4612)
-val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFFFFB692)
 val md_theme_dark_outlineVariant = Color(0xFF52443D)
 val md_theme_dark_scrim = Color(0xFF000000)
-
-val seed = Color(0xFFE37E47)

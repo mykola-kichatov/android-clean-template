@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -62,7 +62,10 @@ fun ElementDetailsScreen(
                 title = { Text(text = title) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Filled.ArrowBack, stringResource(id = R.string.cd_go_back))
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            stringResource(id = R.string.cd_go_back)
+                        )
                     }
                 },
                 actions = {
@@ -74,7 +77,10 @@ fun ElementDetailsScreen(
                     }
                     if (element.isNew()) {
                         IconButton(onClick = createUpdate) {
-                            Icon(Icons.Filled.Send, stringResource(id = R.string.cd_create))
+                            Icon(
+                                Icons.AutoMirrored.Filled.Send,
+                                stringResource(id = R.string.cd_create)
+                            )
                         }
                     } else {
                         IconButton(onClick = { showConfirmDeletionDialog = true }) {

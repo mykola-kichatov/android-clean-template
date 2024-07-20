@@ -22,6 +22,10 @@ android {
         this.minSdk = minSdk
         testInstrumentationRunner = testsRunner
         consumerProguardFiles(consumerRulesFile)
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {

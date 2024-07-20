@@ -14,4 +14,5 @@ There are 3 main modules in the project:
 3. Jetpack Compose
 4. Conditional navigation, using declarative approach
 5. [Ktlint Gradle](https://github.com/JLLeitschuh/ktlint-gradle) with [custom rule set](ktlint-rules)
-6. etc.
+6. Unit tests using JUnit5 and [MockK](https://mockk.io/) 
+7. etc.

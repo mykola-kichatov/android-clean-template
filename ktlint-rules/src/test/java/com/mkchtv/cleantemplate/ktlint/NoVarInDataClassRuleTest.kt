@@ -1,7 +1,7 @@
 package com.mkchtv.cleantemplate.ktlint
 
 import com.pinterest.ktlint.test.KtLintAssertThat.Companion.assertThatRule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class NoVarInDataClassRuleTest {
 

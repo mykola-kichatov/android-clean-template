@@ -19,3 +19,12 @@ val consumerRulesFile by extra("consumer-rules.pro")
 val proguardAndroidOptimizeFile by extra("proguard-android-optimize.txt")
 val javaVersion by extra(JavaVersion.VERSION_17)
 val testsRunner by extra("androidx.test.runner.AndroidJUnitRunner")
+
+allprojects {
+    tasks.withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+}

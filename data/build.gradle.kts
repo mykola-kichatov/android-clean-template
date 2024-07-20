@@ -60,7 +60,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.compiler)
 
-    testImplementation(libs.jUnit)
+    testImplementation(libs.bundles.unitTesting)
+    testRuntimeOnly(libs.junit5.engine)
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)

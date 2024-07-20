@@ -9,7 +9,7 @@ espresso = "3.6.1"
 hilt = "2.49"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
-jUnit = "4.+"
+jUnit5 = "5.10.2"
 kotlin = "1.9.22"
 kotlinCompilerExtension = "1.5.10"
 ksp = "1.9.22-1.0.16"
@@ -17,6 +17,7 @@ ktlint = "1.2.1"
 ktlintGradle = "12.1.0"
 ktx = "1.13.1"
 lifecycle = "2.8.3"
+mockk = "1.13.12"
 multidex = "2.0.1"
 navigation = "2.7.7"
 retrofit = "2.9.0"
@@ -48,12 +49,14 @@ hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavCompose" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
-jUnit = { module = "junit:junit", version.ref = "jUnit" }
+junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
+junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 ktlint-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
 ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlint" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 slf4j = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
@@ -65,4 +68,11 @@ hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-ktlintGradle = {id="org.jlleitschuh.gradle.ktlint", version.ref="ktlintGradle"}
+ktlintGradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
+
+[bundles]
+unitTesting = [
+    "junit5-api",
+    "mockk",
+    "kotlinx-coroutines-test",
+]

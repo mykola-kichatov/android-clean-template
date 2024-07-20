@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlintGradle)
 }
@@ -55,10 +56,6 @@ android {
 
     kotlinOptions {
         jvmTarget = javaVersion.toString()
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtension.get()
     }
 }
 

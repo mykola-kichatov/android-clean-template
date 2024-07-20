@@ -10,9 +10,8 @@ hilt = "2.49"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
 jUnit5 = "5.10.2"
-kotlin = "1.9.22"
-kotlinCompilerExtension = "1.5.10"
-ksp = "1.9.22-1.0.16"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.23"
 ktlint = "1.2.1"
 ktlintGradle = "12.1.0"
 ktx = "1.13.1"
@@ -66,6 +65,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlintGradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }

@@ -2,12 +2,12 @@ package com.mkchtv.cleantemplate.data.element.repository
 
 import com.mkchtv.cleantemplate.data.element.dao.ElementsDao
 import com.mkchtv.cleantemplate.data.element.entity.ElementEntity
-import com.mkchtv.cleantemplate.data.element.mapper.toDbEntity
+import com.mkchtv.cleantemplate.data.element.extension.toDbEntity
+import com.mkchtv.cleantemplate.data.element.extension.toPullData
 import com.mkchtv.cleantemplate.data.element.mapper.toDomain
 import com.mkchtv.cleantemplate.data.element.network.ElementResponse
 import com.mkchtv.cleantemplate.data.element.network.ElementsService
-import com.mkchtv.cleantemplate.domain.common.Constants
-import com.mkchtv.cleantemplate.domain.element.entity.Element
+import com.mkchtv.cleantemplate.domain.element.entity.EditedElementData
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -17,6 +17,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.unmockkAll
 import io.mockk.verify
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterAll
@@ -64,7 +65,12 @@ class DefaultElementsRepositoryTest {
     @Test
     fun `elements flow works correctly`() = runTest {
         // [GIVEN]
-        val entity = ElementEntity(0, "test_name", "test_desc")
+        val entity = ElementEntity(
+            id = 0,
+            name = "test_name",
+            description = "test_desc",
+            imageUrl = "test_desc",
+        )
         every { mockDao.elementsFlow() } returns flowOf(listOf(entity))
         val expected = listOf(entity.toDomain())
 
@@ -79,7 +85,12 @@ class DefaultElementsRepositoryTest {
     @Test
     fun `element flow happy path`() = runTest {
         // [GIVEN]
-        val entity = ElementEntity(0, "test_name", "test_desc")
+        val entity = ElementEntity(
+            id = 0,
+            name = "test_name",
+            description = "test_desc",
+            imageUrl = "test_desc",
+        )
         every { mockDao.elementFlow(0) } returns flowOf(entity)
         val expected = entity.toDomain()
 
@@ -92,27 +103,30 @@ class DefaultElementsRepositoryTest {
     }
 
     @Test
-    fun `element flow gives new element in case of no stored element found`() = runTest {
+    fun `element flow gives null in case of no stored element found`() = runTest {
         // [GIVEN]
         every { mockDao.elementFlow(any()) } returns flowOf(null)
-        val expected = Element.NEW
 
         // [WHEN]
-        val actual = repository.elementFlow(0).first()
+        val actual = repository.elementFlow(0).firstOrNull()
 
         // [THEN]
         verify { mockDao.elementFlow(0) }
-        Assertions.assertEquals(expected, actual)
+        Assertions.assertNull(actual)
     }
 
     @Test
     fun `create element happy path`() = runTest {
         // [GIVEN]
-        val element = Element(Constants.NEW_ELEMENT_ID, "test_name", "test_desc")
-        val entity = element.toDbEntity()
+        val data = EditedElementData(
+            name = "test_name",
+            description = "test_desc",
+            imageUrl = "test_image",
+        )
+        val entity = data.toDbEntity()
 
         // [WHEN]
-        repository.createOrUpdate(element)
+        repository.create(data)
 
         // [THEN]
         coVerify { mockDao.insert(entity) }
@@ -121,28 +135,32 @@ class DefaultElementsRepositoryTest {
     @Test
     fun `update element happy path`() = runTest {
         // [GIVEN]
-        val element = Element(123, "test_name", "test_desc")
-        val entity = element.toDbEntity()
+        val data = EditedElementData(
+            name = "test_name",
+            description = "test_desc",
+            imageUrl = "test_image",
+        )
+        val entity = data.toDbEntity(elementId = 123)
 
         // [WHEN]
-        repository.createOrUpdate(element)
+        repository.update(123, data)
 
         // [THEN]
         coVerify { mockDao.update(entity) }
     }
 
     @Test
-    fun `fetch new element happy path`() = runTest {
+    fun `pull element happy path`() = runTest {
         // [GIVEN]
         val response = ElementResponse("test_name", "test_desc")
-        val entity = response.toDbEntity()
+        val expected = response.toPullData()
         coEvery { mockService.getRandomElement() } returns response
 
         // [WHEN]
-        repository.fetchNewElement()
+        val actual = repository.pullElement()
 
         // [THEN]
-        coVerify { mockDao.insert(entity) }
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test

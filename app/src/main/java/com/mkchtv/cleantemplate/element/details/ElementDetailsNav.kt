@@ -10,7 +10,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
-import com.mkchtv.cleantemplate.domain.common.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api
@@ -24,25 +23,30 @@ fun NavGraphBuilder.elementDetailsScreen(
         arguments = listOf(navArgument(ARG_KEY_ELEMENT_ID) { type = NavType.IntType }),
     ) {
         val viewModel = hiltViewModel<ElementDetailsViewModel>()
-        val element = viewModel.elementState.collectAsStateWithLifecycle()
+        val screenState = viewModel.screenState.collectAsStateWithLifecycle()
         AuthProtectedScreen {
             ElementDetailsScreen(
-                element = element.value,
+                screenState = screenState.value,
                 onBackClick = onBackClick,
-                onCreateUpdateConfirmed = { name, desc ->
-                    viewModel.onCreateUpdateConfirmed(name = name, description = desc)
+                onCreateConfirmed = { name, desc ->
                     onBackClick()
+                    viewModel.onCreateConfirmed(name, desc)
+                },
+                onUpdateConfirmed = { name, desc, imageUrl ->
+                    onBackClick()
+                    viewModel.onUpdateConfirmed(name, desc, imageUrl)
                 },
                 onDeleteConfirmed = {
-                    viewModel.onDeleteConfirmed()
                     onBackClick()
+                    viewModel.onDeleteConfirmed()
                 },
             )
         }
     }
 }
 
-fun NavController.navigateToElementDetails(elementId: Int = Constants.NEW_ELEMENT_ID) =
+fun NavController.navigateToElementDetails(elementId: Int = NEW_ELEMENT_ID) =
     navigate("details/$elementId")
 
 const val ARG_KEY_ELEMENT_ID = "id"
+const val NEW_ELEMENT_ID = -1

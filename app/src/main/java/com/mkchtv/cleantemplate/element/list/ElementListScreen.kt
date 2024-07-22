@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.mkchtv.cleantemplate.R
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
-import com.mkchtv.cleantemplate.element.entity.ElementItem
+import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api

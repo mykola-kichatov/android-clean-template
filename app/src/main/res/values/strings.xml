@@ -9,13 +9,14 @@
     <string name="create_new_element">Create new element</string>
     <string name="edit_element_details">Edit element details</string>
     <string name="confirm_delete">Confirm Element deletion?</string>
+    <string name="loading">Loading</string>
+    <string name="create">Create</string>
+    <string name="update">Update</string>
+    <string name="no_elements_hint">No elements yet\nAdd new or pull one from remote</string>
 
     <!-- content description -->
     <string name="cd_pull_new_element">Pull new element</string>
     <string name="cd_add_new_element">Add new element</string>
     <string name="cd_go_back">Go back</string>
-    <string name="cd_create">Create</string>
     <string name="cd_delete">Delete</string>
-    <string name="cd_done">Done</string>
-    <string name="cd_error">Error</string>
 </resources>

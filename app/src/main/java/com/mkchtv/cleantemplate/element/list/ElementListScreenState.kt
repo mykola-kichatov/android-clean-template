@@ -1,6 +1,6 @@
 package com.mkchtv.cleantemplate.element.list
 
-import com.mkchtv.cleantemplate.element.entity.ElementItem
+import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
 sealed class ElementListScreenState {
 

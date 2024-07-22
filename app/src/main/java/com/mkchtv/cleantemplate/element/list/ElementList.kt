@@ -8,8 +8,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -29,18 +31,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.R
-import com.mkchtv.cleantemplate.element.entity.ElementItem
+import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
 @ExperimentalAnimationApi
 @Composable
 internal fun ElementsList(
     elementList: List<ElementItem>,
-    modifier: Modifier = Modifier,
     onElementClick: (item: ElementItem) -> Unit,
-    onAddNewElementClick: () -> Unit
+    onAddNewElementClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val lazyColumnState = rememberLazyListState()
     val isFabVisible by remember {
@@ -52,21 +57,25 @@ internal fun ElementsList(
     }
 
     Box(modifier = modifier) {
-        LazyColumn(
-            state = lazyColumnState,
-            contentPadding = PaddingValues(16.dp),
-        ) {
-            items(
-                items = elementList,
-                key = { element -> element.id },
-            ) { element ->
-                ElementColumnItem(
-                    item = element,
-                    onItemClick = onElementClick,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
+        when {
+            elementList.isEmpty() -> NoItems()
+            else -> LazyColumn(
+                state = lazyColumnState,
+                contentPadding = PaddingValues(16.dp),
+            ) {
+                items(
+                    items = elementList,
+                    key = { element -> element.id },
+                ) { element ->
+                    ElementColumnItem(
+                        item = element,
+                        onItemClick = onElementClick,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
+
         AddNewElementButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -75,6 +84,17 @@ internal fun ElementsList(
             onClick = onAddNewElementClick
         )
     }
+}
+
+@Composable
+private fun NoItems() = Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center,
+) {
+    Text(
+        text = stringResource(id = R.string.no_elements_hint),
+        textAlign = TextAlign.Center,
+    )
 }
 
 @Composable
@@ -89,6 +109,15 @@ private fun ElementColumnItem(
 ) {
     ListItem(
         modifier = Modifier.clickable { onItemClick(item) },
+        leadingContent = {
+            AsyncImage(
+                model = item.imageUrl,
+                modifier = Modifier
+                    .size(100.dp),
+                contentScale = ContentScale.Crop,
+                contentDescription = item.name,
+            )
+        },
         overlineContent = { Text(text = item.name) },
         headlineContent = { Text(text = item.description) },
     )

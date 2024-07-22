@@ -10,7 +10,8 @@ object ElementMapper {
     fun toDomain(entity: ElementEntity) = Element(
         id = entity.id,
         name = entity.name,
-        description = entity.description
+        description = entity.description,
+        imageUrl = entity.imageUrl,
     )
 }
 

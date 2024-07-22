@@ -7,7 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
-import com.mkchtv.cleantemplate.element.entity.ElementItem
+import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalMaterial3Api

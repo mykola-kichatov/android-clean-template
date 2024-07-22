@@ -1,8 +1,6 @@
 package com.mkchtv.cleantemplate.domain.element.entity
 
-data class Element(
-    val id: Int,
+data class PullElementData(
     val name: String,
     val description: String,
-    val imageUrl: String,
 )

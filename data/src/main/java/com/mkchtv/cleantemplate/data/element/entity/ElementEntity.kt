@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class ElementEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val name: String,
-    @ColumnInfo val description: String
+    @ColumnInfo val description: String,
+    @ColumnInfo(name = "image_url") val imageUrl: String,
 )

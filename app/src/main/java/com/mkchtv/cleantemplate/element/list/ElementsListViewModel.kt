@@ -3,8 +3,8 @@ package com.mkchtv.cleantemplate.element.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkchtv.cleantemplate.domain.element.usecase.GetAllElements
-import com.mkchtv.cleantemplate.domain.element.usecase.PullNewElement
-import com.mkchtv.cleantemplate.element.mapper.toUiItemsList
+import com.mkchtv.cleantemplate.domain.element.usecase.PullElement
+import com.mkchtv.cleantemplate.element.list.mapper.toUiItemsList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ElementsListViewModel @Inject constructor(
     getAllElements: GetAllElements,
-    private val pullNewElement: PullNewElement,
+    private val pullElement: PullElement,
 ) : ViewModel() {
 
     val screenState: StateFlow<ElementListScreenState> = getAllElements()
@@ -32,7 +32,7 @@ class ElementsListViewModel @Inject constructor(
         )
 
     fun onPullNewElementRequested() = viewModelScope.launch {
-        runCatching { pullNewElement() }
+        runCatching { pullElement() }
             .onFailure {
                 // TODO
             }

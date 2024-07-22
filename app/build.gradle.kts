@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.androidx.multidex)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room)
+    implementation(libs.coil)
     implementation(libs.compose.activity)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)

@@ -1,6 +1,9 @@
 package com.mkchtv.cleantemplate.element.details
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -41,8 +44,12 @@ import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.common.component.rememberInputState
 import com.mkchtv.cleantemplate.domain.element.entity.Element
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.CreateNewElement
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.Loading
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.UpdateExistedElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @Composable
@@ -52,6 +59,8 @@ fun ElementDetailsScreen(
     onCreateConfirmed: (name: String, description: String) -> Unit,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
     onDeleteConfirmed: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
 
@@ -78,18 +87,21 @@ fun ElementDetailsScreen(
                 label = "Element details",
             ) { state ->
                 when (state) {
-                    ElementDetailsScreenState.Loading -> LoadingScreen(
+                    Loading -> LoadingScreen(
                         modifier = Modifier.fillMaxSize(),
                     )
 
-                    is ElementDetailsScreenState.CreateNewElement -> CreateNewElement(
+                    is CreateNewElement -> CreateNewElement(
                         onCreateConfirmed = onCreateConfirmed,
                     )
 
-                    is ElementDetailsScreenState.UpdateExistedElement -> UpdateExistedElement(
-                        element = state.element,
-                        onUpdateConfirmed = onUpdateConfirmed,
-                    )
+                    is UpdateExistedElement -> with(sharedTransitionScope) {
+                        UpdateExistedElement(
+                            element = state.element,
+                            onUpdateConfirmed = onUpdateConfirmed,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                        )
+                    }
                 }
             }
 
@@ -115,9 +127,9 @@ private fun TopBar(
 ) {
     val titleRes: Int = remember(screenState) {
         when (screenState) {
-            ElementDetailsScreenState.Loading -> R.string.loading
-            ElementDetailsScreenState.CreateNewElement -> R.string.create_new_element
-            is ElementDetailsScreenState.UpdateExistedElement -> R.string.edit_element_details
+            Loading -> R.string.loading
+            CreateNewElement -> R.string.create_new_element
+            is UpdateExistedElement -> R.string.edit_element_details
         }
     }
 
@@ -134,7 +146,7 @@ private fun TopBar(
             }
         },
         actions = {
-            if (screenState is ElementDetailsScreenState.UpdateExistedElement)
+            if (screenState is UpdateExistedElement)
                 IconButton(onClick = onDeleteRequested) {
                     Icon(Icons.Filled.Delete, stringResource(id = R.string.cd_delete))
                 }
@@ -195,10 +207,12 @@ private fun CreateNewElement(
     }
 }
 
+@ExperimentalSharedTransitionApi
 @Composable
-private fun UpdateExistedElement(
+private fun SharedTransitionScope.UpdateExistedElement(
     element: Element,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     val nameInputState = rememberInputState(
         hint = stringResource(id = R.string.name),
@@ -228,11 +242,19 @@ private fun UpdateExistedElement(
             model = element.imageUrl,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(4f / 3f),
+                .aspectRatio(4f / 3f)
+                .sharedElement(
+                    state = rememberSharedContentState(key = "${element.id}_img"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Input(
+            modifier = Modifier.sharedBounds(
+                sharedContentState = rememberSharedContentState(key = "${element.id}_name"),
+                animatedVisibilityScope = animatedVisibilityScope,
+            ),
             state = nameInputState,
             imeAction = ImeAction.Next,
             onImeAction = {
@@ -241,6 +263,10 @@ private fun UpdateExistedElement(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Input(
+            modifier = Modifier.sharedBounds(
+                sharedContentState = rememberSharedContentState(key = "${element.id}_desc"),
+                animatedVisibilityScope = animatedVisibilityScope,
+            ),
             state = descInputState,
             imeAction = ImeAction.Done,
             onImeAction = onUpdateAction,

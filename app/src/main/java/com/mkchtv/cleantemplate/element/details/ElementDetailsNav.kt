@@ -1,6 +1,8 @@
 package com.mkchtv.cleantemplate.element.details
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -12,11 +14,13 @@ import androidx.navigation.navArgument
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.elementDetailsScreen(
     onBackClick: () -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope,
 ) {
     composable(
         route = "details/{$ARG_KEY_ELEMENT_ID}",
@@ -40,6 +44,8 @@ fun NavGraphBuilder.elementDetailsScreen(
                     onBackClick()
                     viewModel.onDeleteConfirmed()
                 },
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = this@composable,
             )
         }
     }

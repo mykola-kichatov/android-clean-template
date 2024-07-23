@@ -3,7 +3,9 @@ agp = "8.4.2"
 androidxTest = "1.2.1"
 coil = "2.7.0"
 composeActivity = "1.9.1"
+composeAnimation = "1.7.0-beta07"
 composeBom = "2024.06.00"
+composeFoundation = "1.7.0-beta07"
 composeViewModel = "2.8.4"
 composeUi = "1.7.0-beta07"
 coroutines = "1.8.1"
@@ -36,7 +38,9 @@ androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core",
 androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidxTest" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
+compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "composeAnimation" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "composeFoundation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "composeUi" }

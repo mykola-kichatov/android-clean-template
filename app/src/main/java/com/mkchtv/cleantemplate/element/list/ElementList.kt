@@ -1,7 +1,10 @@
 package com.mkchtv.cleantemplate.element.list
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.clickable
@@ -38,12 +41,14 @@ import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.R
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
+@ExperimentalSharedTransitionApi
 @ExperimentalAnimationApi
 @Composable
-internal fun ElementList(
+internal fun SharedTransitionScope.ElementList(
     elements: List<ElementItem>,
     onElementClick: (item: ElementItem) -> Unit,
     onAddNewElementClick: () -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
     val lazyColumnState = rememberLazyListState()
@@ -65,6 +70,7 @@ internal fun ElementList(
                     ElementColumnItem(
                         item = element,
                         onItemClick = onElementClick,
+                        animatedVisibilityScope = animatedVisibilityScope,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -92,10 +98,12 @@ private fun NoItems() = Box(
     )
 }
 
+@ExperimentalSharedTransitionApi
 @Composable
-private fun ElementColumnItem(
+private fun SharedTransitionScope.ElementColumnItem(
     item: ElementItem,
     onItemClick: (item: ElementItem) -> Unit = {},
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) = ElevatedCard(
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
@@ -108,13 +116,33 @@ private fun ElementColumnItem(
             AsyncImage(
                 model = item.imageUrl,
                 modifier = Modifier
-                    .size(100.dp),
+                    .size(100.dp)
+                    .sharedElement(
+                        state = rememberSharedContentState(key = "${item.id}_img"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                    ),
                 contentScale = ContentScale.Crop,
                 contentDescription = item.name,
             )
         },
-        overlineContent = { Text(text = item.name) },
-        headlineContent = { Text(text = item.description) },
+        overlineContent = {
+            Text(
+                modifier = Modifier.sharedBounds(
+                    sharedContentState = rememberSharedContentState(key = "${item.id}_name"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
+                text = item.name,
+            )
+        },
+        headlineContent = {
+            Text(
+                modifier = Modifier.sharedBounds(
+                    sharedContentState = rememberSharedContentState(key = "${item.id}_desc"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
+                text = item.description,
+            )
+        },
     )
 }
 

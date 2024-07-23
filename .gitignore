@@ -15,6 +15,7 @@
 /.idea/shelf/
 .DS_Store
 /build
+/.kotlin
 /captures
 .externalNativeBuild
 .cxx

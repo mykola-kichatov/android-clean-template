@@ -26,13 +26,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.R
@@ -164,6 +167,13 @@ private fun CreateNewElement(
         hint = stringResource(id = R.string.description),
         initialValue = "",
     )
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(Unit) {
+        nameInputState.focusRequester.requestFocus()
+    }
+
     Column(
         modifier = Modifier
             .imePadding()
@@ -171,9 +181,24 @@ private fun CreateNewElement(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Input(state = nameInputState)
+        Input(
+            state = nameInputState,
+            imeAction = ImeAction.Next,
+            onImeAction = {
+                descInputState.focusRequester.requestFocus()
+            },
+        )
         Spacer(modifier = Modifier.height(8.dp))
-        Input(state = descInputState)
+        Input(
+            state = descInputState,
+            imeAction = ImeAction.Done,
+            onImeAction = {
+                keyboardController?.hide()
+                onCreateConfirmed(
+                    nameInputState.value, descInputState.value
+                )
+            },
+        )
         Spacer(modifier = Modifier.height(24.dp))
         ElevatedButton(onClick = {
             onCreateConfirmed(
@@ -200,6 +225,7 @@ private fun SharedTransitionScope.UpdateExistedElement(
         hint = stringResource(id = R.string.description),
         initialValue = element.description,
     )
+
     Column(
         modifier = Modifier
             .imePadding()
@@ -225,6 +251,10 @@ private fun SharedTransitionScope.UpdateExistedElement(
                 animatedVisibilityScope = animatedVisibilityScope,
             ),
             state = nameInputState,
+            imeAction = ImeAction.Next,
+            onImeAction = {
+                descInputState.focusRequester.requestFocus()
+            },
         )
         Spacer(modifier = Modifier.height(8.dp))
         Input(
@@ -233,6 +263,12 @@ private fun SharedTransitionScope.UpdateExistedElement(
                 animatedVisibilityScope = animatedVisibilityScope,
             ),
             state = descInputState,
+            imeAction = ImeAction.Done,
+            onImeAction = {
+                onUpdateConfirmed(
+                    nameInputState.value, descInputState.value, element.imageUrl
+                )
+            },
         )
         Spacer(modifier = Modifier.height(24.dp))
         ElevatedButton(onClick = {

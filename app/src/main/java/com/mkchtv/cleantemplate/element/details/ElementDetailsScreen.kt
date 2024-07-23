@@ -1,6 +1,9 @@
 package com.mkchtv.cleantemplate.element.details
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,12 +38,15 @@ import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.R
 import com.mkchtv.cleantemplate.common.component.ConfirmDialog
 import com.mkchtv.cleantemplate.common.component.Input
-import com.mkchtv.cleantemplate.common.component.InputState
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.common.component.rememberInputState
 import com.mkchtv.cleantemplate.domain.element.entity.Element
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.CreateNewElement
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.Loading
+import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.UpdateExistedElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @Composable
@@ -50,6 +56,8 @@ fun ElementDetailsScreen(
     onCreateConfirmed: (name: String, description: String) -> Unit,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
     onDeleteConfirmed: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
 
@@ -76,18 +84,21 @@ fun ElementDetailsScreen(
                 label = "Element details",
             ) { state ->
                 when (state) {
-                    ElementDetailsScreenState.Loading -> LoadingScreen(
+                    Loading -> LoadingScreen(
                         modifier = Modifier.fillMaxSize(),
                     )
 
-                    is ElementDetailsScreenState.CreateNewElement -> CreateNewElement(
+                    is CreateNewElement -> CreateNewElement(
                         onCreateConfirmed = onCreateConfirmed,
                     )
 
-                    is ElementDetailsScreenState.UpdateExistedElement -> UpdateExistedElement(
-                        element = state.element,
-                        onUpdateConfirmed = onUpdateConfirmed,
-                    )
+                    is UpdateExistedElement -> with(sharedTransitionScope) {
+                        UpdateExistedElement(
+                            element = state.element,
+                            onUpdateConfirmed = onUpdateConfirmed,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                        )
+                    }
                 }
             }
 
@@ -113,9 +124,9 @@ private fun TopBar(
 ) {
     val titleRes: Int = remember(screenState) {
         when (screenState) {
-            ElementDetailsScreenState.Loading -> R.string.loading
-            ElementDetailsScreenState.CreateNewElement -> R.string.create_new_element
-            is ElementDetailsScreenState.UpdateExistedElement -> R.string.edit_element_details
+            Loading -> R.string.loading
+            CreateNewElement -> R.string.create_new_element
+            is UpdateExistedElement -> R.string.edit_element_details
         }
     }
 
@@ -132,7 +143,7 @@ private fun TopBar(
             }
         },
         actions = {
-            if (screenState is ElementDetailsScreenState.UpdateExistedElement)
+            if (screenState is UpdateExistedElement)
                 IconButton(onClick = onDeleteRequested) {
                     Icon(Icons.Filled.Delete, stringResource(id = R.string.cd_delete))
                 }
@@ -140,6 +151,7 @@ private fun TopBar(
     )
 }
 
+@ExperimentalSharedTransitionApi
 @Composable
 private fun CreateNewElement(
     onCreateConfirmed: (name: String, description: String) -> Unit,
@@ -152,21 +164,33 @@ private fun CreateNewElement(
         hint = stringResource(id = R.string.description),
         initialValue = "",
     )
-    InputsForm(
-        imageUrl = null,
-        nameInputState = nameInputState,
-        descInputState = descInputState,
-        confirmButtonText = stringResource(id = R.string.create),
-        onEditConfirmed = { name, desc ->
-            onCreateConfirmed(name, desc)
-        },
-    )
+    Column(
+        modifier = Modifier
+            .imePadding()
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Input(state = nameInputState)
+        Spacer(modifier = Modifier.height(8.dp))
+        Input(state = descInputState)
+        Spacer(modifier = Modifier.height(24.dp))
+        ElevatedButton(onClick = {
+            onCreateConfirmed(
+                nameInputState.value, descInputState.value
+            )
+        }) {
+            Text(text = stringResource(id = R.string.create))
+        }
+    }
 }
 
+@ExperimentalSharedTransitionApi
 @Composable
-private fun UpdateExistedElement(
+private fun SharedTransitionScope.UpdateExistedElement(
     element: Element,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     val nameInputState = rememberInputState(
         hint = stringResource(id = R.string.name),
@@ -176,49 +200,47 @@ private fun UpdateExistedElement(
         hint = stringResource(id = R.string.description),
         initialValue = element.description,
     )
-    InputsForm(
-        imageUrl = element.imageUrl,
-        nameInputState = nameInputState,
-        descInputState = descInputState,
-        confirmButtonText = stringResource(id = R.string.update),
-        onEditConfirmed = { name, desc ->
-            onUpdateConfirmed(name, desc, element.imageUrl)
-        },
-    )
-}
-
-@Composable
-private fun InputsForm(
-    imageUrl: String?,
-    nameInputState: InputState,
-    descInputState: InputState,
-    confirmButtonText: String,
-    onEditConfirmed: (name: String, description: String) -> Unit,
-) = Column(
-    modifier = Modifier
-        .imePadding()
-        .padding(16.dp)
-        .verticalScroll(rememberScrollState()),
-    horizontalAlignment = Alignment.CenterHorizontally,
-) {
-    imageUrl?.let {
+    Column(
+        modifier = Modifier
+            .imePadding()
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         AsyncImage(
-            model = imageUrl,
+            model = element.imageUrl,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(4f / 3f),
+                .aspectRatio(4f / 3f)
+                .sharedElement(
+                    state = rememberSharedContentState(key = element.imageUrl),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                ),
             contentDescription = null,
         )
-    }
-    Input(state = nameInputState)
-    Spacer(modifier = Modifier.height(8.dp))
-    Input(state = descInputState)
-    Spacer(modifier = Modifier.height(24.dp))
-    ElevatedButton(onClick = {
-        onEditConfirmed(
-            nameInputState.value, descInputState.value
+        Spacer(modifier = Modifier.height(16.dp))
+        Input(
+            modifier = Modifier.sharedBounds(
+                sharedContentState = rememberSharedContentState(key = nameInputState.value),
+                animatedVisibilityScope = animatedVisibilityScope,
+            ),
+            state = nameInputState,
         )
-    }) {
-        Text(text = confirmButtonText)
+        Spacer(modifier = Modifier.height(8.dp))
+        Input(
+            modifier = Modifier.sharedBounds(
+                sharedContentState = rememberSharedContentState(key = descInputState.value),
+                animatedVisibilityScope = animatedVisibilityScope,
+            ),
+            state = descInputState,
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        ElevatedButton(onClick = {
+            onUpdateConfirmed(
+                nameInputState.value, descInputState.value, element.imageUrl
+            )
+        }) {
+            Text(text = stringResource(id = R.string.update))
+        }
     }
 }

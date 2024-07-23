@@ -1,7 +1,10 @@
 package com.mkchtv.cleantemplate.element.list
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -20,6 +23,7 @@ import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
@@ -29,6 +33,8 @@ fun ElementListScreen(
     onElementClick: (item: ElementItem) -> Unit,
     onAddNewElementClick: () -> Unit,
     onPullNewElementRequested: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) = Scaffold(
     modifier = Modifier.systemBarsPadding(),
     topBar = {
@@ -52,12 +58,15 @@ fun ElementListScreen(
                 modifier = Modifier.fillMaxSize(),
             )
 
-            is ElementListScreenState.ListLoaded -> ElementsList(
-                modifier = Modifier.fillMaxSize(),
-                elementList = state.elements,
-                onElementClick = onElementClick,
-                onAddNewElementClick = onAddNewElementClick,
-            )
+            is ElementListScreenState.ListLoaded -> with(sharedTransitionScope) {
+                ElementsList(
+                    modifier = Modifier.fillMaxSize(),
+                    elementList = state.elements,
+                    onElementClick = onElementClick,
+                    onAddNewElementClick = onAddNewElementClick,
+                    animatedVisibilityScope = animatedVisibilityScope,
+                )
+            }
         }
     }
 }

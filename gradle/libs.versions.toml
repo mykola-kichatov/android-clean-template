@@ -1,12 +1,13 @@
 [versions]
 agp = "8.4.2"
 androidxTest = "1.2.1"
-composeActivity = "1.9.0"
+composeActivity = "1.9.1"
 composeBom = "2024.06.00"
-composeViewModel = "2.8.3"
-coroutines = "1.7.3"
+composeViewModel = "2.8.4"
+composeUi = "1.7.0-beta06"
+coroutines = "1.8.1"
 espresso = "3.6.1"
-hilt = "2.49"
+hilt = "2.51.1"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
 jUnit5 = "5.10.2"
@@ -15,11 +16,10 @@ ksp = "2.0.0-1.0.23"
 ktlint = "1.2.1"
 ktlintGradle = "12.1.0"
 ktx = "1.13.1"
-lifecycle = "2.8.3"
+lifecycle = "2.8.4"
 mockk = "1.13.12"
-multidex = "2.0.1"
-navigation = "2.7.7"
-retrofit = "2.9.0"
+navigation = "2.8.0-beta06"
+retrofit = "2.11.0"
 room = "2.6.1"
 slf4j = "2.0.12"
 
@@ -27,7 +27,6 @@ slf4j = "2.0.12"
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "ktx" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
-androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "navigation" }
 androidx-room = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -37,12 +36,12 @@ androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "android
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "composeUi" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeUi" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "composeUi" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "composeUi" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeUi" }
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeViewModel" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }

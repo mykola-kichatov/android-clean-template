@@ -22,9 +22,9 @@ fun NavGraphBuilder.elementDetailsScreen(
         route = "details/{$ARG_KEY_ELEMENT_ID}",
         arguments = listOf(navArgument(ARG_KEY_ELEMENT_ID) { type = NavType.IntType }),
     ) {
-        val viewModel = hiltViewModel<ElementDetailsViewModel>()
-        val screenState = viewModel.screenState.collectAsStateWithLifecycle()
         AuthProtectedScreen {
+            val viewModel = hiltViewModel<ElementDetailsViewModel>()
+            val screenState = viewModel.screenState.collectAsStateWithLifecycle()
             ElementDetailsScreen(
                 screenState = screenState.value,
                 onBackClick = onBackClick,

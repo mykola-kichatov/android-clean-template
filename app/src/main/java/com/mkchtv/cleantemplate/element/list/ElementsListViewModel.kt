@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkchtv.cleantemplate.domain.element.usecase.GetAllElements
 import com.mkchtv.cleantemplate.domain.element.usecase.PullElement
+import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 import com.mkchtv.cleantemplate.element.list.mapper.toUiItemsList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,14 +22,14 @@ class ElementsListViewModel @Inject constructor(
     private val pullElement: PullElement,
 ) : ViewModel() {
 
-    val screenState: StateFlow<ElementListScreenState> = getAllElements()
-        .map { elements ->
-            ElementListScreenState.ListLoaded(elements.toUiItemsList())
+    val elements: StateFlow<List<ElementItem>?> = getAllElements()
+        .map {
+            it.toUiItemsList()
         }
         .stateIn(
-            initialValue = ElementListScreenState.Loading,
+            initialValue = null,
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000)
+            started = SharingStarted.Lazily
         )
 
     fun onPullNewElementRequested() = viewModelScope.launch {

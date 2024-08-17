@@ -25,7 +25,6 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -41,8 +40,8 @@ import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
 @ExperimentalAnimationApi
 @Composable
-internal fun ElementsList(
-    elementList: List<ElementItem>,
+internal fun ElementList(
+    elements: List<ElementItem>,
     onElementClick: (item: ElementItem) -> Unit,
     onAddNewElementClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -52,19 +51,15 @@ internal fun ElementsList(
         derivedStateOf { lazyColumnState.firstVisibleItemIndex == 0 }
     }
 
-    LaunchedEffect(elementList.size) {
-        lazyColumnState.animateScrollToItem(0)
-    }
-
     Box(modifier = modifier) {
         when {
-            elementList.isEmpty() -> NoItems()
+            elements.isEmpty() -> NoItems()
             else -> LazyColumn(
                 state = lazyColumnState,
                 contentPadding = PaddingValues(16.dp),
             ) {
                 items(
-                    items = elementList,
+                    items = elements,
                     key = { element -> element.id },
                 ) { element ->
                     ElementColumnItem(

@@ -18,11 +18,11 @@ fun NavGraphBuilder.elementListScreen(
     onAddNewElementClick: () -> Unit = {},
 ) {
     composable(route = NAV_DESTINATION_LIST) {
-        val viewModel = hiltViewModel<ElementsListViewModel>()
-        val screenState = viewModel.screenState.collectAsStateWithLifecycle()
         AuthProtectedScreen {
+            val viewModel = hiltViewModel<ElementsListViewModel>()
+            val screenState = viewModel.elements.collectAsStateWithLifecycle()
             ElementListScreen(
-                screenState = screenState.value,
+                elements = screenState.value,
                 onElementClick = onElementClick,
                 onAddNewElementClick = onAddNewElementClick,
                 onPullNewElementRequested = { viewModel.onPullNewElementRequested() },

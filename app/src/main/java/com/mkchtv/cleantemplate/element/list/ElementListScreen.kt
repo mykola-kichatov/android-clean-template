@@ -1,6 +1,5 @@
 package com.mkchtv.cleantemplate.element.list
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,7 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @Composable
 fun ElementListScreen(
-    screenState: ElementListScreenState,
+    elements: List<ElementItem>?,
     onElementClick: (item: ElementItem) -> Unit,
     onAddNewElementClick: () -> Unit,
     onPullNewElementRequested: () -> Unit,
@@ -34,31 +33,20 @@ fun ElementListScreen(
     topBar = {
         TopBar(onPullNewElementRequested = onPullNewElementRequested)
     },
-) {
-    val modifier = Modifier
-        .fillMaxSize()
-        .padding(
-            top = it.calculateTopPadding(),
-            bottom = it.calculateBottomPadding(),
+) { scaffoldPadding ->
+    when {
+        elements == null -> LoadingScreen(Modifier.fillMaxSize())
+        else -> ElementList(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = scaffoldPadding.calculateTopPadding(),
+                    bottom = scaffoldPadding.calculateBottomPadding(),
+                ),
+            elements = elements,
+            onElementClick = onElementClick,
+            onAddNewElementClick = onAddNewElementClick,
         )
-
-    Crossfade(
-        modifier = modifier,
-        targetState = screenState,
-        label = "Element list",
-    ) { state ->
-        when (state) {
-            ElementListScreenState.Loading -> LoadingScreen(
-                modifier = Modifier.fillMaxSize(),
-            )
-
-            is ElementListScreenState.ListLoaded -> ElementsList(
-                modifier = Modifier.fillMaxSize(),
-                elementList = state.elements,
-                onElementClick = onElementClick,
-                onAddNewElementClick = onAddNewElementClick,
-            )
-        }
     }
 }
 

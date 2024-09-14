@@ -12,5 +12,5 @@ java {
 dependencies {
     implementation(libs.javax.inject)
     implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 }

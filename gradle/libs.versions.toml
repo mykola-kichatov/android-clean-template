@@ -2,29 +2,26 @@
 agp = "8.4.2"
 androidxTest = "1.2.1"
 coil = "2.7.0"
-composeActivity = "1.9.1"
-composeAnimation = "1.7.0-beta07"
-composeBom = "2024.06.00"
-composeFoundation = "1.7.0-beta07"
-composeViewModel = "2.8.4"
-composeUi = "1.7.0-beta07"
+composeActivity = "1.9.2"
+composeAnimation = "1.7.1"
+composeBom = "2024.09.01"
+composeFoundation = "1.7.1"
+composeViewModel = "2.8.5"
+composeUi = "1.7.1"
 coroutines = "1.8.1"
 espresso = "3.6.1"
 hilt = "2.51.1"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
-jUnit5 = "5.10.2"
+jUnit5 = "5.10.3"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.23"
-ktlint = "1.2.1"
-ktlintGradle = "12.1.0"
 ktx = "1.13.1"
-lifecycle = "2.8.4"
+lifecycle = "2.8.5"
 mockk = "1.13.12"
-navigation = "2.8.0-beta07"
+navigation = "2.8.0"
 retrofit = "2.11.0"
 room = "2.6.1"
-slf4j = "2.0.12"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "ktx" }
@@ -58,12 +55,9 @@ junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-ktlint-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
-ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlint" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-slf4j = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -73,7 +67,6 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-ktlintGradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 
 [bundles]
 unitTesting = [

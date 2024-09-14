@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.ktlintGradle)
 }
 
 android {
@@ -69,6 +68,4 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
-
-    ktlintRuleset(project(":ktlint-rules"))
 }

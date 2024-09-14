@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.ktlintGradle)
 }
 
 android {
@@ -97,6 +96,4 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-
-    ktlintRuleset(project(":ktlint-rules"))
 }

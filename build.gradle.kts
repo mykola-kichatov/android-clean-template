@@ -17,7 +17,7 @@ val versionName by extra("1.0")
 val proguardRulesFile by extra("proguard-rules.pro")
 val consumerRulesFile by extra("consumer-rules.pro")
 val proguardAndroidOptimizeFile by extra("proguard-android-optimize.txt")
-val javaVersion by extra(JavaVersion.VERSION_17)
+val javaVersion by extra(JavaVersion.VERSION_21)
 val testsRunner by extra("androidx.test.runner.AndroidJUnitRunner")
 
 allprojects {

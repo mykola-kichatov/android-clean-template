@@ -9,7 +9,7 @@ import com.mkchtv.cleantemplate.data.element.entity.ElementEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ElementsDao {
+internal interface ElementsDao {
 
     @Query("SELECT * FROM elements")
     fun elementsFlow(): Flow<List<ElementEntity>>

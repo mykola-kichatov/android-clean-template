@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DefaultAuthRepository @Inject constructor() : AuthRepository {
+internal class DefaultAuthRepository @Inject constructor() : AuthRepository {
 
     private val _authStateFlow = MutableStateFlow(AuthState.AUTH_REQUIRED)
     override val authStateFlow: Flow<AuthState> = _authStateFlow

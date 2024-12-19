@@ -3,7 +3,7 @@ package com.mkchtv.cleantemplate.data.element.mapper
 import com.mkchtv.cleantemplate.data.element.entity.ElementEntity
 import com.mkchtv.cleantemplate.domain.element.entity.Element
 
-object ElementMapper {
+internal object ElementMapper {
 
     fun fromList(elements: List<ElementEntity>) = elements.map { it.toDomain() }
 
@@ -15,6 +15,6 @@ object ElementMapper {
     )
 }
 
-fun ElementEntity.toDomain() = ElementMapper.toDomain(this)
+internal fun ElementEntity.toDomain() = ElementMapper.toDomain(this)
 
-fun List<ElementEntity>.toDomain() = ElementMapper.fromList(this)
+internal fun List<ElementEntity>.toDomain() = ElementMapper.fromList(this)

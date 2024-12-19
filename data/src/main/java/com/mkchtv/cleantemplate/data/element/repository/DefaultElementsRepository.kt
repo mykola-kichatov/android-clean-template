@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DefaultElementsRepository @Inject constructor(
+internal class DefaultElementsRepository @Inject constructor(
     private val dao: ElementsDao,
     private val service: ElementsService,
 ) : ElementsRepository {

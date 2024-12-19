@@ -6,7 +6,7 @@ import com.mkchtv.cleantemplate.data.element.dao.ElementsDao
 import com.mkchtv.cleantemplate.data.element.entity.ElementEntity
 
 @Database(entities = [ElementEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class AppDatabase : RoomDatabase() {
 
     abstract fun elementsDao(): ElementsDao
 }

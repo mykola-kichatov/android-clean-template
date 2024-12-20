@@ -1,0 +1,5 @@
+<resources>
+    <string name="create_new_element">Create new element</string>
+    <string name="edit_element_details">Edit element details</string>
+    <string name="confirm_delete">Confirm Element deletion?</string>
+</resources>

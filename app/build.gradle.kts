@@ -44,7 +44,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
 
@@ -59,8 +58,17 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
+    implementation(project(":data:auth"))
+    implementation(project(":data:element"))
+
+    implementation(project(":domain:auth"))
+    implementation(project(":domain:common"))
+    implementation(project(":domain:element"))
+
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:common"))
+    implementation(project(":feature:element-details"))
+    implementation(project(":feature:element-list"))
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)

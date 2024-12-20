@@ -1,0 +1,13 @@
+<resources>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="loading">Loading</string>
+    <string name="create">Create</string>
+    <string name="update">Update</string>
+
+    <!-- content description -->
+    <string name="cd_go_back">Go back</string>
+    <string name="cd_delete">Delete</string>
+</resources>

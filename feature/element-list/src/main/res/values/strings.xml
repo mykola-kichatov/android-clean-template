@@ -1,0 +1,8 @@
+<resources>
+    <string name="elements">Elements</string>
+    <string name="no_elements_hint">No elements yet\nAdd new or pull one from remote</string>
+
+    <!-- content description -->
+    <string name="cd_pull_new_element">Pull new element</string>
+    <string name="cd_add_new_element">Add new element</string>
+</resources>

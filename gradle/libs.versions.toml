@@ -14,8 +14,8 @@ hilt = "2.51.1"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
 jUnit5 = "5.10.3"
-kotlin = "2.0.21"
-ksp = "2.0.0-1.0.23"
+kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29"
 ktx = "1.15.0"
 lifecycle = "2.8.7"
 mockk = "1.13.12"
@@ -60,6 +60,13 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
+#Important: these Gradle plugins are used in :buildSrc and are therefore defined here instead of under [plugins]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+compose-compiler-gradle-plugin = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -70,6 +77,12 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
+androidTesting = [
+    "androidx-test-ext",
+    "androidx-test-espresso-core",
+    "androidx-navigation-testing",
+    "compose-ui-test-junit4",
+]
 unitTesting = [
     "junit5-api",
     "mockk",

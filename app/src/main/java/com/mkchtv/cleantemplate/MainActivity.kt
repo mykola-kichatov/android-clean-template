@@ -22,8 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.mkchtv.cleantemplate.common.nav.AppNavHost
-import com.mkchtv.cleantemplate.common.theme.AppTheme
+import com.mkchtv.cleantemplate.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

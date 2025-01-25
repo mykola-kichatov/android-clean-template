@@ -1,0 +1,8 @@
+<resources>
+    <string name="settings">Settings</string>
+    <string name="confirm_logout">Do you want to log out?</string>
+    <string name="logout">Log out</string>
+
+    <!-- content descriptions -->
+    <string name="cd_logout">Log out</string>
+</resources>

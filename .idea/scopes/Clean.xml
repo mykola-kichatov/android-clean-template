@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Clean" pattern="(test:*..*||file[CleanTemplate.app*]:*//*||file[CleanTemplate.data*]:*//*||file[CleanTemplate.domain*]:*//*||file[CleanTemplate.feature*]:*//*||file[CleanTemplate.app]:*/)&amp;&amp;!file[CleanTemplate.buildSrc*]:*//*&amp;&amp;!file[CleanTemplate.buildSrc]:*/" />
-</component>

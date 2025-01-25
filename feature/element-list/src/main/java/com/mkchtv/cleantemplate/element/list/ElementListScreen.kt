@@ -1,12 +1,9 @@
 package com.mkchtv.cleantemplate.element.list
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalSharedTransitionScope
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 import com.mkchtv.cleantemplate.feature.elementlist.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,30 +30,26 @@ internal fun ElementListScreen(
     onElementClick: (itemId: Int) -> Unit,
     onAddNewElementClick: () -> Unit,
     onPullNewElementRequested: () -> Unit,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
 ) = Scaffold(
-    modifier = Modifier.systemBarsPadding(),
+    modifier = Modifier.fillMaxSize(),
     topBar = {
         TopBar(onPullNewElementRequested = onPullNewElementRequested)
     },
 ) { scaffoldPadding ->
+    val sharedTransitionScope =
+        LocalSharedTransitionScope.current ?: throw IllegalStateException("No shared element scope")
     when {
         elements == null -> LoadingScreen(Modifier.fillMaxSize())
         else -> with(sharedTransitionScope) {
             ElementList(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        top = scaffoldPadding.calculateTopPadding(),
-                        bottom = scaffoldPadding.calculateBottomPadding(),
-                    ),
+                    .padding(scaffoldPadding),
                 elements = elements,
                 onElementClick = { element ->
                     onElementClick(element.id)
                 },
                 onAddNewElementClick = onAddNewElementClick,
-                animatedVisibilityScope = animatedVisibilityScope,
             )
         }
     }

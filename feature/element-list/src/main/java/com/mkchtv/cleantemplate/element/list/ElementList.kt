@@ -1,7 +1,6 @@
 package com.mkchtv.cleantemplate.element.list
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -38,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
 import com.mkchtv.cleantemplate.feature.elementlist.R
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
@@ -48,7 +48,6 @@ internal fun SharedTransitionScope.ElementList(
     elements: List<ElementItem>,
     onElementClick: (item: ElementItem) -> Unit,
     onAddNewElementClick: () -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
     val lazyColumnState = rememberLazyListState()
@@ -70,7 +69,6 @@ internal fun SharedTransitionScope.ElementList(
                     ElementColumnItem(
                         item = element,
                         onItemClick = onElementClick,
-                        animatedVisibilityScope = animatedVisibilityScope,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -103,13 +101,14 @@ private fun NoItems() = Box(
 private fun SharedTransitionScope.ElementColumnItem(
     item: ElementItem,
     onItemClick: (item: ElementItem) -> Unit = {},
-    animatedVisibilityScope: AnimatedVisibilityScope,
 ) = ElevatedCard(
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ),
 ) {
+    val animatedVisibilityScope =
+        LocalNavAnimatedVisibilityScope.current ?: throw IllegalStateException("No shared element scope")
     ListItem(
         modifier = Modifier.clickable { onItemClick(item) },
         leadingContent = {

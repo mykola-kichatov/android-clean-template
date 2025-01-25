@@ -14,4 +14,5 @@ dependencies {
     implementation(project(":feature:common"))
     implementation(project(":feature:element-details"))
     implementation(project(":feature:element-list"))
+    implementation(project(":feature:home"))
 }

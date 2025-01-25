@@ -8,4 +8,6 @@ interface AuthRepository {
     val authStateFlow: Flow<AuthState>
 
     suspend fun onAuthenticated()
+
+    suspend fun logout()
 }

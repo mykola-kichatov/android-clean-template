@@ -1,6 +1,5 @@
 package com.mkchtv.cleantemplate.element.details
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -44,6 +43,8 @@ import com.mkchtv.cleantemplate.common.component.ConfirmDialog
 import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.common.component.rememberInputState
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalSharedTransitionScope
 import com.mkchtv.cleantemplate.domain.element.entity.Element
 import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.CreateNewElement
 import com.mkchtv.cleantemplate.element.details.ElementDetailsScreenState.Loading
@@ -60,10 +61,10 @@ internal fun ElementDetailsScreen(
     onCreateConfirmed: (name: String, description: String) -> Unit,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
     onDeleteConfirmed: () -> Unit,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
+    val sharedTransitionScope =
+        LocalSharedTransitionScope.current ?: throw IllegalStateException("No shared element scope")
 
     Scaffold(
         topBar = {
@@ -100,7 +101,6 @@ internal fun ElementDetailsScreen(
                         UpdateExistedElement(
                             element = state.element,
                             onUpdateConfirmed = onUpdateConfirmed,
-                            animatedVisibilityScope = animatedVisibilityScope,
                         )
                     }
                 }
@@ -213,7 +213,6 @@ private fun CreateNewElement(
 private fun SharedTransitionScope.UpdateExistedElement(
     element: Element,
     onUpdateConfirmed: (name: String, description: String, imageUrl: String) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     val nameInputState = rememberInputState(
         hint = stringResource(id = commonRes.string.name),
@@ -231,6 +230,8 @@ private fun SharedTransitionScope.UpdateExistedElement(
             nameInputState.value, descInputState.value, element.imageUrl
         )
     }
+    val animatedVisibilityScope =
+        LocalNavAnimatedVisibilityScope.current ?: throw IllegalStateException("No shared element scope")
 
     Column(
         modifier = Modifier

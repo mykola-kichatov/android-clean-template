@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21">
-      <module name="CleanTemplate.app" target="17" />
-      <module name="CleanTemplate.buildSrc" target="17" />
-      <module name="CleanTemplate.buildSrc.main" target="17" />
-      <module name="CleanTemplate.buildSrc.test" target="17" />
-      <module name="CleanTemplate.data.auth" target="17" />
-      <module name="CleanTemplate.data.element" target="17" />
-      <module name="CleanTemplate.domain.auth" target="17" />
-      <module name="CleanTemplate.domain.auth.main" target="17" />
-      <module name="CleanTemplate.domain.auth.test" target="17" />
-      <module name="CleanTemplate.domain.common" target="17" />
-      <module name="CleanTemplate.domain.common.main" target="17" />
-      <module name="CleanTemplate.domain.common.test" target="17" />
-      <module name="CleanTemplate.domain.element" target="17" />
-      <module name="CleanTemplate.domain.element.main" target="17" />
-      <module name="CleanTemplate.domain.element.test" target="17" />
-      <module name="CleanTemplate.feature.auth" target="17" />
-      <module name="CleanTemplate.feature.common" target="17" />
-      <module name="CleanTemplate.feature.element-details" target="17" />
-      <module name="CleanTemplate.feature.element-list" target="17" />
+    <bytecodeTargetLevel>
+      <module name="android-clean-template.CleanTemplate.feature.home" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

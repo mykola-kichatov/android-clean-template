@@ -13,14 +13,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.mkchtv.cleantemplate.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,15 +38,11 @@ class MainActivity : ComponentActivity() {
 private fun AppContent() {
     AppTheme {
         val navController = rememberNavController()
-        Surface(tonalElevation = 5.dp) {
-            Scaffold { innerPadding ->
-                AppNavHost(
-                    navController = navController,
-                    modifier = Modifier
-                        .padding(innerPadding)
-                        .consumeWindowInsets(innerPadding),
-                )
-            }
+        Surface {
+            AppNavHost(
+                navController = navController,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }

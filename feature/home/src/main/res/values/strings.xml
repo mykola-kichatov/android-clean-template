@@ -1,0 +1,5 @@
+<resources>
+    <!-- content description -->
+    <string name="cd_bottom_bar_list">Element list</string>
+    <string name="cd_bottom_bar_settings">Settings</string>
+</resources>

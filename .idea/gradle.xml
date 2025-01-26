@@ -35,6 +35,8 @@
             <option value="$PROJECT_DIR$/feature/common" />
             <option value="$PROJECT_DIR$/feature/element-details" />
             <option value="$PROJECT_DIR$/feature/element-list" />
+            <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/feature/settings" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

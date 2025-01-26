@@ -16,4 +16,8 @@ internal class DefaultAuthRepository @Inject constructor() : AuthRepository {
     override suspend fun onAuthenticated() {
         _authStateFlow.value = AuthState.AUTHENTICATED
     }
+
+    override suspend fun logout() {
+        _authStateFlow.value = AuthState.AUTH_REQUIRED
+    }
 }

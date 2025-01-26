@@ -2,10 +2,10 @@ package com.mkchtv.cleantemplate.element.list
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
@@ -16,7 +16,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.elementListScreen(
-    sharedTransitionScope: SharedTransitionScope,
     onElementClick: (itemId: Int) -> Unit,
     onAddNewElementClick: () -> Unit,
 ) {
@@ -29,11 +28,11 @@ fun NavGraphBuilder.elementListScreen(
                 onElementClick = onElementClick,
                 onAddNewElementClick = onAddNewElementClick,
                 onPullNewElementRequested = { viewModel.onPullNewElementRequested() },
-                sharedTransitionScope = sharedTransitionScope,
-                animatedVisibilityScope = this@composable,
             )
         }
     }
 }
+
+fun NavController.navigateToElementList() = navigate(NAV_DESTINATION_LIST)
 
 const val NAV_DESTINATION_LIST = "list"

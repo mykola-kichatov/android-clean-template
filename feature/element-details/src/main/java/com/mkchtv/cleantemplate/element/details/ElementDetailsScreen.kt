@@ -230,8 +230,8 @@ private fun SharedTransitionScope.UpdateExistedElement(
             nameInputState.value, descInputState.value, element.imageUrl
         )
     }
-    val animatedVisibilityScope =
-        LocalNavAnimatedVisibilityScope.current ?: throw IllegalStateException("No shared element scope")
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+        ?: throw IllegalStateException("No shared element scope")
 
     Column(
         modifier = Modifier

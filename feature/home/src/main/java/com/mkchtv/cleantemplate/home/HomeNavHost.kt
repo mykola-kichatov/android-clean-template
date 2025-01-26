@@ -13,7 +13,6 @@ import com.mkchtv.cleantemplate.element.list.elementListScreen
 import com.mkchtv.cleantemplate.settings.settingsScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
 @ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi

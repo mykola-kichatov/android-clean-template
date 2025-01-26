@@ -107,8 +107,8 @@ private fun SharedTransitionScope.ElementColumnItem(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ),
 ) {
-    val animatedVisibilityScope =
-        LocalNavAnimatedVisibilityScope.current ?: throw IllegalStateException("No shared element scope")
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+        ?: throw IllegalStateException("No shared element scope")
     ListItem(
         modifier = Modifier.clickable { onItemClick(item) },
         leadingContent = {

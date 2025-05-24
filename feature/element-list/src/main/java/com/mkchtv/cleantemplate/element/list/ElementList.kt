@@ -115,11 +115,11 @@ private fun SharedTransitionScope.ElementColumnItem(
             AsyncImage(
                 model = item.imageUrl,
                 modifier = Modifier
-                    .size(100.dp)
                     .sharedElement(
-                        state = rememberSharedContentState(key = "${item.id}_img"),
+                        sharedContentState = rememberSharedContentState(key = "${item.id}_img"),
                         animatedVisibilityScope = animatedVisibilityScope,
-                    ),
+                    )
+                    .size(100.dp),
                 contentScale = ContentScale.Crop,
                 contentDescription = item.name,
             )

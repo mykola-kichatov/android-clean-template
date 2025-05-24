@@ -243,12 +243,12 @@ private fun SharedTransitionScope.UpdateExistedElement(
         AsyncImage(
             model = element.imageUrl,
             modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(4f / 3f)
                 .sharedElement(
-                    state = rememberSharedContentState(key = "${element.id}_img"),
+                    sharedContentState = rememberSharedContentState(key = "${element.id}_img"),
                     animatedVisibilityScope = animatedVisibilityScope,
-                ),
+                )
+                .fillMaxWidth()
+                .aspectRatio(4f / 3f),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(16.dp))

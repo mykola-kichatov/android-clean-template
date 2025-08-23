@@ -1,9 +1,13 @@
 package plugin
 
 import Constants
+import androidTestImplementation
+import bundleAndroidTesting
 import com.android.build.api.dsl.ApplicationExtension
+import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import plugin.common.AppAndroidCommonPlugin
 import plugin.common.AppComposePlugin
@@ -42,6 +46,10 @@ internal class AppPlugin : Plugin<Project> {
                     }
                 }
 
+            }
+
+            dependencies {
+                androidTestImplementation(libs.bundleAndroidTesting())
             }
         }
     }

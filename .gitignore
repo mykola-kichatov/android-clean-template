@@ -25,3 +25,4 @@ local.properties
 /build-logic/.kotlin/
 /build-logic/convention/build/
 /.idea/AndroidProjectSystem.xml
+/.idea/androidTestResultsUserPreferences.xml

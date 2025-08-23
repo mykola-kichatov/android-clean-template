@@ -54,6 +54,7 @@ javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInjec
 junit5-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit5-bom = { group = "org.junit", name = "junit-bom", version.ref = "jUnit5" }
 junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+junit5-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -62,7 +63,7 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
-#Important: these Gradle plugins are used in :buildSrc and are therefore defined here instead of under [plugins]
+#Important: these Gradle plugins are used in :build-logic and are therefore defined here instead of under [plugins]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 compose-compiler-gradle-plugin = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }

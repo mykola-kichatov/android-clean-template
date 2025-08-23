@@ -1,9 +1,5 @@
 plugins {
-    id("feature")
-}
-
-android {
-    namespace = "${Constants.Main.applicationId}.feature.home"
+    alias(libs.plugins.feature)
 }
 
 dependencies {

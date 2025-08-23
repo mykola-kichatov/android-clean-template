@@ -3,6 +3,7 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/deviceManager.xml
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
@@ -20,4 +21,7 @@
 .externalNativeBuild
 .cxx
 local.properties
-/buildSrc/build/
+/build-logic/.gradle/
+/build-logic/.kotlin/
+/build-logic/convention/build/
+/.idea/AndroidProjectSystem.xml

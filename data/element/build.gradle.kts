@@ -1,9 +1,5 @@
 plugins {
-    id("data")
-}
-
-android {
-    namespace = "${Constants.Main.applicationId}.data.element"
+    alias(libs.plugins.data)
 }
 
 dependencies {

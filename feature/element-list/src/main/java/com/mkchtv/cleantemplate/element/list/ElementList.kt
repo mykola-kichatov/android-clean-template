@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
-import com.mkchtv.cleantemplate.feature.elementlist.R
+import com.mkchtv.cleantemplate.feature.element.list.R
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
 @ExperimentalSharedTransitionApi

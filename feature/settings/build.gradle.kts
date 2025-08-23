@@ -1,14 +1,9 @@
 plugins {
-    id("feature")
-}
-
-android {
-    namespace = "${Constants.Main.applicationId}.feature.settings"
+    alias(libs.plugins.feature)
 }
 
 dependencies {
     implementation(project(":domain:auth"))
     implementation(project(":domain:common"))
-
     implementation(project(":feature:common"))
 }

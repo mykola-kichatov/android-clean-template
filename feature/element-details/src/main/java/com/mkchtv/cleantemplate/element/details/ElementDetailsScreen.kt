@@ -37,7 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.mkchtv.cleantemplate.feature.elementdetails.R
+import com.mkchtv.cleantemplate.feature.element.details.R
 import com.mkchtv.cleantemplate.feature.common.R as commonRes
 import com.mkchtv.cleantemplate.common.component.ConfirmDialog
 import com.mkchtv.cleantemplate.common.component.Input

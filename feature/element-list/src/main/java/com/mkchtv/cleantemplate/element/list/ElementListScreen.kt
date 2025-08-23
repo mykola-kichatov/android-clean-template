@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalSharedTransitionScope
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
-import com.mkchtv.cleantemplate.feature.elementlist.R
+import com.mkchtv.cleantemplate.feature.element.list.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalSharedTransitionApi

@@ -1,3 +1,3 @@
 plugins {
-    id("domain")
+    alias(libs.plugins.domain)
 }

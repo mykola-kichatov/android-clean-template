@@ -2,12 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    google()
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 group = "com.mkchtv.cleantemplate.buildlogic"
 
 dependencies {

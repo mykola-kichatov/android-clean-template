@@ -14,12 +14,13 @@ hilt = "2.54"
 hiltNavCompose = "1.2.0"
 javaxInject = "1"
 jUnit5 = "5.13.4"
-kotlin = "2.2.0"
-ksp = "2.2.0-2.0.2"
+kotlin = "2.2.10"
+ksp = "2.2.10-2.0.2"
 ktlintGradle = "13.0.0"
-ktx = "1.16.0"
+ktx = "1.17.0"
 lifecycle = "2.9.2"
 mockk = "1.14.5"
+moshi = "1.15.2"
 navigation = "2.9.3"
 retrofit = "3.0.0"
 room = "2.7.2"
@@ -60,8 +61,10 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 
 #Important: these Gradle plugins are used in :build-logic and are therefore defined here instead of under [plugins]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }

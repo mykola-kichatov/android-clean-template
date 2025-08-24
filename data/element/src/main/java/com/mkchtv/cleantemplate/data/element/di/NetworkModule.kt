@@ -1,13 +1,14 @@
 package com.mkchtv.cleantemplate.data.element.di
 
 import com.mkchtv.cleantemplate.data.element.network.ElementsService
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -25,9 +26,15 @@ internal object NetworkModule {
 
     @Singleton
     @Provides
+    fun providesMoshi(): Moshi =
+        Moshi.Builder()
+            .build()
+
+    @Singleton
+    @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .build()
 

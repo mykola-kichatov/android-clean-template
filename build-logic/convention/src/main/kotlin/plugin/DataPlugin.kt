@@ -11,6 +11,7 @@ import javaxInject
 import kotlinxCoroutinesAndroid
 import ksp
 import libs
+import moshiCodeGen
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -19,7 +20,7 @@ import plugin.common.HiltPlugin
 import plugin.common.LibAndroidCommonPlugin
 import plugin.common.UnitTestsPlugin
 import retrofit
-import retrofitGson
+import retrofitMoshi
 
 internal class DataPlugin : Plugin<Project> {
 
@@ -45,9 +46,10 @@ internal class DataPlugin : Plugin<Project> {
                 implementation(libs.javaxInject())
                 implementation(libs.kotlinxCoroutinesAndroid())
                 implementation(libs.retrofit())
-                implementation(libs.retrofitGson())
+                implementation(libs.retrofitMoshi())
 
                 ksp(libs.androidxRoomCompiler())
+                ksp(libs.moshiCodeGen())
             }
         }
     }

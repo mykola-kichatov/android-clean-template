@@ -21,7 +21,7 @@ fun NavGraphBuilder.elementListScreen(
 ) {
     composable(route = NAV_DESTINATION_LIST) {
         AuthProtectedScreen {
-            val viewModel = hiltViewModel<ElementsListViewModel>()
+            val viewModel = hiltViewModel<ElementListViewModel>()
             val screenState = viewModel.elements.collectAsStateWithLifecycle()
             ElementListScreen(
                 elements = screenState.value,

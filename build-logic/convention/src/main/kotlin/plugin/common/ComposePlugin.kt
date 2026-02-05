@@ -10,6 +10,7 @@ import composeActivity
 import composeAnimation
 import composeBom
 import composeFoundation
+import composeMaterialIconsExtended
 import composeMaterial3
 import composeUi
 import composeUiGraphics
@@ -66,6 +67,7 @@ private fun Project.configure(commonExtension: CommonExtension<*, *, *, *, *, *>
             implementation(libs.composeAnimation())
             implementation(platform(libs.composeBom()))
             implementation(libs.composeFoundation())
+            implementation(libs.composeMaterialIconsExtended())
             implementation(libs.composeMaterial3())
             implementation(libs.composeUi())
             implementation(libs.composeUiGraphics())

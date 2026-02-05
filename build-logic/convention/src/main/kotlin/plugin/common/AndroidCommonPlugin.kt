@@ -11,6 +11,10 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal enum class AndroidCommonPluginType {
     APPLICATION,
@@ -58,9 +62,30 @@ private fun Project.configure(commonExtension: CommonExtension<*, *, *, *, *, *>
             testInstrumentationRunner = Constants.TESTS_RUNNER
         }
 
+        if (this is LibraryExtension) {
+            buildFeatures {
+                buildConfig = false
+            }
+        }
+
+        lint {
+            checkReleaseBuilds = true
+            abortOnError = true
+        }
+
         compileOptions {
             sourceCompatibility = Constants.javaVersion
             targetCompatibility = Constants.javaVersion
+        }
+
+        this@configure.extensions.getByType<KotlinAndroidProjectExtension>().apply {
+            jvmToolchain(Constants.javaVersion.majorVersion.toInt())
+        }
+
+        this@configure.tasks.withType<KotlinCompile>().configureEach {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.fromTarget(Constants.kotlinJvmTarget))
+            }
         }
 
         dependencies {

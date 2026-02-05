@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.mkchtv.cleantemplate.domain.element.usecase.GetAllElements
 import com.mkchtv.cleantemplate.domain.element.usecase.PullElement
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
-import com.mkchtv.cleantemplate.element.list.mapper.toUiItemsList
+import com.mkchtv.cleantemplate.element.list.entity.toUiItems
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,14 +17,14 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-internal class ElementsListViewModel @Inject constructor(
+internal class ElementListViewModel @Inject constructor(
     getAllElements: GetAllElements,
     private val pullElement: PullElement,
 ) : ViewModel() {
 
     val elements: StateFlow<List<ElementItem>?> = getAllElements()
         .map {
-            it.toUiItemsList()
+            it.toUiItems()
         }
         .stateIn(
             initialValue = null,

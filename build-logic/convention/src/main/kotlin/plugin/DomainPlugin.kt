@@ -1,5 +1,6 @@
 package plugin
 
+import Constants
 import implementation
 import javaxInject
 import kotlinStdlib
@@ -8,6 +9,11 @@ import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal class DomainPlugin : Plugin<Project> {
 
@@ -17,6 +23,16 @@ internal class DomainPlugin : Plugin<Project> {
                 apply("java-library")
                 apply("org.jetbrains.kotlin.jvm")
                 apply("org.jlleitschuh.gradle.ktlint")
+            }
+
+            extensions.getByType<KotlinJvmProjectExtension>().apply {
+                jvmToolchain(Constants.javaVersion.majorVersion.toInt())
+            }
+
+            tasks.withType<KotlinCompile>().configureEach {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.fromTarget(Constants.kotlinJvmTarget))
+                }
             }
 
             dependencies {

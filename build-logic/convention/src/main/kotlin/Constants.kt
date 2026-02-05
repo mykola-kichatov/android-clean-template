@@ -18,5 +18,6 @@ internal object Constants {
     }
 
     val javaVersion = JavaVersion.VERSION_17
+    const val kotlinJvmTarget = "17"
     const val TESTS_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }

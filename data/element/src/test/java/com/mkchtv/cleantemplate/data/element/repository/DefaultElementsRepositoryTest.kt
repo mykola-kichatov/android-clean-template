@@ -37,7 +37,7 @@ class DefaultElementsRepositoryTest {
     @MockK
     private lateinit var mockService: ElementsService
 
-    private lateinit var repository: DefaultElementsRepository
+    private lateinit var repository: DefaultElementRepository
 
     @BeforeAll
     fun `setup mocks`() {
@@ -46,7 +46,7 @@ class DefaultElementsRepositoryTest {
 
     @BeforeEach
     fun `setup repository`() {
-        repository = DefaultElementsRepository(
+        repository = DefaultElementRepository(
             dao = mockDao,
             service = mockService,
         )

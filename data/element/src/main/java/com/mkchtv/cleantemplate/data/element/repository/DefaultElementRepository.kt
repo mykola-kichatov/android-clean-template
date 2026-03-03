@@ -8,17 +8,17 @@ import com.mkchtv.cleantemplate.data.element.network.ElementsService
 import com.mkchtv.cleantemplate.domain.element.entity.EditedElementData
 import com.mkchtv.cleantemplate.domain.element.entity.Element
 import com.mkchtv.cleantemplate.domain.element.entity.PullElementData
-import com.mkchtv.cleantemplate.domain.element.repository.ElementsRepository
+import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class DefaultElementsRepository @Inject constructor(
+internal class DefaultElementRepository @Inject constructor(
     private val dao: ElementsDao,
     private val service: ElementsService,
-) : ElementsRepository {
+) : ElementRepository {
 
     override fun elementsFlow(): Flow<List<Element>> =
         dao.elementsFlow().map { it.toDomain() }

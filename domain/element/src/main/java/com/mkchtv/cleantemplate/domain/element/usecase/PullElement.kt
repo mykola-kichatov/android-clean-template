@@ -1,12 +1,12 @@
 package com.mkchtv.cleantemplate.domain.element.usecase
 
 import com.mkchtv.cleantemplate.domain.element.extension.toEditedData
-import com.mkchtv.cleantemplate.domain.element.repository.ElementsRepository
+import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import javax.inject.Inject
 
 class PullElement @Inject constructor(
     private val getRandomImageUrl: GetRandomImageUrl,
-    private val repository: ElementsRepository,
+    private val repository: ElementRepository,
 ) {
 
     suspend operator fun invoke() = runCatching {

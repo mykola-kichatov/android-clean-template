@@ -7,7 +7,7 @@ import com.mkchtv.cleantemplate.common.extensions.getIntOrDefault
 import com.mkchtv.cleantemplate.domain.common.di.AppIoScope
 import com.mkchtv.cleantemplate.domain.element.usecase.CreateElement
 import com.mkchtv.cleantemplate.domain.element.usecase.DeleteElement
-import com.mkchtv.cleantemplate.domain.element.usecase.GetElement
+import com.mkchtv.cleantemplate.domain.element.usecase.ElementFlow
 import com.mkchtv.cleantemplate.domain.element.usecase.UpdateElement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,7 @@ import javax.inject.Inject
 internal class ElementDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     @AppIoScope private val appIoScope: CoroutineScope,
-    getElement: GetElement,
+    elementFlow: ElementFlow,
     private val createElement: CreateElement,
     private val updateElement: UpdateElement,
     private val deleteElement: DeleteElement,
@@ -30,7 +30,7 @@ internal class ElementDetailsViewModel @Inject constructor(
 
     private val elementId = savedStateHandle.getIntOrDefault(ARG_KEY_ELEMENT_ID, NEW_ELEMENT_ID)
 
-    val screenState: StateFlow<ElementDetailsScreenState> = getElement(elementId)
+    val screenState: StateFlow<ElementDetailsScreenState> = elementFlow(elementId)
         .map { element ->
             element?.let {
                 ElementDetailsScreenState.UpdateExistedElement(it)

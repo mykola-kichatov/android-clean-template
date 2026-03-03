@@ -1,11 +1,11 @@
 package com.mkchtv.cleantemplate.domain.element.usecase
 
 import com.mkchtv.cleantemplate.domain.element.entity.EditedElementData
-import com.mkchtv.cleantemplate.domain.element.repository.ElementsRepository
+import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import javax.inject.Inject
 
 class UpdateElement @Inject constructor(
-    private val repository: ElementsRepository,
+    private val repository: ElementRepository,
 ) {
 
     suspend operator fun invoke(

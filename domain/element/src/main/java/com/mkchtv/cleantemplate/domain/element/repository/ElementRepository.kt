@@ -5,7 +5,7 @@ import com.mkchtv.cleantemplate.domain.element.entity.Element
 import com.mkchtv.cleantemplate.domain.element.entity.PullElementData
 import kotlinx.coroutines.flow.Flow
 
-interface ElementsRepository {
+interface ElementRepository {
 
     fun elementsFlow(): Flow<List<Element>>
 

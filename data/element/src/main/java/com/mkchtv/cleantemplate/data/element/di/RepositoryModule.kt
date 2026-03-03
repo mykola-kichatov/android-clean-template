@@ -1,7 +1,7 @@
 package com.mkchtv.cleantemplate.data.element.di
 
-import com.mkchtv.cleantemplate.data.element.repository.DefaultElementsRepository
-import com.mkchtv.cleantemplate.domain.element.repository.ElementsRepository
+import com.mkchtv.cleantemplate.data.element.repository.DefaultElementRepository
+import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,5 +15,5 @@ internal abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindElementsRepository(repo: DefaultElementsRepository): ElementsRepository
+    abstract fun bindElementsRepository(repo: DefaultElementRepository): ElementRepository
 }

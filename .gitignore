@@ -26,3 +26,4 @@ local.properties
 /build-logic/convention/build/
 /.idea/AndroidProjectSystem.xml
 /.idea/androidTestResultsUserPreferences.xml
+/.idea/markdown.xml

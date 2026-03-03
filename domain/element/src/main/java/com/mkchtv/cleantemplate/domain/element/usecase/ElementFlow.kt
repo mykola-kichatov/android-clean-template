@@ -1,10 +1,10 @@
 package com.mkchtv.cleantemplate.domain.element.usecase
 
-import com.mkchtv.cleantemplate.domain.element.repository.ElementsRepository
+import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import javax.inject.Inject
 
-class GetElement @Inject constructor(
-    private val repository: ElementsRepository,
+class ElementFlow @Inject constructor(
+    private val repository: ElementRepository,
 ) {
 
     operator fun invoke(elementId: Int) = repository.elementFlow(elementId)

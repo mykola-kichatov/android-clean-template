@@ -1,8 +1,9 @@
-package com.mkchtv.cleantemplate.element.list
+package com.mkchtv.cleantemplate.element.list.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
@@ -25,8 +26,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -35,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
@@ -166,5 +170,48 @@ private fun AddNewElementButton(
             imageVector = Icons.Filled.Add,
             contentDescription = stringResource(id = R.string.cd_add_new_element),
         )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationApi::class)
+@Preview
+@Composable
+private fun ElementListEmptyPreview() {
+    Surface {
+        SharedTransitionLayout {
+            AnimatedVisibility(visible = true) {
+                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                    ElementList(
+                        elements = emptyList(),
+                        onElementClick = {},
+                        onAddNewElementClick = {},
+                    )
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationApi::class)
+@Preview
+@Composable
+private fun ElementListWithItemsPreview() {
+    val items = listOf(
+        ElementItem(id = 1, name = "Element One", description = "Desc 1", imageUrl = ""),
+        ElementItem(id = 2, name = "Element Two", description = "Desc 2", imageUrl = ""),
+        ElementItem(id = 3, name = "Element Three", description = "Desc 3", imageUrl = ""),
+    )
+    Surface {
+        SharedTransitionLayout {
+            AnimatedVisibility(visible = true) {
+                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                    ElementList(
+                        elements = items,
+                        onElementClick = {},
+                        onAddNewElementClick = {},
+                    )
+                }
+            }
+        }
     }
 }

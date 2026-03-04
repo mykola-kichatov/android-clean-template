@@ -32,13 +32,13 @@
             <option value="$PROJECT_DIR$/domain/auth" />
             <option value="$PROJECT_DIR$/domain/common" />
             <option value="$PROJECT_DIR$/domain/element" />
-            <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/auth" />
-            <option value="$PROJECT_DIR$/feature/common" />
-            <option value="$PROJECT_DIR$/feature/element-details" />
-            <option value="$PROJECT_DIR$/feature/element-list" />
-            <option value="$PROJECT_DIR$/feature/home" />
-            <option value="$PROJECT_DIR$/feature/settings" />
+            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui/auth" />
+            <option value="$PROJECT_DIR$/ui/common" />
+            <option value="$PROJECT_DIR$/ui/element-details" />
+            <option value="$PROJECT_DIR$/ui/element-list" />
+            <option value="$PROJECT_DIR$/ui/home" />
+            <option value="$PROJECT_DIR$/ui/settings" />
           </set>
         </option>
       </GradleProjectSettings>

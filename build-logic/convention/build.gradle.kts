@@ -27,9 +27,9 @@ gradlePlugin {
             id = "com.mkchtv.convention.data"
             implementationClass = "plugin.DataPlugin"
         }
-        create("feature") {
-            id = "com.mkchtv.convention.feature"
-            implementationClass = "plugin.FeaturePlugin"
+        create("ui") {
+            id = "com.mkchtv.convention.ui"
+            implementationClass = "plugin.UiPlugin"
         }
     }
 }

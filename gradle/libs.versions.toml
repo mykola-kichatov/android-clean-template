@@ -79,7 +79,7 @@ ktlint-gradle-plugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", versio
 app = { id = "com.mkchtv.convention.app" }
 domain = { id = "com.mkchtv.convention.domain" }
 data = { id = "com.mkchtv.convention.data" }
-feature = { id = "com.mkchtv.convention.feature" }
+ui = { id = "com.mkchtv.convention.ui" }
 
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

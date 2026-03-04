@@ -6,7 +6,7 @@ This project incorporates the best practices and features I've gained from my ex
 The project is modularized into the following components:
 - [domain](domain) modules are written in pure Kotlin, with no external dependencies. These modules contain use-cases and repository interfaces
 - [data](data) modules include all repositories implementations, database, and network layers
-- [feature](feature) modules are responsible for presentation. Built using MVVM and Jetpack Compose
+- [ui](ui) modules are responsible for presentation. Built using MVVM/MVI and Jetpack Compose
 - [app](app) is the Android application module that integrates all other modules into a complete app
 
 # Features and technologies

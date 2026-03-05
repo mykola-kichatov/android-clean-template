@@ -1,4 +1,5 @@
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 internal object Constants {
 
@@ -18,6 +19,6 @@ internal object Constants {
     }
 
     val javaVersion = JavaVersion.VERSION_17
-    const val kotlinJvmTarget = "17"
+    val kotlinVersion = KotlinVersion.KOTLIN_2_0
     const val TESTS_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }

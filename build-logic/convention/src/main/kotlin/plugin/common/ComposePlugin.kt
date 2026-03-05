@@ -53,14 +53,11 @@ private fun Project.applyPlugins() {
     }
 }
 
-private fun Project.configure(commonExtension: CommonExtension<*, *, *, *, *, *>) {
+private fun Project.configure(commonExtension: CommonExtension) {
 
-    commonExtension.run {
-        this.buildFeatures {
-            compose = true
-        }
+    commonExtension.buildFeatures.compose = true
 
-        dependencies {
+    dependencies {
             implementation(libs.androidxLifecycleRuntimeCompose())
             implementation(libs.androidxNavigationCompose())
             implementation(libs.composeActivity())
@@ -78,5 +75,4 @@ private fun Project.configure(commonExtension: CommonExtension<*, *, *, *, *, *>
             androidTestImplementation(platform(libs.composeBom()))
             implementation(libs.hiltNavigationCompose())
         }
-    }
 }

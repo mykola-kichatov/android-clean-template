@@ -2,7 +2,6 @@ package plugin.common
 
 import Constants
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import implementation
 import kotlinStdlib
@@ -12,8 +11,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal enum class AndroidCommonPluginType {
@@ -47,49 +44,58 @@ private fun Project.applyPlugins(type: AndroidCommonPluginType) {
             AndroidCommonPluginType.APPLICATION -> apply("com.android.application")
             AndroidCommonPluginType.LIBRARY -> apply("com.android.library")
         }
-        apply("org.jetbrains.kotlin.android")
         apply("org.jlleitschuh.gradle.ktlint")
     }
 }
 
-private fun Project.configure(commonExtension: CommonExtension<*, *, *, *, *, *>) {
-
-    commonExtension.run {
+private fun Project.configure(ext: ApplicationExtension) {
+    ext.apply {
         compileSdk = Constants.Main.COMPILE_SDK
-
         defaultConfig {
             minSdk = Constants.Main.MIN_SDK
             testInstrumentationRunner = Constants.TESTS_RUNNER
         }
-
-        if (this is LibraryExtension) {
-            buildFeatures {
-                buildConfig = false
-            }
-        }
-
         lint {
             checkReleaseBuilds = true
             abortOnError = true
         }
-
         compileOptions {
             sourceCompatibility = Constants.javaVersion
             targetCompatibility = Constants.javaVersion
         }
+    }
+    configureKotlin()
+}
 
-        this@configure.extensions.getByType<KotlinAndroidProjectExtension>().apply {
-            jvmToolchain(Constants.javaVersion.majorVersion.toInt())
+private fun Project.configure(ext: LibraryExtension) {
+    ext.apply {
+        compileSdk = Constants.Main.COMPILE_SDK
+        defaultConfig {
+            minSdk = Constants.Main.MIN_SDK
+            testInstrumentationRunner = Constants.TESTS_RUNNER
         }
+        buildFeatures {
+            buildConfig = false
+        }
+        lint {
+            checkReleaseBuilds = true
+            abortOnError = true
+        }
+        compileOptions {
+            sourceCompatibility = Constants.javaVersion
+            targetCompatibility = Constants.javaVersion
+        }
+    }
+    configureKotlin()
+}
 
-        this@configure.tasks.withType<KotlinCompile>().configureEach {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.fromTarget(Constants.kotlinJvmTarget))
-            }
+private fun Project.configureKotlin() {
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            languageVersion.set(Constants.kotlinVersion)
         }
-
-        dependencies {
-            implementation(libs.kotlinStdlib())
-        }
+    }
+    dependencies {
+        implementation(libs.kotlinStdlib())
     }
 }

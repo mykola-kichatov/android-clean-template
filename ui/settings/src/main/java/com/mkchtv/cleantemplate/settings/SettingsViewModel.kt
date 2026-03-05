@@ -12,7 +12,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
-    @AppIoScope private val appIoScope: CoroutineScope,
+    @param:AppIoScope private val appIoScope: CoroutineScope,
     private val logout: Logout,
 ) : ViewModel() {
 

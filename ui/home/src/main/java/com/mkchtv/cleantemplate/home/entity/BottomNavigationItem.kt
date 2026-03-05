@@ -11,7 +11,7 @@ import com.mkchtv.cleantemplate.settings.NAV_DESTINATION_SETTINGS
 
 internal enum class BottomNavigationItem(
     val imageVector: ImageVector,
-    @StringRes val contentDescriptionResId: Int,
+    @param:StringRes val contentDescriptionResId: Int,
 ) {
     ELEMENT_LIST(
         imageVector = Icons.AutoMirrored.Filled.List,

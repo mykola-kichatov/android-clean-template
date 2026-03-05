@@ -3,7 +3,7 @@ package com.mkchtv.cleantemplate.auth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.mkchtv.cleantemplate.common.component.LoadingScreen
 import com.mkchtv.cleantemplate.domain.auth.entity.AuthState
 

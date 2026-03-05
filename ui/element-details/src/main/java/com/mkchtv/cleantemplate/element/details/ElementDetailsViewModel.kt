@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class ElementDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    @AppIoScope private val appIoScope: CoroutineScope,
+    @param:AppIoScope private val appIoScope: CoroutineScope,
     elementFlow: ElementFlow,
     private val createElement: CreateElement,
     private val updateElement: UpdateElement,

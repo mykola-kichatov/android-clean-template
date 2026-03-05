@@ -2,10 +2,8 @@ package plugin
 
 import androidTestImplementation
 import androidxCore
-import androidxLifecycleRuntime
 import asNamespace
 import bundleAndroidTesting
-import coil
 import com.android.build.api.dsl.LibraryExtension
 import implementation
 import libs
@@ -35,8 +33,6 @@ internal class UiPlugin : Plugin<Project> {
 
             dependencies {
                 implementation(libs.androidxCore())
-                implementation(libs.androidxLifecycleRuntime())
-                implementation(libs.coil())
                 androidTestImplementation(libs.bundleAndroidTesting())
             }
         }

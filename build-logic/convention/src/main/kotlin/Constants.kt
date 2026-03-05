@@ -14,11 +14,10 @@ internal object Constants {
 
     object Proguard {
         const val RULES_FILE = "proguard-rules.pro"
-        const val CONSUMER_RULES_FILE = "consumer-rules.pro"
         const val ANDROID_OPTIMIZE_FILE = "proguard-android-optimize.txt"
     }
 
     val javaVersion = JavaVersion.VERSION_17
-    val kotlinVersion = KotlinVersion.KOTLIN_2_0
+    val kotlinLanguageVersion = KotlinVersion.KOTLIN_2_0
     const val TESTS_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }

@@ -33,7 +33,6 @@ internal class AppPlugin : Plugin<Project> {
                     targetSdk = Constants.Main.TARGET_SDK
                     versionCode = Constants.Main.VERSION_CODE
                     versionName = Constants.Main.VERSION_NAME
-                    multiDexEnabled = true
                 }
 
                 buildTypes {

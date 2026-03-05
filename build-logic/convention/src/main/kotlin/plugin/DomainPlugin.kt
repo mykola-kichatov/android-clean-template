@@ -3,7 +3,6 @@ package plugin
 import Constants
 import implementation
 import javaxInject
-import kotlinStdlib
 import kotlinxCoroutinesCore
 import libs
 import org.gradle.api.Plugin
@@ -30,13 +29,12 @@ internal class DomainPlugin : Plugin<Project> {
 
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
-                    languageVersion.set(Constants.kotlinVersion)
+                    languageVersion.set(Constants.kotlinLanguageVersion)
                 }
             }
 
             dependencies {
                 implementation(libs.javaxInject())
-                implementation(libs.kotlinStdlib())
                 implementation(libs.kotlinxCoroutinesCore())
             }
         }

@@ -19,7 +19,6 @@ internal val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 internal fun VersionCatalog.androidxCore() = getLibrary("androidx-core")
-internal fun VersionCatalog.androidxLifecycleRuntime() = getLibrary("androidx-lifecycle-runtime")
 internal fun VersionCatalog.androidxLifecycleRuntimeCompose() =
     getLibrary("androidx-lifecycle-runtime-compose")
 
@@ -46,7 +45,6 @@ internal fun VersionCatalog.javaxInject() = getLibrary("javax-inject")
 internal fun VersionCatalog.jUnit5Bom() = getLibrary("junit5-bom")
 internal fun VersionCatalog.jUnit5Engine() = getLibrary("junit5-engine")
 internal fun VersionCatalog.jUnit5Launcher() = getLibrary("junit5-launcher")
-internal fun VersionCatalog.kotlinStdlib() = getLibrary("kotlin-stdlib")
 internal fun VersionCatalog.kotlinxCoroutinesAndroid() = getLibrary("kotlinx-coroutines-android")
 internal fun VersionCatalog.kotlinxCoroutinesCore() = getLibrary("kotlinx-coroutines-core")
 internal fun VersionCatalog.moshi() = getLibrary("moshi")

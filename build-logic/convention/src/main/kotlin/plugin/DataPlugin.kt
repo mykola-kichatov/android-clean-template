@@ -7,7 +7,6 @@ import asNamespace
 import com.android.build.api.dsl.LibraryExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import implementation
-import javaxInject
 import kotlinxCoroutinesAndroid
 import ksp
 import libs
@@ -43,7 +42,6 @@ internal class DataPlugin : Plugin<Project> {
             dependencies {
                 implementation(libs.androidxCore())
                 implementation(libs.androidxRoom())
-                implementation(libs.javaxInject())
                 implementation(libs.kotlinxCoroutinesAndroid())
                 implementation(libs.retrofit())
                 implementation(libs.retrofitMoshi())

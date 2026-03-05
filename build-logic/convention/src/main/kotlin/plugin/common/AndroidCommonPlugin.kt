@@ -3,26 +3,20 @@ package plugin.common
 import Constants
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
-import implementation
-import kotlinStdlib
-import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-internal enum class AndroidCommonPluginType {
-    APPLICATION,
-    LIBRARY
-}
 
 internal class AppAndroidCommonPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            applyPlugins(AndroidCommonPluginType.APPLICATION)
+            with(pluginManager) {
+                apply("com.android.application")
+                apply("org.jlleitschuh.gradle.ktlint")
+            }
             configure(extensions.getByType<ApplicationExtension>())
         }
     }
@@ -32,19 +26,12 @@ internal class LibAndroidCommonPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            applyPlugins(AndroidCommonPluginType.LIBRARY)
+            with(pluginManager) {
+                apply("com.android.library")
+                apply("org.jlleitschuh.gradle.ktlint")
+            }
             configure(extensions.getByType<LibraryExtension>())
         }
-    }
-}
-
-private fun Project.applyPlugins(type: AndroidCommonPluginType) {
-    with(pluginManager) {
-        when (type) {
-            AndroidCommonPluginType.APPLICATION -> apply("com.android.application")
-            AndroidCommonPluginType.LIBRARY -> apply("com.android.library")
-        }
-        apply("org.jlleitschuh.gradle.ktlint")
     }
 }
 
@@ -72,7 +59,6 @@ private fun Project.configure(ext: LibraryExtension) {
         compileSdk = Constants.Main.COMPILE_SDK
         defaultConfig {
             minSdk = Constants.Main.MIN_SDK
-            testInstrumentationRunner = Constants.TESTS_RUNNER
         }
         buildFeatures {
             buildConfig = false
@@ -92,10 +78,7 @@ private fun Project.configure(ext: LibraryExtension) {
 private fun Project.configureKotlin() {
     tasks.withType<KotlinCompile>().configureEach {
         compilerOptions {
-            languageVersion.set(Constants.kotlinVersion)
+            languageVersion.set(Constants.kotlinLanguageVersion)
         }
-    }
-    dependencies {
-        implementation(libs.kotlinStdlib())
     }
 }

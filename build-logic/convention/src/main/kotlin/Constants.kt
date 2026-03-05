@@ -18,6 +18,6 @@ internal object Constants {
     }
 
     val javaVersion = JavaVersion.VERSION_17
-    val kotlinLanguageVersion = KotlinVersion.KOTLIN_2_0
+    val kotlinLanguageVersion = KotlinVersion.KOTLIN_2_3
     const val TESTS_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }

@@ -29,11 +29,10 @@ internal fun ElementListScreen(
     modifier = Modifier.fillMaxSize(),
     topBar = { TopBar(onPullNewElementRequested = { onIntent(PullNewElement) }) },
 ) { scaffoldPadding ->
-    val sharedTransitionScope =
-        checkNotNull(LocalSharedTransitionScope.current) { "No shared element scope" }
+    val sharedElementScope = checkNotNull(LocalSharedTransitionScope.current) { "No shared element scope" }
     when {
         uiState.isLoading && uiState.elements.isEmpty() -> LoadingScreen(Modifier.fillMaxSize())
-        else -> with(sharedTransitionScope) {
+        else -> with(sharedElementScope) {
             ElementList(
                 modifier = Modifier
                     .fillMaxSize()

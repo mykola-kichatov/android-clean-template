@@ -11,9 +11,11 @@ import com.mkchtv.cleantemplate.domain.element.usecase.ElementFlow
 import com.mkchtv.cleantemplate.domain.element.usecase.UpdateElement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,39 +32,30 @@ internal class ElementDetailsViewModel @Inject constructor(
 
     private val elementId = savedStateHandle.getIntOrDefault(ARG_KEY_ELEMENT_ID, NEW_ELEMENT_ID)
 
-    val screenState: StateFlow<ElementDetailsScreenState> = elementFlow(elementId)
-        .map { element ->
-            element?.let {
-                ElementDetailsScreenState.UpdateExistedElement(it)
-            } ?: ElementDetailsScreenState.CreateNewElement
-        }
+    val uiState: StateFlow<UiState> = elementFlow(elementId)
+        .map { element -> UiState(isLoading = false, element = element) }
         .stateIn(
-            initialValue = ElementDetailsScreenState.Loading,
+            initialValue = UiState(),
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.Lazily,
         )
 
-    fun onCreateConfirmed(
-        name: String,
-        description: String,
-    ) = appIoScope.launch {
-        createElement(name = name, description = description)
-    }
+    private val _effects = Channel<Effect>()
+    val effects = _effects.receiveAsFlow()
 
-    fun onUpdateConfirmed(
-        name: String,
-        description: String,
-        imageUrl: String,
-    ) = appIoScope.launch {
-        updateElement(
-            elementId = elementId,
-            name = name,
-            description = description,
-            imageUrl = imageUrl,
-        )
-    }
-
-    fun onDeleteConfirmed() = appIoScope.launch {
-        deleteElement(elementId)
+    fun onIntent(intent: Intent) = when (intent) {
+        is Intent.CreateElement -> {
+            appIoScope.launch { createElement(name = intent.name, description = intent.description) }
+            viewModelScope.launch { _effects.send(Effect.NavigateBack) }
+        }
+        is Intent.UpdateElement -> {
+            appIoScope.launch { updateElement(elementId, intent.name, intent.description, intent.imageUrl) }
+            viewModelScope.launch { _effects.send(Effect.NavigateBack) }
+        }
+        Intent.DeleteElement -> {
+            appIoScope.launch { deleteElement(elementId) }
+            viewModelScope.launch { _effects.send(Effect.NavigateBack) }
+        }
+        Intent.BackClick -> viewModelScope.launch { _effects.send(Effect.NavigateBack) }
     }
 }

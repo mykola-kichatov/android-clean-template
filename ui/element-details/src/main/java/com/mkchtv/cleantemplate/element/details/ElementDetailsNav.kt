@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -14,6 +15,7 @@ import androidx.navigation.navArgument
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 
 @ExperimentalSharedTransitionApi
 @ExperimentalMaterial3Api
@@ -31,22 +33,19 @@ fun NavGraphBuilder.elementDetailsScreen(
         ) {
             AuthProtectedScreen {
                 val viewModel = hiltViewModel<ElementDetailsViewModel>()
-                val screenState = viewModel.screenState.collectAsStateWithLifecycle()
+                val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+
+                LaunchedEffect(viewModel) {
+                    viewModel.effects.collectLatest { effect ->
+                        when (effect) {
+                            Effect.NavigateBack -> onBackClick()
+                        }
+                    }
+                }
+
                 ElementDetailsScreen(
-                    screenState = screenState.value,
-                    onBackClick = onBackClick,
-                    onCreateConfirmed = { name, desc ->
-                        onBackClick()
-                        viewModel.onCreateConfirmed(name, desc)
-                    },
-                    onUpdateConfirmed = { name, desc, imageUrl ->
-                        onBackClick()
-                        viewModel.onUpdateConfirmed(name, desc, imageUrl)
-                    },
-                    onDeleteConfirmed = {
-                        onBackClick()
-                        viewModel.onDeleteConfirmed()
-                    },
+                    uiState = uiState.value,
+                    onIntent = viewModel::onIntent,
                 )
             }
         }

@@ -9,6 +9,11 @@ import com.mkchtv.cleantemplate.domain.auth.entity.AuthState
 
 @Composable
 fun AuthProtectedScreen(
+    content: @Composable () -> Unit,
+) = Screen(content = content)
+
+@Composable
+private fun Screen(
     viewModel: AuthProtectedViewModel = hiltViewModel(),
     content: @Composable () -> Unit,
 ) {

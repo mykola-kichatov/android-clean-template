@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.rememberInputState
-import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import com.mkchtv.cleantemplate.ui.common.R as commonRes
 
 @Composable
@@ -34,11 +34,11 @@ internal fun CreateNewElement(
     onCreateRequested: (name: String, desc: String) -> Unit,
 ) {
     val nameInputState = rememberInputState(
-        hint = stringResource(id = commonRes.string.name),
+        label = stringResource(id = commonRes.string.name),
         initialValue = "",
     )
     val descInputState = rememberInputState(
-        hint = stringResource(id = commonRes.string.description),
+        label = stringResource(id = commonRes.string.description),
         initialValue = "",
     )
 
@@ -87,7 +87,7 @@ private fun ElementListEmptyPreview() {
     Surface {
         SharedTransitionLayout {
             AnimatedVisibility(visible = true) {
-                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
                     CreateNewElement(
                         onCreateRequested = { _, _ -> },
                     )

@@ -2,7 +2,7 @@ package com.mkchtv.cleantemplate.element.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkchtv.cleantemplate.domain.element.usecase.AllElementsFlow
+import com.mkchtv.cleantemplate.domain.element.usecase.ElementsFlow
 import com.mkchtv.cleantemplate.domain.element.usecase.PullElement
 import com.mkchtv.cleantemplate.element.list.Effect.NavigateToAddElement
 import com.mkchtv.cleantemplate.element.list.Effect.NavigateToElement
@@ -22,11 +22,11 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 internal class ElementListViewModel @Inject constructor(
-    allElementsFlow: AllElementsFlow,
+    elementsFlow: ElementsFlow,
     private val pullElement: PullElement,
 ) : ViewModel() {
 
-    val uiState: StateFlow<UiState> = allElementsFlow()
+    val uiState: StateFlow<UiState> = elementsFlow()
         .map { elements ->
             UiState(isLoading = false, elements = elements.toUiItems())
         }

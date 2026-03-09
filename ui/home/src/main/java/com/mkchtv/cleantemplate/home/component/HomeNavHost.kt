@@ -1,4 +1,4 @@
-package com.mkchtv.cleantemplate.home
+package com.mkchtv.cleantemplate.home.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi

@@ -8,7 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
-import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalSharedTransitionApi
@@ -20,7 +20,7 @@ fun NavGraphBuilder.homeScreen(
 ) {
     composable(route = NAV_DESTINATION_HOME) {
         CompositionLocalProvider(
-            LocalNavAnimatedVisibilityScope provides this@composable
+            LocalAnimatedVisibilityScope provides this@composable
         ) {
             AuthProtectedScreen {
                 HomeScreen(

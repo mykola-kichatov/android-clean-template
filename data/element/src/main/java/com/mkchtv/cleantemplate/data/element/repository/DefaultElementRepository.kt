@@ -31,7 +31,7 @@ internal class DefaultElementRepository @Inject constructor(
     override suspend fun update(elementId: Int, data: EditedElementData) =
         dao.update(data.toDbEntity(elementId))
 
-    override suspend fun pullElement(): PullElementData = service.getRandomElement().toPullData()
+    override suspend fun pull(): PullElementData = service.getRandomElement().toPullData()
 
     override suspend fun delete(vararg ids: Int) = dao.delete(ids = ids)
 }

@@ -22,7 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 @Composable
 fun Input(
     modifier: Modifier = Modifier,
-    state: InputState = rememberInputState(hint = "", initialValue = ""),
+    state: InputState = rememberInputState(label = "", initialValue = ""),
     imeAction: ImeAction = ImeAction.Unspecified,
     onImeAction: () -> Unit = {},
 ) = OutlinedTextField(
@@ -70,7 +70,7 @@ class InputState(
 }
 
 @Composable
-fun rememberInputState(hint: String, initialValue: String): InputState =
-    rememberSaveable(hint, initialValue, saver = InputState.Saver) {
-        InputState(label = hint, initialValue = initialValue)
+fun rememberInputState(label: String, initialValue: String): InputState =
+    rememberSaveable(label, initialValue, saver = InputState.Saver) {
+        InputState(label = label, initialValue = initialValue)
     }

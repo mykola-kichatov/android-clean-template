@@ -19,9 +19,11 @@ internal fun AuthScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Button(onClick = {
-            viewModel.onAuthClick()
-        }) {
+        Button(
+            onClick = {
+                viewModel.onAuthClick()
+            },
+        ) {
             Text(text = stringResource(id = R.string.authenticate))
         }
     }

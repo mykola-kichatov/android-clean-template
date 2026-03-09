@@ -157,7 +157,7 @@ class DefaultElementsRepositoryTest {
         coEvery { mockService.getRandomElement() } returns response
 
         // [WHEN]
-        val actual = repository.pullElement()
+        val actual = repository.pull()
 
         // [THEN]
         Assertions.assertEquals(expected, actual)

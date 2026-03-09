@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.rememberInputState
-import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import com.mkchtv.cleantemplate.domain.element.entity.Element
 import com.mkchtv.cleantemplate.ui.common.R as commonRes
 
@@ -40,11 +40,11 @@ internal fun SharedTransitionScope.UpdateExistedElement(
     onUpdateRequested: (name: String, desc: String, imageUrl: String) -> Unit,
 ) {
     val nameInputState = rememberInputState(
-        hint = stringResource(id = commonRes.string.name),
+        label = stringResource(id = commonRes.string.name),
         initialValue = element.name,
     )
     val descInputState = rememberInputState(
-        hint = stringResource(id = commonRes.string.description),
+        label = stringResource(id = commonRes.string.description),
         initialValue = element.description,
     )
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -53,7 +53,7 @@ internal fun SharedTransitionScope.UpdateExistedElement(
         keyboardController?.hide()
         onUpdateRequested(nameInputState.value, descInputState.value, element.imageUrl)
     }
-    val visibilityScope = checkNotNull(LocalNavAnimatedVisibilityScope.current) { "No shared element scope" }
+    val visibilityScope = checkNotNull(LocalAnimatedVisibilityScope.current) { "No shared element scope" }
 
     Column(
         modifier = Modifier
@@ -110,7 +110,7 @@ private fun ElementListEmptyPreview() {
         SharedTransitionLayout {
             val sharedTransitionScope = this
             AnimatedVisibility(visible = true) {
-                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
                     sharedTransitionScope.UpdateExistedElement(
                         element = Element(0, "Element 1", "Desc 1", ""),
                         onUpdateRequested = { _, _, _ -> },

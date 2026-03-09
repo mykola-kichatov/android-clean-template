@@ -1,6 +1,6 @@
 package com.mkchtv.cleantemplate.domain.element.usecase
 
-import com.mkchtv.cleantemplate.domain.element.extension.toEditedData
+import com.mkchtv.cleantemplate.domain.element.entity.toEditedData
 import com.mkchtv.cleantemplate.domain.element.repository.ElementRepository
 import javax.inject.Inject
 
@@ -10,7 +10,7 @@ class PullElement @Inject constructor(
 ) {
 
     suspend operator fun invoke() = runCatching {
-        val data = repository.pullElement()
+        val data = repository.pull()
         repository.create(data.toEditedData(imageUrl = getRandomImageUrl()))
     }
 }

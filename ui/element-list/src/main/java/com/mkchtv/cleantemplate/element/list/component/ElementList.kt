@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import com.mkchtv.cleantemplate.ui.element.list.R
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
@@ -111,7 +111,7 @@ private fun SharedTransitionScope.ElementColumnItem(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ),
 ) {
-    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+    val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
         ?: throw IllegalStateException("No shared element scope")
     ListItem(
         modifier = Modifier.clickable { onItemClick(item) },
@@ -180,7 +180,7 @@ private fun ElementListEmptyPreview() {
     Surface {
         SharedTransitionLayout {
             AnimatedVisibility(visible = true) {
-                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
                     ElementList(
                         elements = emptyList(),
                         onElementClick = {},
@@ -204,7 +204,7 @@ private fun ElementListWithItemsPreview() {
     Surface {
         SharedTransitionLayout {
             AnimatedVisibility(visible = true) {
-                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
+                CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
                     ElementList(
                         elements = items,
                         onElementClick = {},

@@ -15,7 +15,7 @@ interface ElementRepository {
 
     suspend fun update(elementId: Int, data: EditedElementData)
 
-    suspend fun pullElement(): PullElementData
+    suspend fun pull(): PullElementData
 
     suspend fun delete(vararg ids: Int)
 }

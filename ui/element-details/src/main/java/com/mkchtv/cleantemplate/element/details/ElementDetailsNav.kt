@@ -13,7 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
-import com.mkchtv.cleantemplate.common.compositionlocal.LocalNavAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 
@@ -29,7 +29,7 @@ fun NavGraphBuilder.elementDetailsScreen(
         arguments = listOf(navArgument(ARG_KEY_ELEMENT_ID) { type = NavType.IntType }),
     ) {
         CompositionLocalProvider(
-            LocalNavAnimatedVisibilityScope provides this@composable
+            LocalAnimatedVisibilityScope provides this@composable
         ) {
             AuthProtectedScreen {
                 val viewModel = hiltViewModel<ElementDetailsViewModel>()

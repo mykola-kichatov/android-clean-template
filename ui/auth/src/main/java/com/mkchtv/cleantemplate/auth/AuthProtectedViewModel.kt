@@ -1,13 +1,13 @@
 package com.mkchtv.cleantemplate.auth
 
 import androidx.lifecycle.ViewModel
-import com.mkchtv.cleantemplate.domain.auth.usecase.GetAuthStateFlow
+import com.mkchtv.cleantemplate.domain.auth.usecase.AuthStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthProtectedViewModel @Inject constructor(
-    getAuthStateFlow: GetAuthStateFlow,
+internal class AuthProtectedViewModel @Inject constructor(
+    authStateFlow: AuthStateFlow,
 ) : ViewModel() {
-    val authStateFlow = getAuthStateFlow()
+    val authStateFlow = authStateFlow()
 }

@@ -5,3 +5,9 @@ data class EditedElementData(
     val description: String,
     val imageUrl: String,
 )
+
+fun PullElementData.toEditedData(imageUrl: String) = EditedElementData(
+    name = name,
+    description = description,
+    imageUrl = imageUrl,
+)

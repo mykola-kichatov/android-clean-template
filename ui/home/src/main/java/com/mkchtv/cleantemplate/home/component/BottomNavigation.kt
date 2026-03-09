@@ -1,4 +1,4 @@
-package com.mkchtv.cleantemplate.home
+package com.mkchtv.cleantemplate.home.component
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -12,7 +12,7 @@
 /.idea/jarRepositories.xml
 /.idea/kotlinc.xml
 /.idea/.name
-/.idea/deploymentTargetDropDown.xml
+/.idea/deploymentTargetSelector.xml
 /.idea/shelf/
 .DS_Store
 /build
@@ -27,3 +27,4 @@ local.properties
 /.idea/AndroidProjectSystem.xml
 /.idea/androidTestResultsUserPreferences.xml
 /.idea/markdown.xml
+/.idea/appInsightsSettings.xml

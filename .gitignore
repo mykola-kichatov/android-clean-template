@@ -28,3 +28,6 @@ local.properties
 /.idea/androidTestResultsUserPreferences.xml
 /.idea/markdown.xml
 /.idea/appInsightsSettings.xml
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json

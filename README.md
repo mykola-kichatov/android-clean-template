@@ -21,8 +21,10 @@ The project is modularized following the repository pattern with strict layer se
 6. Declarative conditional navigation with shared element transitions
 7. Unit tests with JUnit5 and [MockK](https://mockk.io/)
 8. Centralized [build configuration](build-logic) with Gradle Convention Plugins
+9. AI-agent ready — [AGENTS.md](AGENTS.md) architecture guide (Claude Code, Codex, Cursor, Gemini, Copilot) with an interactive `/rebrand` skill for Claude Code
 
 # Getting Started
 1. Click **Use this template** (or `git clone` this repo)
 2. Open in Android Studio
 3. Sync Gradle, then run on a device or emulator (min API 24)
+4. Rebrand it into your own app — run `/rebrand` in [Claude Code](https://claude.com/claude-code), ask any AI coding agent to run the [clone checklist](docs/CLONE_CHECKLIST.md), or follow it manually

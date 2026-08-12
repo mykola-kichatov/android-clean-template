@@ -5,6 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.SharedTransitionScope.ResizeMode
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -38,6 +40,7 @@ import com.mkchtv.cleantemplate.ui.common.R as commonRes
 internal fun SharedTransitionScope.UpdateExistedElement(
     element: Element,
     onUpdateRequested: (name: String, desc: String, imageUrl: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val nameInputState = rememberInputState(
         label = stringResource(id = commonRes.string.name),
@@ -56,7 +59,7 @@ internal fun SharedTransitionScope.UpdateExistedElement(
     val visibilityScope = checkNotNull(LocalAnimatedVisibilityScope.current) { "No shared element scope" }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .imePadding()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
@@ -71,6 +74,7 @@ internal fun SharedTransitionScope.UpdateExistedElement(
                 )
                 .fillMaxWidth()
                 .aspectRatio(4f / 3f),
+            contentScale = ContentScale.Crop,
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -78,6 +82,7 @@ internal fun SharedTransitionScope.UpdateExistedElement(
             modifier = Modifier.sharedBounds(
                 sharedContentState = rememberSharedContentState(key = "${element.id}_name"),
                 animatedVisibilityScope = visibilityScope,
+                resizeMode = ResizeMode.RemeasureToBounds,
             ),
             state = nameInputState,
             imeAction = ImeAction.Next,
@@ -90,6 +95,7 @@ internal fun SharedTransitionScope.UpdateExistedElement(
             modifier = Modifier.sharedBounds(
                 sharedContentState = rememberSharedContentState(key = "${element.id}_desc"),
                 animatedVisibilityScope = visibilityScope,
+                resizeMode = ResizeMode.RemeasureToBounds,
             ),
             state = descInputState,
             imeAction = ImeAction.Done,

@@ -1,7 +1,6 @@
 package com.mkchtv.cleantemplate.element.details
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,6 +33,7 @@ internal fun ElementDetailsScreen(
     val sharedElementScope = checkNotNull(LocalSharedTransitionScope.current) { "No shared element scope" }
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBar(
                 isScreenLoading = uiState.isLoading,
@@ -42,45 +42,42 @@ internal fun ElementDetailsScreen(
                 onDeleteRequested = { showConfirmDeletionDialog = true },
             )
         }
-    ) { paddingValues ->
-        Box {
-            val modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    top = paddingValues.calculateTopPadding(),
-                    bottom = paddingValues.calculateBottomPadding(),
-                )
+    ) { scaffoldPadding ->
+        val contentModifier = Modifier
+            .fillMaxSize()
+            .padding(scaffoldPadding)
 
-            when {
-                uiState.isLoading -> LoadingScreen(
-                    modifier = Modifier.fillMaxSize(),
-                )
+        when {
+            uiState.isLoading -> LoadingScreen(
+                modifier = contentModifier,
+            )
 
-                uiState.element == null -> CreateNewElement(
-                    onCreateRequested = { name, desc ->
-                        onIntent(Intent.CreateElement(name, desc))
-                    }
-                )
+            uiState.element == null -> CreateNewElement(
+                onCreateRequested = { name, desc ->
+                    onIntent(Intent.CreateElement(name, desc))
+                },
+                modifier = contentModifier,
+            )
 
-                else -> with(sharedElementScope) {
-                    UpdateExistedElement(
-                        element = uiState.element,
-                        onUpdateRequested = { name, desc, imageUrl ->
-                            onIntent(Intent.UpdateElement(name, desc, imageUrl))
-                        },
-                    )
-                }
+            else -> with(sharedElementScope) {
+                UpdateExistedElement(
+                    element = uiState.element,
+                    onUpdateRequested = { name, desc, imageUrl ->
+                        onIntent(Intent.UpdateElement(name, desc, imageUrl))
+                    },
+                    modifier = contentModifier,
+                )
             }
-
-            if (showConfirmDeletionDialog)
-                ConfirmDialog(
-                    title = stringResource(id = R.string.confirm_delete),
-                    onDismissRequest = { showConfirmDeletionDialog = false },
-                    onConfirm = {
-                        showConfirmDeletionDialog = false
-                        onIntent(Intent.DeleteElement)
-                    }
-                )
         }
+
+        if (showConfirmDeletionDialog)
+            ConfirmDialog(
+                title = stringResource(id = R.string.confirm_delete),
+                onDismissRequest = { showConfirmDeletionDialog = false },
+                onConfirm = {
+                    showConfirmDeletionDialog = false
+                    onIntent(Intent.DeleteElement)
+                }
+            )
     }
 }

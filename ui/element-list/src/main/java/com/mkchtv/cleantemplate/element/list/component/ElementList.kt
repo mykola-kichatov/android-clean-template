@@ -5,6 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.SharedTransitionScope.ResizeMode
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.clickable
@@ -133,6 +134,7 @@ private fun SharedTransitionScope.ElementColumnItem(
                 modifier = Modifier.sharedBounds(
                     sharedContentState = rememberSharedContentState(key = "${item.id}_name"),
                     animatedVisibilityScope = animatedVisibilityScope,
+                    resizeMode = ResizeMode.RemeasureToBounds,
                 ),
                 text = item.name,
             )
@@ -142,6 +144,7 @@ private fun SharedTransitionScope.ElementColumnItem(
                 modifier = Modifier.sharedBounds(
                     sharedContentState = rememberSharedContentState(key = "${item.id}_desc"),
                     animatedVisibilityScope = animatedVisibilityScope,
+                    resizeMode = ResizeMode.RemeasureToBounds,
                 ),
                 text = item.description,
             )

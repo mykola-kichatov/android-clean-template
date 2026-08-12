@@ -32,6 +32,7 @@ import com.mkchtv.cleantemplate.ui.common.R as commonRes
 @Composable
 internal fun CreateNewElement(
     onCreateRequested: (name: String, desc: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val nameInputState = rememberInputState(
         label = stringResource(id = commonRes.string.name),
@@ -54,7 +55,7 @@ internal fun CreateNewElement(
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .imePadding()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),

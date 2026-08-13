@@ -10,9 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.mkchtv.cleantemplate.element.list.navigateToElementList
 import com.mkchtv.cleantemplate.home.component.HomeBottomNavigation
 import com.mkchtv.cleantemplate.home.component.HomeNavHost
@@ -38,25 +40,34 @@ internal fun HomeScreen(
         bottomBar = {
             HomeBottomNavigation(
                 selectedItem = BottomNavigationItem.fromRoute(currentRoute),
-                onItemClick = { item ->
-                    when (item) {
-                        ELEMENT_LIST -> homeNavController.navigateToElementList()
-                        SETTINGS -> homeNavController.navigateToSettings()
-                    }
-                },
+                onItemClick = { item -> homeNavController.navigateToTab(item) },
             )
         },
     ) { innerPadding ->
         HomeNavHost(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    top = innerPadding.calculateTopPadding(),
-                    bottom = innerPadding.calculateBottomPadding(),
-                )
+                .padding(innerPadding)
                 .consumeWindowInsets(innerPadding),
             globalNavController = globalNavController,
             homeNavController = homeNavController,
         )
+    }
+}
+
+/**
+ * Switches bottom-navigation tabs: pops back to the start destination while saving the outgoing
+ * tab's state, then restores the incoming tab's state. Keeps the back stack at a single entry per
+ * tab, so system back exits from the start tab instead of walking through tab history.
+ */
+private fun NavHostController.navigateToTab(item: BottomNavigationItem) {
+    val tabNavOptions = navOptions {
+        popUpTo(graph.findStartDestination().id) { saveState = true }
+        launchSingleTop = true
+        restoreState = true
+    }
+    when (item) {
+        ELEMENT_LIST -> navigateToElementList(tabNavOptions)
+        SETTINGS -> navigateToSettings(tabNavOptions)
     }
 }

@@ -63,6 +63,8 @@ Two-level Jetpack Navigation Compose:
 - `AppNavHost` (app module) — top-level: `HOME` and `ElementDetails` destinations
 - `HomeNavHost` (ui/home) — nested bottom-nav tabs: `ElementList`, `Settings`
 
+The tab destinations' `navigateToXxx` extensions accept an optional `NavOptions`; tab switching passes the options built by the private `navigateToTab()` in `HomeScreen.kt` — `popUpTo(startDestination) { saveState = true }` + `launchSingleTop` + `restoreState` — so the back stack holds one entry per tab and tab state survives switching. A new tab follows the same pattern.
+
 Shared element transitions use `SharedTransitionLayout` exposed via `LocalSharedTransitionScope` composition local.
 
 ## Testing

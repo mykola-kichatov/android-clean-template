@@ -6,6 +6,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -24,4 +25,5 @@ fun NavGraphBuilder.settingsScreen() {
 
 const val NAV_DESTINATION_SETTINGS = "settings"
 
-fun NavController.navigateToSettings() = navigate(NAV_DESTINATION_SETTINGS)
+fun NavController.navigateToSettings(navOptions: NavOptions? = null) =
+    navigate(NAV_DESTINATION_SETTINGS, navOptions)

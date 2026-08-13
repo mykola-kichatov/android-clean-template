@@ -7,6 +7,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,6 +52,7 @@ fun NavGraphBuilder.elementListScreen(
     }
 }
 
-fun NavController.navigateToElementList() = navigate(NAV_DESTINATION_LIST)
+fun NavController.navigateToElementList(navOptions: NavOptions? = null) =
+    navigate(NAV_DESTINATION_LIST, navOptions)
 
 const val NAV_DESTINATION_LIST = "list"

@@ -45,11 +45,15 @@ internal class ElementDetailsViewModel @Inject constructor(
 
     fun onIntent(intent: Intent) = when (intent) {
         is Intent.CreateElement -> {
-            appIoScope.launch { createElement(name = intent.name, description = intent.description) }
+            appIoScope.launch {
+                createElement(name = intent.name, description = intent.description)
+            }
             viewModelScope.launch { _effects.send(Effect.NavigateBack) }
         }
         is Intent.UpdateElement -> {
-            appIoScope.launch { updateElement(elementId, intent.name, intent.description, intent.imageUrl) }
+            appIoScope.launch {
+                updateElement(elementId, intent.name, intent.description, intent.imageUrl)
+            }
             viewModelScope.launch { _effects.send(Effect.NavigateBack) }
         }
         Intent.DeleteElement -> {

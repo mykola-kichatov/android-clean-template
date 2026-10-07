@@ -30,7 +30,8 @@ internal fun ElementDetailsScreen(
     onIntent: (Intent) -> Unit,
 ) {
     var showConfirmDeletionDialog by remember { mutableStateOf(false) }
-    val sharedElementScope = checkNotNull(LocalSharedTransitionScope.current) { "No shared element scope" }
+    val sharedElementScope =
+        checkNotNull(LocalSharedTransitionScope.current) { "No shared element scope" }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

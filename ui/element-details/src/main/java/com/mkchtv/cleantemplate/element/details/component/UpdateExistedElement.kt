@@ -56,7 +56,8 @@ internal fun SharedTransitionScope.UpdateExistedElement(
         keyboardController?.hide()
         onUpdateRequested(nameInputState.value, descInputState.value, element.imageUrl)
     }
-    val visibilityScope = checkNotNull(LocalAnimatedVisibilityScope.current) { "No shared element scope" }
+    val visibilityScope =
+        checkNotNull(LocalAnimatedVisibilityScope.current) { "No shared element scope" }
 
     Column(
         modifier = modifier

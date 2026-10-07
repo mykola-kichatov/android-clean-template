@@ -32,7 +32,7 @@ Run checklist steps 1–6 in order with the collected answers. For step 2 use th
 
 ## Verify
 
-Checklist step 7: the stale-reference grep comes back clean, and `./gradlew build` and `./gradlew ktlint` pass. Fix failures before moving on.
+Checklist step 7: the stale-reference grep comes back clean, and `./gradlew build` and `./gradlew ktlintCheck` pass. Fix failures before moving on.
 
 ## Clean up and report
 

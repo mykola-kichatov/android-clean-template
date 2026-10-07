@@ -13,7 +13,7 @@ If the application id is still `com.mkchtv.cleantemplate`, this clone hasn't bee
 ./gradlew test                     # All unit tests
 ./gradlew :module:test             # Unit tests for a specific module
 ./gradlew connectedAndroidTest     # Instrumented tests (requires device/emulator)
-./gradlew ktlint                   # Check code style
+./gradlew ktlintCheck              # Check code style (build runs it too)
 ./gradlew ktlintFormat             # Auto-fix code style
 ./gradlew assemble                 # Build APKs/AARs
 ```
@@ -98,6 +98,8 @@ Each module type uses a convention plugin instead of repeating build config:
 SDK/version constants are in `build-logic/convention/src/main/kotlin/Constants.kt` (minSdk 24, compileSdk/targetSdk 36, Java 17).
 
 All dependency versions are managed centrally in `gradle/libs.versions.toml`.
+
+ktlint runs through the ktlint-gradle plugin, applied by `DomainPlugin` and by the plugins in `AndroidCommonPlugin.kt`. Keep ktlint-gradle at 14.1.0 or newer. Older versions find the Kotlin code of an Android module only through the `org.jetbrains.kotlin.android` plugin, which AGP 9 built-in Kotlin never applies, so they silently check only the `*.kts` build files. Check: `./gradlew :app:tasks --all` lists `ktlintMainSourceSetCheck`.
 
 ## MVI contract
 

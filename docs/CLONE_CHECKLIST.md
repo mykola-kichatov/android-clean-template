@@ -48,7 +48,7 @@ Remove the four modules, remove their `include()` lines from `settings.gradle.kt
 
 ```bash
 ./gradlew build
-./gradlew ktlint
+./gradlew ktlintCheck
 ```
 
 ## 8. Clean up template scaffolding

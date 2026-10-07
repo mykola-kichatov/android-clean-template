@@ -11,7 +11,11 @@ internal data class UiState(
 
 internal sealed interface Intent {
     data class CreateElement(val name: String, val description: String) : Intent
-    data class UpdateElement(val name: String, val description: String, val imageUrl: String) : Intent
+    data class UpdateElement(
+        val name: String,
+        val description: String,
+        val imageUrl: String,
+    ) : Intent
     data object DeleteElement : Intent
     data object BackClick : Intent
 }

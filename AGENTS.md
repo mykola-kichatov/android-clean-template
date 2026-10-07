@@ -90,7 +90,7 @@ class FooTest {
 ## Module Convention Plugins (build-logic)
 
 Each module type uses a convention plugin instead of repeating build config:
-- `com.mkchtv.convention.domain` — pure Kotlin/JVM library
+- `com.mkchtv.convention.domain` — pure Kotlin/JVM library + unit tests
 - `com.mkchtv.convention.data` — Android library + Room + Retrofit + Hilt + unit tests
 - `com.mkchtv.convention.ui` — Android library + Compose + Hilt + unit tests
 - `com.mkchtv.convention.app` — application + all of the above + instrumented tests

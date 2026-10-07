@@ -1,13 +1,11 @@
 package com.mkchtv.cleantemplate.domain.element.usecase
 
+import com.mkchtv.cleantemplate.domain.element.repository.ImageUrlProvider
 import javax.inject.Inject
-import kotlin.random.Random
 
-class GetRandomImageUrl @Inject constructor() {
+class GetRandomImageUrl @Inject constructor(
+    private val imageUrlProvider: ImageUrlProvider,
+) {
 
-    operator fun invoke(): String {
-        val width = 300 + Random.nextInt(0, 200)
-        val height = width * 4 / 3
-        return "https://picsum.photos/$width/$height"
-    }
+    operator fun invoke(): String = imageUrlProvider.randomImageUrl()
 }

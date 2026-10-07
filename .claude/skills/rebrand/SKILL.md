@@ -38,4 +38,4 @@ Checklist step 7: the stale-reference grep comes back clean, and `./gradlew buil
 
 Checklist step 8: rewrite `README.md` around the one-line description, remove the "Fresh clone?" section from `AGENTS.md` (keep the `CLAUDE.md` pointer file as is), delete `docs/CLONE_CHECKLIST.md`, and delete this skill's directory (`.claude/skills/rebrand/`).
 
-Do not commit — leave the working tree for the user to review. Finish with a summary of what changed and the remaining manual TODOs, at minimum: replace the launcher icons (`app/src/main/res/mipmap-*/`, `app/src/main/res/drawable/ic_launcher_*`), plus real API details if networking was deferred.
+Do not commit — leave the working tree for the user to review. Finish with a summary of what changed and the remaining manual TODOs, at minimum: replace the launcher icons (`app/src/main/res/mipmap-*/`, `app/src/main/res/drawable/ic_launcher_*`), plus real API details if networking was deferred, plus the picsum placeholder images if the sample feature was renamed: replace or drop them (checklist step 4).

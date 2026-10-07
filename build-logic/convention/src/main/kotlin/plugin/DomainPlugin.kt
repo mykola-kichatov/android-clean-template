@@ -12,6 +12,7 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import plugin.common.UnitTestsPlugin
 
 internal class DomainPlugin : Plugin<Project> {
 
@@ -21,6 +22,7 @@ internal class DomainPlugin : Plugin<Project> {
                 apply("java-library")
                 apply("org.jetbrains.kotlin.jvm")
                 apply("org.jlleitschuh.gradle.ktlint")
+                apply(UnitTestsPlugin::class.java)
             }
 
             extensions.getByType<KotlinJvmProjectExtension>().apply {

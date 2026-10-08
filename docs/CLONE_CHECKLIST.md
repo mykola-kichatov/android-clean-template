@@ -39,7 +39,7 @@ Remove the four modules, remove their `include()` lines from `settings.gradle.kt
 
 ## 5. Point at your real API
 
-- `data/element/src/main/java/.../data/element/di/NetworkModule.kt:18` — change `BASE_URL = "https://dummyjson.com/"` to your API base URL, or remove the entire Retrofit wiring if you don't need networking yet.
+- `data/element/src/main/java/.../data/element/di/NetworkModule.kt` — change the `BASE_URL` constant (`"https://dummyjson.com/"`) to your API base URL, or remove the entire Retrofit wiring if you don't need networking yet.
 
 ## 6. Fix template debt (recommended before building on top)
 

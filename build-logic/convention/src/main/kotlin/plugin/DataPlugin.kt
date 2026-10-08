@@ -8,9 +8,9 @@ import com.android.build.api.dsl.LibraryExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import implementation
 import kotlinxCoroutinesAndroid
+import kotlinxSerializationJson
 import ksp
 import libs
-import moshiCodeGen
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -19,7 +19,7 @@ import plugin.common.HiltPlugin
 import plugin.common.LibAndroidCommonPlugin
 import plugin.common.UnitTestsPlugin
 import retrofit
-import retrofitMoshi
+import retrofitKotlinxSerialization
 
 internal class DataPlugin : Plugin<Project> {
 
@@ -27,6 +27,7 @@ internal class DataPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply(LibAndroidCommonPlugin::class.java)
+                apply("org.jetbrains.kotlin.plugin.serialization")
                 apply(HiltPlugin::class.java)
                 apply(UnitTestsPlugin::class.java)
             }
@@ -43,11 +44,11 @@ internal class DataPlugin : Plugin<Project> {
                 implementation(libs.androidxCore())
                 implementation(libs.androidxRoom())
                 implementation(libs.kotlinxCoroutinesAndroid())
+                implementation(libs.kotlinxSerializationJson())
                 implementation(libs.retrofit())
-                implementation(libs.retrofitMoshi())
+                implementation(libs.retrofitKotlinxSerialization())
 
                 ksp(libs.androidxRoomCompiler())
-                ksp(libs.moshiCodeGen())
             }
         }
     }

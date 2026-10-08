@@ -41,9 +41,11 @@ app/ (Hilt entry point, navigation host, Application class)
 
 ### Data Layer
 - Implements domain repository interfaces (`DefaultXxxRepository : XxxRepository`)
-- Room for local persistence; Retrofit + Moshi for network
+- Room for local persistence; Retrofit + kotlinx.serialization for network
 - Hilt `@Module` with `@Binds` wires interface → implementation at `SingletonComponent` scope
-- KSP generates Room and Moshi code
+- KSP generates Room and Hilt code
+- JSON uses kotlinx.serialization: its compiler plugin writes the serializer of every `@Serializable` class. `NetworkModule.kt` provides one `Json { ignoreUnknownKeys = true }` and Retrofit's converter uses it, so fields a response class does not declare are skipped
+- Keep `kotlinxSerialization` in `gradle/libs.versions.toml` on a release built for the catalog's `kotlin` or an older one; the comment there says why
 
 ### UI Layer
 - `@HiltViewModel` ViewModels inject domain use cases directly
@@ -95,7 +97,7 @@ ViewModel tests add `@ExtendWith(MainDispatcherExtension::class)` and check flow
 
 Each module type uses a convention plugin instead of repeating build config:
 - `com.mkchtv.convention.domain` — pure Kotlin/JVM library + unit tests
-- `com.mkchtv.convention.data` — Android library + Room + Retrofit + Hilt + unit tests
+- `com.mkchtv.convention.data` — Android library + Room + Retrofit + kotlinx.serialization + Hilt + unit tests
 - `com.mkchtv.convention.ui` — Android library + Compose + Hilt + unit tests
 - `com.mkchtv.convention.app` — application + all of the above + instrumented tests
 

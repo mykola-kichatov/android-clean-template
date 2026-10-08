@@ -9,6 +9,7 @@ dependencies {
     compileOnly(libs.compose.compiler.gradle.plugin)
     compileOnly(libs.hilt.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.kotlin.serialization.gradle.plugin)
     compileOnly(libs.ksp.gradle.plugin)
     compileOnly(libs.ktlint.gradle.plugin)
 }

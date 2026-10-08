@@ -35,3 +35,5 @@ include(":ui:element-details")
 include(":ui:element-list")
 include(":ui:home")
 include(":ui:settings")
+
+include(":testing")

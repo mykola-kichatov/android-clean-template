@@ -25,6 +25,7 @@ internal fun VersionCatalog.androidxLifecycleRuntimeCompose() =
 internal fun VersionCatalog.androidxNavigationCompose() = getLibrary("androidx-navigation-compose")
 internal fun VersionCatalog.androidxRoom() = getLibrary("androidx-room")
 internal fun VersionCatalog.androidxRoomCompiler() = getLibrary("androidx-room-compiler")
+internal fun VersionCatalog.byteBuddyAgent() = getLibrary("byte-buddy-agent")
 internal fun VersionCatalog.coil() = getLibrary("coil")
 internal fun VersionCatalog.composeActivity() = getLibrary("compose-activity")
 internal fun VersionCatalog.composeAnimation() = getLibrary("compose-animation")

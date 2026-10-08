@@ -19,7 +19,7 @@ The project is modularized following the repository pattern with strict layer se
 4. Kotlin Coroutines and Flow for async/reactive data streams
 5. Room for local persistence, Retrofit + Moshi for networking
 6. Declarative conditional navigation with shared element transitions
-7. Unit tests with JUnit5 and [MockK](https://mockk.io/)
+7. Unit tests with JUnit5, [MockK](https://mockk.io/) and [Turbine](https://github.com/cashapp/turbine)
 8. Centralized [build configuration](build-logic) with Gradle Convention Plugins
 9. AI-agent ready — [AGENTS.md](AGENTS.md) architecture guide (Claude Code, Codex, Cursor, Gemini, Copilot) with an interactive `/rebrand` skill for Claude Code
 

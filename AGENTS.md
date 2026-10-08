@@ -87,6 +87,10 @@ class FooTest {
 }
 ```
 
+ViewModel tests add `@ExtendWith(MainDispatcherExtension::class)` and check flows with Turbine (`state.test { assertEquals(expected, awaitItem()) }`). Both come from the `:testing` module, which `UnitTestsPlugin` adds to the tests of every module. Without the extension, lifecycle silently runs `viewModelScope` work on a background thread, and the test depends on timing.
+
+`UnitTestsPlugin` starts every test JVM with Byte Buddy's agent (`-javaagent`), so MockK never attaches one at runtime. That runtime attach can fail at random under load. When MockK changes version, keep `byteBuddy` in `gradle/libs.versions.toml` equal to the byte-buddy version MockK resolves: `./gradlew :ui:common:dependencies --configuration debugUnitTestRuntimeClasspath | grep byte-buddy`.
+
 ## Module Convention Plugins (build-logic)
 
 Each module type uses a convention plugin instead of repeating build config:

@@ -11,7 +11,7 @@ In Claude Code, the `/rebrand` skill runs this checklist interactively — it as
 
 ## 2. Rename package
 
-Use Android Studio's refactor → rename on `com.mkchtv.cleantemplate` to your package. This covers all source roots (domain, data, ui, app).
+Use Android Studio's refactor → rename on `com.mkchtv.cleantemplate` to your package. This covers all source roots (domain, data, ui, app, testing).
 
 No IDE (or AI-driven)? Replace `com.mkchtv.cleantemplate` in all files and `git mv` the package directories under each module's source roots (`src/main`, `src/test`, `src/androidTest`), then run the grep below.
 

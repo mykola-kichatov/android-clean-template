@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.mkchtv.cleantemplate.common.component.ConfirmDialog
+import com.mkchtv.cleantemplate.common.preview.ScreenPreviews
+import com.mkchtv.cleantemplate.common.preview.ThemedPreview
 import com.mkchtv.cleantemplate.ui.settings.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -76,3 +78,17 @@ private fun TopBar(
         }
     },
 )
+
+@OptIn(
+    ExperimentalSharedTransitionApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalCoroutinesApi::class,
+    ExperimentalAnimationApi::class,
+)
+@ScreenPreviews
+@Composable
+private fun SettingsScreenPreview() {
+    ThemedPreview {
+        SettingsScreen(onLogoutConfirmed = {})
+    }
+}

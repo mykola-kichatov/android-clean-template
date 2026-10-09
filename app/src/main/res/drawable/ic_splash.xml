@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The splash icon: the launcher icon's two layers, as vectors. The splash shows the middle
+     circle of this 108 unit canvas, the same circle a launcher shows. @mipmap/ic_launcher would
+     not do: below Android 12 the splash library blows its bitmap up and crops the adaptive icon a
+     second time. Replace the two layers and the splash follows. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_launcher_background" />
+    <item android:drawable="@drawable/ic_launcher_foreground" />
+</layer-list>

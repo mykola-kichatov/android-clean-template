@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.androidx.core.splashscreen)
+
     implementation(project(":data:auth"))
     implementation(project(":data:element"))
     implementation(project(":domain:auth"))

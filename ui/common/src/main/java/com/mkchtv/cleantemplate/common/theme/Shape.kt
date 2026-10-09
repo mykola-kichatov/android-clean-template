@@ -1,4 +1,4 @@
-package com.mkchtv.cleantemplate.theme
+package com.mkchtv.cleantemplate.common.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

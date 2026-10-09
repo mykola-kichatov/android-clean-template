@@ -15,7 +15,7 @@ description: Rebrand a fresh clone of android-clean-template into a new app. Ask
 
 Free text — ask conversationally in one message:
 
-1. **App name** — the display name. Derive a PascalCase identifier from it (e.g. "My Notes" → `MyNotes`) for `rootProject.name` and the `Theme.<PascalCase>` style; confirm the derivation with the user.
+1. **App name** — the display name. Derive a PascalCase identifier from it (e.g. "My Notes" → `MyNotes`) for `rootProject.name` and the `Theme.<PascalCase>` and `Theme.<PascalCase>.Post` styles; confirm the derivation with the user.
 2. **Application id** — e.g. `com.example.mynotes`. Validate: two or more dot-separated segments, each starting with a lowercase letter, only `[a-z0-9_]`.
 3. **One-line app description** — used to rewrite `README.md` in the cleanup step.
 
@@ -38,4 +38,4 @@ Checklist step 7: the stale-reference checks of step 2 come back clean, and `./g
 
 Checklist step 8: rewrite `README.md` around the one-line description, remove the "Fresh clone?" section from `AGENTS.md` (keep the `CLAUDE.md` pointer file as is), delete `docs/CLONE_CHECKLIST.md`, and delete this skill's directory (`.claude/skills/rebrand/`).
 
-Do not commit — leave the working tree for the user to review. Finish with a summary of what changed and the remaining manual TODOs, at minimum: replace the launcher icons (`app/src/main/res/mipmap-*/`, `app/src/main/res/drawable/ic_launcher_*`), plus real API details if networking was deferred, plus the picsum placeholder images if the sample feature was renamed: replace or drop them (checklist step 4).
+Do not commit — leave the working tree for the user to review. Finish with a summary of what changed and the remaining manual TODOs, at minimum: replace the launcher icons (`app/src/main/res/mipmap-*/`, `app/src/main/res/drawable/ic_launcher_*`; the splash icon follows them), pick the brand color: `#9A4612` is a sample, so regenerate `Color.kt` and the `window_background` colors or keep it (checklist step 3), plus real API details if networking was deferred, plus the picsum placeholder images if the sample feature was renamed: replace or drop them (checklist step 4).

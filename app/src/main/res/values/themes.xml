@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.CleanTemplate" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- The launch theme. The splash screen library hands over to Theme.CleanTemplate.Post when
+         the activity is ready, so the window is never light while the app is dark. -->
+    <style name="Theme.CleanTemplate" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/window_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.CleanTemplate.Post</item>
+    </style>
+
+    <style name="Theme.CleanTemplate.Post" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
 </resources>

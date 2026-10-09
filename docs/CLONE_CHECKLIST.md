@@ -26,9 +26,9 @@ find . -type d \( -name "*mkchtv*" -o -name "*cleantemplate*" \) -not -path "*/b
 ## 3. Rename app resources
 
 - `app/src/main/res/values/strings.xml` — change `app_name`
-- `app/src/main/res/values/themes.xml:3` — rename style `Theme.CleanTemplate` to `Theme.<YourApp>`, and update the reference in `app/src/main/AndroidManifest.xml:13`
-- `app/src/main/java/com/mkchtv/cleantemplate/theme/` — update the color palette in `Color.kt` (the `AppTheme` composable in `Theme.kt` needs no rename)
-- Replace launcher icons: `app/src/main/res/mipmap-*/` and `app/src/main/res/drawable/ic_launcher_*`
+- Rename the styles `Theme.CleanTemplate` to `Theme.<YourApp>` and `Theme.CleanTemplate.Post` to `Theme.<YourApp>.Post`: both in `app/src/main/res/values/themes.xml` (with the `postSplashScreenTheme` reference), `.Post` in `app/src/main/res/values-night/themes.xml`, and the `android:theme` reference in `app/src/main/AndroidManifest.xml`. The grep of step 2 does not find them, it is case-sensitive.
+- Brand color — `#9A4612` is only a sample. To use yours, regenerate all 48 color roles in `ui/common/src/main/java/.../common/theme/Color.kt` (its header says how), then set `window_background` in `app/src/main/res/values/colors.xml` and `app/src/main/res/values-night/colors.xml` to the new light and dark `background`. `ColorSchemeTest` fails if a role is missing. To keep the sample palette, change nothing. The `AppTheme` composable in `Theme.kt` needs no rename either way.
+- Replace launcher icons: `app/src/main/res/mipmap-*/` and `app/src/main/res/drawable/ic_launcher_*`. The splash icon, `app/src/main/res/drawable/ic_splash.xml`, stacks the two `ic_launcher_*` layers, so it follows.
 
 ## 4. Decide on the sample `:element` feature
 

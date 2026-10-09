@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The launch window, before Compose draws. Keep it equal to the theme's background color
+         in ui/common, Color.kt: md_theme_light_background here, md_theme_dark_background in
+         values-night. -->
+    <color name="window_background">#FFF8F6</color>
+</resources>

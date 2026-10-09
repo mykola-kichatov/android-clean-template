@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -26,12 +25,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mkchtv.cleantemplate.common.component.Input
 import com.mkchtv.cleantemplate.common.component.rememberInputState
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
+import com.mkchtv.cleantemplate.common.preview.ScreenPreviews
+import com.mkchtv.cleantemplate.common.preview.ThemedPreview
 import com.mkchtv.cleantemplate.domain.element.entity.Element
 import com.mkchtv.cleantemplate.ui.common.R as commonRes
 
@@ -110,10 +110,10 @@ internal fun SharedTransitionScope.UpdateExistedElement(
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationApi::class)
-@Preview
+@ScreenPreviews
 @Composable
-private fun ElementListEmptyPreview() {
-    Surface {
+private fun UpdateExistedElementPreview() {
+    ThemedPreview {
         SharedTransitionLayout {
             val sharedTransitionScope = this
             AnimatedVisibility(visible = true) {

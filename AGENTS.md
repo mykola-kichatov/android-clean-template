@@ -69,6 +69,16 @@ The tab destinations' `navigateToXxx` extensions accept an optional `NavOptions`
 
 Shared element transitions use `SharedTransitionLayout` exposed via `LocalSharedTransitionScope` composition local.
 
+## Theme, splash and previews
+
+`AppTheme(darkTheme, dynamicColor = true, content)` lives in `:ui:common` (`common/theme/`) and wraps every screen. On Android 12 and newer, dynamic color paints the app from the wallpaper; older versions use the palette in `Color.kt`. `Type.kt` holds the text styles (the Material 3 defaults) and `Shape.kt` the shapes.
+
+- `Color.kt` sets all 48 Material 3 color roles, light and dark, built from one brand color; its header says how to regenerate them. A role left out of `Theme.kt` silently falls back to Material's purple baseline, so `ColorSchemeTest` fails instead.
+- The launch theme in `app/src/main/res/values/themes.xml` builds on the splash screen library (`core-splashscreen`) and hands over to its `.Post` style, which has a `values-night` variant. `MainActivity` calls `installSplashScreen()` before `super.onCreate()`.
+- The launch window color, `window_background` in `app/src/main/res/values/colors.xml` and `values-night/colors.xml`, equals the background in `Color.kt`. Keep them in step, or a cold start shows a different color before the first frame.
+- The splash icon is `drawable/ic_splash.xml`, the launcher icon's two vector layers stacked. Not `@mipmap/ic_launcher`: below Android 12 the splash library blows its bitmap up and crops the adaptive icon a second time.
+- Previews: annotate a screen preview with `@ScreenPreviews` and wrap its body in `ThemedPreview`, both from `:ui:common` (`common/preview/`). `@ScreenPreviews` shows four views: portrait, portrait dark, landscape and landscape dark. `ThemedPreview` switches dynamic color off, so a preview shows the app's own colors on every machine. Reference: `SettingsScreen.kt`.
+
 ## Testing
 
 JUnit 5 (Jupiter) + MockK. Pattern used across the project:
@@ -167,7 +177,7 @@ Every UI feature module uses four files per destination:
 <Feature>Nav.kt        — NavGraphBuilder extension + NavController extension + route/arg constants
 ```
 
-Sub-package conventions inside a module: `component/`, `di/`, `entity/`, `mapper/`, `usecase/`, `repository/`, `dao/`, `db/`, `network/`, `extension(s)/`
+Sub-package conventions inside a module: `component/`, `di/`, `entity/`, `mapper/`, `usecase/`, `repository/`, `dao/`, `db/`, `network/`, `extension(s)/`, plus `theme/` and `preview/` in `:ui:common`
 
 Visibility rule: ViewModels, Contracts, Repository impls, Room entities/DAOs → `internal`. Domain entities, use cases, repository interfaces → `public`.
 
@@ -180,6 +190,7 @@ Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:au
 3. Create `ui/<name>-*/` — convention plugin `com.mkchtv.convention.ui`; add Contract + ViewModel + Screen + Nav
 4. Register all new modules in `settings.gradle.kts` (follow the `include(":domain:element")` pattern at lines 23-37)
 5. Add `implementation(project(":..."))` for each new module in `app/build.gradle.kts`
+6. Give every new module a `.gitignore` holding `/build`, like the existing modules. The root `.gitignore` covers only the root build folder, so without it the module's build output lands in `git status`
 
 Reference feature spanning all layers: `:domain:element` → `:data:element` → `:ui:element-list` + `:ui:element-details`
 

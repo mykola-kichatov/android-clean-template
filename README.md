@@ -15,7 +15,7 @@ The project is modularized following the repository pattern with strict layer se
 # Features and technologies
 1. Gradle build configuration using Kotlin DSL, Version Catalogs, and Convention Plugins
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-3. Jetpack Compose UI with Material 3
+3. Jetpack Compose UI with Material 3: dynamic color, a full color scheme, a splash screen and themed previews
 4. Kotlin Coroutines and Flow for async/reactive data streams
 5. Room for local persistence, Retrofit + kotlinx.serialization for networking
 6. Declarative conditional navigation with shared element transitions

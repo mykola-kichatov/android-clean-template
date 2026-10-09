@@ -13,11 +13,14 @@ In Claude Code, the `/rebrand` skill runs this checklist interactively — it as
 
 Use Android Studio's refactor → rename on `com.mkchtv.cleantemplate` to your package. This covers all source roots (domain, data, ui, app, testing).
 
-No IDE (or AI-driven)? Replace `com.mkchtv.cleantemplate` in all files and `git mv` the package directories under each module's source roots (`src/main`, `src/test`, `src/androidTest`), then run the grep below.
+No IDE (or AI-driven)? Replace `com.mkchtv.cleantemplate` in all files and `git mv` the package directories under each module's source roots (`src/main`, `src/test`, `src/androidTest`), then run the checks below.
+
+Either way, also `git mv` the Room schema folder `data/element/schemas/com.mkchtv.cleantemplate.data.element.db.AppDatabase/` to the new package name. Room names the folder after the database class's full name, and the build never removes an old one.
 
 Verify no stale references remain:
 ```bash
 grep -r "mkchtv\|cleantemplate" --include="*.kt" --include="*.xml" --include="*.kts" -l
+find . -type d \( -name "*mkchtv*" -o -name "*cleantemplate*" \) -not -path "*/build/*"
 ```
 
 ## 3. Rename app resources

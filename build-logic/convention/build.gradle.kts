@@ -6,6 +6,7 @@ group = "com.mkchtv.cleantemplate.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.androidx.room.gradle.plugin)
     compileOnly(libs.compose.compiler.gradle.plugin)
     compileOnly(libs.hilt.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)

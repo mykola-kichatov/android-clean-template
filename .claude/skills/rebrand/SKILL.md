@@ -28,11 +28,11 @@ Choices — one AskUserQuestion call:
 
 ## Execute
 
-Run checklist steps 1–6 in order with the collected answers. For step 2 use the checklist's no-IDE path: replace `com.mkchtv.cleantemplate` in all files, `git mv` the package directories under each module's `src/main`, `src/test`, and `src/androidTest` roots.
+Run checklist steps 1–6 in order with the collected answers. For step 2 use the checklist's no-IDE path: replace `com.mkchtv.cleantemplate` in all files, `git mv` the package directories under each module's `src/main`, `src/test`, and `src/androidTest` roots, and `git mv` the Room schema folder under `data/element/schemas/` to the new package name.
 
 ## Verify
 
-Checklist step 7: the stale-reference grep comes back clean, and `./gradlew build` and `./gradlew ktlintCheck` pass. Fix failures before moving on.
+Checklist step 7: the stale-reference checks of step 2 come back clean, and `./gradlew build` and `./gradlew ktlintCheck` pass. Fix failures before moving on.
 
 ## Clean up and report
 

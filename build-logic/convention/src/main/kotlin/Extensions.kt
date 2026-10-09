@@ -53,6 +53,7 @@ internal fun VersionCatalog.retrofit() = getLibrary("retrofit")
 internal fun VersionCatalog.retrofitKotlinxSerialization() = getLibrary("retrofit-kotlinx-serialization")
 
 internal fun VersionCatalog.bundleAndroidTesting() = getBundle("androidTesting")
+internal fun VersionCatalog.bundleDataAndroidTesting() = getBundle("dataAndroidTesting")
 internal fun VersionCatalog.bundleUnitTesting() = getBundle("unitTesting")
 
 private fun VersionCatalog.getLibrary(name: String) = findLibrary(name).get()

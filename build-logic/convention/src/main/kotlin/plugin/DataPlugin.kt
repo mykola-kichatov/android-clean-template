@@ -1,11 +1,13 @@
 package plugin
 
+import androidTestImplementation
+import androidx.room.gradle.RoomExtension
 import androidxCore
 import androidxRoom
 import androidxRoomCompiler
 import asNamespace
+import bundleDataAndroidTesting
 import com.android.build.api.dsl.LibraryExtension
-import com.google.devtools.ksp.gradle.KspExtension
 import implementation
 import kotlinxCoroutinesAndroid
 import kotlinxSerializationJson
@@ -29,6 +31,7 @@ internal class DataPlugin : Plugin<Project> {
                 apply(LibAndroidCommonPlugin::class.java)
                 apply("org.jetbrains.kotlin.plugin.serialization")
                 apply(HiltPlugin::class.java)
+                apply("androidx.room")
                 apply(UnitTestsPlugin::class.java)
             }
 
@@ -36,8 +39,8 @@ internal class DataPlugin : Plugin<Project> {
                 namespace = target.asNamespace()
             }
 
-            extensions.getByType<KspExtension>().apply {
-                arg("room.schemaLocation", "$projectDir/schemas")
+            extensions.getByType<RoomExtension>().apply {
+                schemaDirectory("$projectDir/schemas")
             }
 
             dependencies {
@@ -49,6 +52,9 @@ internal class DataPlugin : Plugin<Project> {
                 implementation(libs.retrofitKotlinxSerialization())
 
                 ksp(libs.androidxRoomCompiler())
+
+                // MigrationTestHelper runs on the device: every database migration ships with a test.
+                androidTestImplementation(libs.bundleDataAndroidTesting())
             }
         }
     }

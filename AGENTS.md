@@ -97,7 +97,7 @@ ViewModel tests add `@ExtendWith(MainDispatcherExtension::class)` and check flow
 
 Each module type uses a convention plugin instead of repeating build config:
 - `com.mkchtv.convention.domain` — pure Kotlin/JVM library + unit tests
-- `com.mkchtv.convention.data` — Android library + Room + Retrofit + kotlinx.serialization + Hilt + unit tests
+- `com.mkchtv.convention.data` — Android library + Room (with its Gradle plugin) + Retrofit + kotlinx.serialization + Hilt + unit tests + device-test deps for migration tests
 - `com.mkchtv.convention.ui` — Android library + Compose + Hilt + unit tests
 - `com.mkchtv.convention.app` — application + all of the above + instrumented tests
 
@@ -106,6 +106,18 @@ SDK/version constants are in `build-logic/convention/src/main/kotlin/Constants.k
 All dependency versions are managed centrally in `gradle/libs.versions.toml`.
 
 ktlint runs through the ktlint-gradle plugin, applied by `DomainPlugin` and by the plugins in `AndroidCommonPlugin.kt`. Keep ktlint-gradle at 14.1.0 or newer. Older versions find the Kotlin code of an Android module only through the `org.jetbrains.kotlin.android` plugin, which AGP 9 built-in Kotlin never applies, so they silently check only the `*.kts` build files. Check: `./gradlew :app:tasks --all` lists `ktlintMainSourceSetCheck`.
+
+## Room schemas and migrations
+
+`DataPlugin` applies the Room Gradle plugin and points it at `<module>/schemas/`. Room exports every database version there as JSON, and those files are committed.
+
+- The schemas are build output. Never edit one by hand. The build restores a deleted one.
+- They are the only record of the old table shape, and Room needs them to check a migration.
+- A schema folder is named after the database class's full name. Renaming or moving that class means `git mv` of its folder too. The build never removes an old folder.
+- Any change to an entity bumps the database version and ships a migration: `@AutoMigration` where Room can derive it, a hand-written `Migration` otherwise.
+- `fallbackToDestructiveMigration` is banned in every form. It deletes the user's data.
+- A migration ships with a device test on `MigrationTestHelper`, which reads the committed schemas. `DataPlugin` already adds its dependencies (the `dataAndroidTesting` bundle).
+- The sample database stays at version 1, with no migration. An app built on the template follows the rules above.
 
 ## MVI contract
 

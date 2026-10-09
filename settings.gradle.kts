@@ -24,10 +24,12 @@ include(":app")
 
 include(":data:auth")
 include(":data:element")
+include(":data:settings")
 
 include(":domain:auth")
 include(":domain:common")
 include(":domain:element")
+include(":domain:settings")
 
 include(":ui:auth")
 include(":ui:common")

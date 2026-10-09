@@ -33,12 +33,14 @@ find . -type d \( -name "*mkchtv*" -o -name "*cleantemplate*" \) -not -path "*/b
 ## 4. Decide on the sample `:element` feature
 
 **Option A — rename it as your first real feature:**
-Rename `:domain:element`, `:data:element`, `:ui:element-list`, `:ui:element-details` to your domain concept. Update `settings.gradle.kts:26,30,34,35` and `app/build.gradle.kts` accordingly.
+Rename `:domain:element`, `:data:element`, `:ui:element-list`, `:ui:element-details` to your domain concept. Update their `include()` lines in `settings.gradle.kts` and their `implementation(project(...))` lines in `app/build.gradle.kts`.
 
 The random images are a sample too. `data/element/.../repository/PicsumImageUrlProvider.kt` returns placeholder images from picsum.photos. It is here to show a domain interface (`ImageUrlProvider`) with its implementation in the data layer. Point it at your own image source, or drop images from your feature. To drop them, delete `ImageUrlProvider`, `PicsumImageUrlProvider`, its `@Binds` in `RepositoryModule.kt` and `GetRandomImageUrl`, then remove the `imageUrl` usages the compiler shows you.
 
 **Option B — delete it and start clean:**
 Remove the four modules, remove their `include()` lines from `settings.gradle.kts`, remove their `implementation(project(...))` lines from `app/build.gradle.kts`. Also remove the `AppNavHost` references to element destinations and the `HomeNavHost` bottom-nav tab.
+
+Either way, the settings feature (`:domain:settings`, `:data:settings`, `:ui:settings`) is not part of the sample. It stays: the theme reads its stored values.
 
 ## 5. Point at your real API
 

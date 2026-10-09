@@ -117,6 +117,9 @@ internal val DarkColors = darkColorScheme(
 /**
  * The app theme. Every screen goes through it.
  *
+ * In the app, both parameters come from the stored settings, through `MainViewModel`. Settings
+ * writes them.
+ *
  * @param dynamicColor paints the app from the user's wallpaper on Android 12 and newer. Older
  * versions always get the colors above, whatever this says.
  */

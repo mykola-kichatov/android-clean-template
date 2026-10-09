@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -17,8 +18,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun NavGraphBuilder.settingsScreen() {
     composable(route = NAV_DESTINATION_SETTINGS) {
         val viewModel = hiltViewModel<SettingsViewModel>()
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
         SettingsScreen(
-            onLogoutConfirmed = { viewModel.onLogoutConfirmed() },
+            uiState = uiState.value,
+            onIntent = viewModel::onIntent,
         )
     }
 }

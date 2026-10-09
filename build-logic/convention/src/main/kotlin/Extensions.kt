@@ -40,6 +40,7 @@ internal fun VersionCatalog.composeUiTooling() = getLibrary("compose-ui-tooling"
 internal fun VersionCatalog.composeUiToolingPreview() = getLibrary("compose-ui-tooling-preview")
 internal fun VersionCatalog.composeViewmodel() = getLibrary("compose-viewmodel")
 internal fun VersionCatalog.hilt() = getLibrary("hilt")
+internal fun VersionCatalog.hiltLifecycleViewmodelCompose() = getLibrary("hilt-lifecycle-viewmodel-compose")
 internal fun VersionCatalog.hiltNavigationCompose() = getLibrary("hilt-navigation-compose")
 internal fun VersionCatalog.hiltCompiler() = getLibrary("hilt-compiler")
 internal fun VersionCatalog.javaxInject() = getLibrary("javax-inject")

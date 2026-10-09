@@ -27,7 +27,7 @@ Clean Architecture with strict layer separation enforced by module boundaries:
 ```
 domain/* (pure Kotlin, no Android)
     ↑ implemented by
-data/* (Room, Retrofit, repository impls)
+data/* (Room, DataStore, Retrofit, repository impls)
     ↑ consumed by
 ui/* (MVVM + Jetpack Compose ViewModels/screens)
     ↑ wired by
@@ -42,6 +42,7 @@ app/ (Hilt entry point, navigation host, Application class)
 ### Data Layer
 - Implements domain repository interfaces (`DefaultXxxRepository : XxxRepository`)
 - Room for local persistence; Retrofit + kotlinx.serialization for network
+- Settings use Preferences DataStore (`:data:settings`), not Room. The file name and every key are permanent: renaming one makes every install silently start from the defaults. Enums are stored by `name`, so reordering them cannot change what an install reads back. The store comes from one top-level `preferencesDataStore` delegate, because DataStore throws if a second instance is ever created on the same file. A corrupt file resets to the defaults, which suits settings and would not suit data nobody can recreate
 - Hilt `@Module` with `@Binds` wires interface → implementation at `SingletonComponent` scope
 - KSP generates Room and Hilt code
 - JSON uses kotlinx.serialization: its compiler plugin writes the serializer of every `@Serializable` class. `NetworkModule.kt` provides one `Json { ignoreUnknownKeys = true }` and Retrofit's converter uses it, so fields a response class does not declare are skipped
@@ -50,7 +51,7 @@ app/ (Hilt entry point, navigation host, Application class)
 ### UI Layer
 - `@HiltViewModel` ViewModels inject domain use cases directly
 - ViewModels expose `StateFlow` (mapped from domain `Flow`) for Compose to collect
-- Use `SharingStarted.Lazily` so the flow survives back-stack navigation without restarting
+- Use `SharingStarted.Lazily` so the flow survives back-stack navigation without restarting. `MainViewModel` is the one exception, see [MVI contract](#mvi-contract)
 - Screens are `@Composable` functions; no business logic in composables
 
 ## Dependency Injection
@@ -71,10 +72,13 @@ Shared element transitions use `SharedTransitionLayout` exposed via `LocalShared
 
 ## Theme, splash and previews
 
-`AppTheme(darkTheme, dynamicColor = true, content)` lives in `:ui:common` (`common/theme/`) and wraps every screen. On Android 12 and newer, dynamic color paints the app from the wallpaper; older versions use the palette in `Color.kt`. `Type.kt` holds the text styles (the Material 3 defaults) and `Shape.kt` the shapes.
+`AppTheme(darkTheme, dynamicColor = true, content)` lives in `:ui:common` (`common/theme/`) and wraps every screen. `MainActivity` fills both from the stored settings, which the Settings screen writes: theme mode (system, light or dark) and dynamic color. On Android 12 and newer, dynamic color paints the app from the wallpaper; older versions use the palette in `Color.kt`, and Settings hides the switch. `Type.kt` holds the text styles (the Material 3 defaults) and `Shape.kt` the shapes.
 
 - `Color.kt` sets all 48 Material 3 color roles, light and dark, built from one brand color; its header says how to regenerate them. A role left out of `Theme.kt` silently falls back to Material's purple baseline, so `ColorSchemeTest` fails instead.
-- The launch theme in `app/src/main/res/values/themes.xml` builds on the splash screen library (`core-splashscreen`) and hands over to its `.Post` style, which has a `values-night` variant. `MainActivity` calls `installSplashScreen()` before `super.onCreate()`.
+- The launch theme in `app/src/main/res/values/themes.xml` builds on the splash screen library (`core-splashscreen`) and hands over to its `.Post` style, which has a `values-night` variant. `MainActivity` calls `installSplashScreen()` before `super.onCreate()`. The launch theme also asks for dark bar icons in light mode, through `@bool/light_system_bars` (`false` in `values-night`): the library's theme leaves them white, and Android 9 draws them white on the light splash.
+- Splash hold: `MainActivity` keeps the splash up (`setKeepOnScreenCondition`) until `MainViewModel` has read the stored settings, so the first frame already has the app's theme, not the phone's.
+- The status and navigation bar icons follow the app theme, not the phone. `MainActivity` calls `enableEdgeToEdge()` in `onCreate`, then again in a `DisposableEffect(darkTheme)`, with androidx's default scrims and dark mode taken from the setting. Without the second call, an app set to Dark on a light phone draws dark icons on its dark status bar.
+- Known limitation: the launch window follows the phone, not the setting. An app set to Dark on a light phone shows a light splash, and its first frame still has the phone's bar icons for a few frames while the system fades them. The fix is AppCompat's `AppCompatDelegate.setDefaultNightMode`, which the template does not use.
 - The launch window color, `window_background` in `app/src/main/res/values/colors.xml` and `values-night/colors.xml`, equals the background in `Color.kt`. Keep them in step, or a cold start shows a different color before the first frame.
 - The splash icon is `drawable/ic_splash.xml`, the launcher icon's two vector layers stacked. Not `@mipmap/ic_launcher`: below Android 12 the splash library blows its bitmap up and crops the adaptive icon a second time.
 - Previews: annotate a screen preview with `@ScreenPreviews` and wrap its body in `ThemedPreview`, both from `:ui:common` (`common/preview/`). `@ScreenPreviews` shows four views: portrait, portrait dark, landscape and landscape dark. `ThemedPreview` switches dynamic color off, so a preview shows the app's own colors on every machine. Reference: `SettingsScreen.kt`.
@@ -101,6 +105,13 @@ class FooTest {
 
 ViewModel tests add `@ExtendWith(MainDispatcherExtension::class)` and check flows with Turbine (`state.test { assertEquals(expected, awaitItem()) }`). Both come from the `:testing` module, which `UnitTestsPlugin` adds to the tests of every module. Without the extension, lifecycle silently runs `viewModelScope` work on a background thread, and the test depends on timing.
 
+A ViewModel that writes on an injected `@AppIoScope` needs that scope unconfined in its test. With `runTest`'s `backgroundScope` alone, the write has not run yet when `coVerify` checks it. Build the ViewModel inside `runTest` and pass this, as `SettingsViewModelTest` does (`UnconfinedTestDispatcher` needs `@OptIn(ExperimentalCoroutinesApi::class)`):
+
+```kotlin
+private fun TestScope.appIoScope(): CoroutineScope =
+    CoroutineScope(backgroundScope.coroutineContext + UnconfinedTestDispatcher(testScheduler))
+```
+
 `UnitTestsPlugin` starts every test JVM with Byte Buddy's agent (`-javaagent`), so MockK never attaches one at runtime. That runtime attach can fail at random under load. When MockK changes version, keep `byteBuddy` in `gradle/libs.versions.toml` equal to the byte-buddy version MockK resolves: `./gradlew :ui:common:dependencies --configuration debugUnitTestRuntimeClasspath | grep byte-buddy`.
 
 ## Module Convention Plugins (build-logic)
@@ -110,6 +121,8 @@ Each module type uses a convention plugin instead of repeating build config:
 - `com.mkchtv.convention.data` — Android library + Room (with its Gradle plugin) + Retrofit + kotlinx.serialization + Hilt + unit tests + device-test deps for migration tests
 - `com.mkchtv.convention.ui` — Android library + Compose + Hilt + unit tests
 - `com.mkchtv.convention.app` — application + all of the above + instrumented tests
+
+`ComposePlugin` gives every Compose module `hilt-lifecycle-viewmodel-compose`, home of `androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel`. Import that one, not the deprecated copy in `androidx.hilt.navigation.compose`.
 
 SDK/version constants are in `build-logic/convention/src/main/kotlin/Constants.kt` (minSdk 24, compileSdk/targetSdk 36, Java 17).
 
@@ -131,7 +144,7 @@ ktlint runs through the ktlint-gradle plugin, applied by `DomainPlugin` and by t
 
 ## MVI contract
 
-Each UI feature has a `<Feature>Contract.kt` with three types — convention only, no base class:
+Each UI feature has a `<Feature>Contract.kt` with up to three types — convention only, no base class:
 
 ```kotlin
 @Immutable
@@ -142,12 +155,16 @@ internal sealed interface Intent { ... } // user-initiated events sent to ViewMo
 internal sealed interface Effect { ... } // one-shot effects (navigate, show error)
 ```
 
+`UiState` and `Intent` are always there. `Effect` only when the screen has one-shot events, such as navigating or showing an error once. A screen without them declares two types, rather than an empty `Effect` and an unused `Channel`.
+
 ViewModel shape:
 - `StateFlow<UiState>` built with `.stateIn(SharingStarted.Lazily)` — survives back-stack
 - `Channel<Effect>` exposed as `receiveAsFlow()` — one-shot, collected in `LaunchedEffect`
 - Single entry point `fun onIntent(intent: Intent)` dispatching a `when` expression
 
-Reference: `ui/element-list/.../ElementListContract.kt` + `ElementListViewModel.kt`
+`MainViewModel` in `:app` is the one exception to `Lazily`: it uses `SharingStarted.Eagerly`. The splash is held until its value is read, so nothing may depend on a collector arriving first.
+
+Reference: `ui/element-list/.../ElementListContract.kt` + `ElementListViewModel.kt`. Two types, no `Effect`: `ui/settings/.../SettingsContract.kt` + `SettingsViewModel.kt`
 
 ## Coroutine scopes in ViewModels
 
@@ -171,7 +188,7 @@ Note: the `@AppIoScope` / `@AppDefaultScope` qualifiers are defined in `domain/c
 Every UI feature module uses four files per destination:
 
 ```
-<Feature>Contract.kt   — UiState / Intent / Effect (all internal)
+<Feature>Contract.kt   — UiState / Intent / Effect if needed (all internal)
 <Feature>ViewModel.kt  — @HiltViewModel, internal, holds business logic
 <Feature>Screen.kt     — stateless @Composable, no logic
 <Feature>Nav.kt        — NavGraphBuilder extension + NavController extension + route/arg constants
@@ -188,11 +205,13 @@ Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:au
 1. Create `domain/<name>/` — convention plugin `com.mkchtv.convention.domain`; add repo interface + use cases
 2. Create `data/<name>/` — convention plugin `com.mkchtv.convention.data`; implement repo + Room/Retrofit DI modules
 3. Create `ui/<name>-*/` — convention plugin `com.mkchtv.convention.ui`; add Contract + ViewModel + Screen + Nav
-4. Register all new modules in `settings.gradle.kts` (follow the `include(":domain:element")` pattern at lines 23-37)
+4. Register all new modules in `settings.gradle.kts` (follow the existing `include(":domain:element")` lines)
 5. Add `implementation(project(":..."))` for each new module in `app/build.gradle.kts`
 6. Give every new module a `.gitignore` holding `/build`, like the existing modules. The root `.gitignore` covers only the root build folder, so without it the module's build output lands in `git status`
 
 Reference feature spanning all layers: `:domain:element` → `:data:element` → `:ui:element-list` + `:ui:element-details`
+
+Second reference: `:domain:settings` → `:data:settings` → `:ui:settings`, with Preferences DataStore instead of Room, wired into the theme by `app/.../MainViewModel.kt`. It is not part of the sample and stays when the sample is deleted.
 
 ## Known template debt
 

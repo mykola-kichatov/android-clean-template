@@ -1,5 +1,9 @@
 [versions]
 agp = "9.0.1"
+# The androidx.hilt libraries, released together: hilt-lifecycle-viewmodel-compose, home of the
+# hiltViewModel() every screen imports, and hilt-navigation-compose. 1.4.0 pulls
+# lifecycle-viewmodel-compose 2.11.0, so it moves together with `lifecycle`.
+androidxHilt = "1.3.0"
 androidxTest = "1.3.0"
 # The runner of AndroidX Test, numbered apart from androidx.test.ext:junit above.
 androidxTestRunner = "1.7.0"
@@ -13,7 +17,6 @@ coroutines = "1.10.2"
 datastore = "1.2.1"
 espresso = "3.7.0"
 hilt = "2.59.2"
-hiltNavCompose = "1.3.0"
 javaxInject = "1"
 jUnit5 = "6.0.3"
 kotlin = "2.3.10"
@@ -60,7 +63,8 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavCompose" }
+hilt-lifecycle-viewmodel-compose = { module = "androidx.hilt:hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 junit5-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit5-bom = { group = "org.junit", name = "junit-bom", version.ref = "jUnit5" }

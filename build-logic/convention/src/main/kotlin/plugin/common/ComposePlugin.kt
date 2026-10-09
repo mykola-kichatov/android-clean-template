@@ -19,6 +19,7 @@ import composeUiTooling
 import composeUiToolingPreview
 import composeViewmodel
 import debugImplementation
+import hiltLifecycleViewmodelCompose
 import hiltNavigationCompose
 import implementation
 import libs
@@ -73,6 +74,8 @@ private fun Project.configure(commonExtension: CommonExtension) {
             debugImplementation(libs.composeUiTooling())
             debugImplementation(libs.composeUiTestManifest())
             androidTestImplementation(platform(libs.composeBom()))
+            // hiltViewModel() lives here. hilt-navigation-compose only keeps a deprecated copy.
+            implementation(libs.hiltLifecycleViewmodelCompose())
             implementation(libs.hiltNavigationCompose())
         }
 }

@@ -21,7 +21,7 @@ Free text — ask conversationally in one message:
 
 Choices — one AskUserQuestion call:
 
-4. **Sample `:element` feature** (checklist step 4) — rename into the first real feature (then ask for the domain concept, e.g. `note`) / delete it and start clean.
+4. **Sample `:element` feature** (checklist step 4) — rename into the first real feature (then ask for the domain concept, e.g. `note`) / delete it and start clean. The settings feature is not part of the sample and stays either way.
 5. **Networking** (checklist step 5) — set the real API base URL now (then ask for it) / keep the `dummyjson.com` placeholder / remove the Retrofit wiring.
 6. **`AuthViewModel` MVI debt** (checklist step 6) — convert to the MVI contract now / leave for later.
 7. **`baselineprofile/` scaffold** (checklist step 6) — wire it up / delete it / leave for later.

@@ -8,7 +8,7 @@ A multi-module Android starter template using Clean Architecture, Kotlin, Jetpac
 # Clean Architecture
 The project is modularized following the repository pattern with strict layer separation:
 - [domain](domain) — pure Kotlin modules; contains use cases and repository interfaces, no Android dependencies
-- [data](data) — repository implementations, Room database, Retrofit + kotlinx.serialization network layer
+- [data](data) — repository implementations, Room database, Preferences DataStore for settings, Retrofit + kotlinx.serialization network layer
 - [ui](ui) — presentation layer built with MVVM/MVI and Jetpack Compose; ViewModels expose StateFlow/Flow
 - [app](app) — application module; Hilt entry point, navigation host, wires all modules together
 
@@ -17,7 +17,7 @@ The project is modularized following the repository pattern with strict layer se
 2. Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 3. Jetpack Compose UI with Material 3: dynamic color, a full color scheme, a splash screen and themed previews
 4. Kotlin Coroutines and Flow for async/reactive data streams
-5. Room for local persistence, Retrofit + kotlinx.serialization for networking
+5. Room for local persistence, Preferences DataStore for settings (theme mode and dynamic color), Retrofit + kotlinx.serialization for networking
 6. Declarative conditional navigation with shared element transitions
 7. Unit tests with JUnit5, [MockK](https://mockk.io/) and [Turbine](https://github.com/cashapp/turbine)
 8. Centralized [build configuration](build-logic) with Gradle Convention Plugins

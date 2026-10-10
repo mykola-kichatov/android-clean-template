@@ -18,7 +18,7 @@ The project is modularized following the repository pattern with strict layer se
 3. Jetpack Compose UI with Material 3: dynamic color, a full color scheme, a splash screen and themed previews
 4. Kotlin Coroutines and Flow for async/reactive data streams
 5. Room for local persistence, Preferences DataStore for settings (theme mode and dynamic color), Retrofit + kotlinx.serialization for networking
-6. Declarative conditional navigation with shared element transitions
+6. Declarative conditional navigation with shared element transitions and predictive back
 7. Unit tests with JUnit5, [MockK](https://mockk.io/) and [Turbine](https://github.com/cashapp/turbine)
 8. Centralized [build configuration](build-logic) with Gradle Convention Plugins
 9. AI-agent ready — [AGENTS.md](AGENTS.md) architecture guide (Claude Code, Codex, Cursor, Gemini, Copilot) with an interactive `/rebrand` skill for Claude Code

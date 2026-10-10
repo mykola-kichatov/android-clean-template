@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Backup rules for Android 11 and older. Android 12 and newer read
+    data_extraction_rules.xml instead. Keep the two files in step.
+    Everything is backed up. An exclude looks like this:
+    <exclude domain="file" path="datastore/session.preferences_pb" />
+-->
+<full-backup-content />

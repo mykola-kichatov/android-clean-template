@@ -43,7 +43,9 @@ app/ (Hilt entry point, navigation host, Application class)
 ### Data Layer
 - Implements domain repository interfaces (`DefaultXxxRepository : XxxRepository`)
 - Room for local persistence; Retrofit + kotlinx.serialization for network
+- A DAO insert that creates rows is a plain `@Insert`, never `OnConflictStrategy.REPLACE`: on a conflict REPLACE deletes the existing row, and with foreign keys its child rows too. Data that may already exist, such as a server sync, uses `@Upsert`. A query that returns a list states its `ORDER BY`; without one, SQL promises no order
 - Settings use Preferences DataStore (`:data:settings`), not Room. The file name and every key are permanent: renaming one makes every install silently start from the defaults. Enums are stored by `name`, so reordering them cannot change what an install reads back. The store comes from one top-level `preferencesDataStore` delegate, because DataStore throws if a second instance is ever created on the same file. A corrupt file resets to the defaults, which suits settings and would not suit data nobody can recreate
+- Auto Backup saves everything the app stores, to the user's Google account and to a new phone. The rules are `app/src/main/res/xml/data_extraction_rules.xml` (Android 12 and newer) and `backup_rules.xml` (older); keep the two in step. Exclude what must not come back on another phone, such as a login token or data encrypted with an Android Keystore key, which the new phone cannot decrypt
 - Hilt `@Module` with `@Binds` wires interface → implementation at `SingletonComponent` scope
 - KSP generates Room and Hilt code
 - JSON uses kotlinx.serialization: its compiler plugin writes the serializer of every `@Serializable` class. `NetworkModule.kt` provides one `Json { ignoreUnknownKeys = true }` and Retrofit's converter uses it, so fields a response class does not declare are skipped
@@ -54,6 +56,7 @@ app/ (Hilt entry point, navigation host, Application class)
 - ViewModels expose `StateFlow` (mapped from domain `Flow`) for Compose to collect
 - Use `SharingStarted.Lazily` so the flow survives back-stack navigation without restarting. `MainViewModel` is the one exception, see [MVI contract](#mvi-contract)
 - Screens are `@Composable` functions; no business logic in composables
+- State that only the screen needs, such as whether a dialog is open, stays in the composable in `rememberSaveable`, so it survives rotation and process death. `remember` loses it in both cases
 
 ## Dependency Injection
 
@@ -70,6 +73,8 @@ Two-level Jetpack Navigation Compose:
 The tab destinations' `navigateToXxx` extensions accept an optional `NavOptions`; tab switching passes the options built by the private `navigateToTab()` in `HomeScreen.kt` — `popUpTo(startDestination) { saveState = true }` + `launchSingleTop` + `restoreState` — so the back stack holds one entry per tab and tab state survives switching. A new tab follows the same pattern.
 
 Shared element transitions use `SharedTransitionLayout` exposed via `LocalSharedTransitionScope` composition local.
+
+Predictive back is on: `android:enableOnBackInvokedCallback="true"` in the app manifest. Android 13–15 need it; Android 16 turns it on by default for apps that target API 36. During a back swipe, Navigation plays the pop transition with the finger. Handle Back with Navigation or `BackHandler`/`PredictiveBackHandler`, never by overriding `onBackPressed()`, which predictive back never calls.
 
 ## Theme, splash and previews
 

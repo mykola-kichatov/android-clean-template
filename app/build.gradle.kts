@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":ui:element-details"))
     implementation(project(":ui:element-list"))
     implementation(project(":ui:home"))
+    implementation(project(":ui:settings"))
 }

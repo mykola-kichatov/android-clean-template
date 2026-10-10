@@ -1,19 +1,6 @@
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/deviceManager.xml
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/misc.xml
-/.idea/jarRepositories.xml
-/.idea/kotlinc.xml
-/.idea/.name
-/.idea/deploymentTargetSelector.xml
-/.idea/shelf/
 .DS_Store
 /build
 /.kotlin
@@ -24,10 +11,14 @@ local.properties
 /build-logic/.gradle/
 /build-logic/.kotlin/
 /build-logic/convention/build/
-/.idea/AndroidProjectSystem.xml
-/.idea/androidTestResultsUserPreferences.xml
-/.idea/markdown.xml
-/.idea/appInsightsSettings.xml
+
+# Android Studio's project files. It recreates them when it opens the project.
+/.idea/
+
+# Signing keys and their passwords
+*.jks
+*.keystore
+keystore.properties
 
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json

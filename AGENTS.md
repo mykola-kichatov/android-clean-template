@@ -215,6 +215,5 @@ Second reference: `:domain:settings` → `:data:settings` → `:ui:settings`, wi
 
 ## Known template debt
 
-These two items exist in the template as-is; decide per-project whether to fix or remove:
+This item exists in the template as-is; decide per-project whether to fix or remove it:
 - `ui/auth/AuthViewModel.kt` does not follow the MVI contract — it exposes a plain `fun onAuthClick()` instead of `fun onIntent(intent: Intent)`. Fix for consistency before building on it.
-- `baselineprofile/` directory is an empty, unwired scaffold — no `build.gradle.kts` and not listed in `settings.gradle.kts`. Either wire it up or delete it.

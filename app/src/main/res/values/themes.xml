@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- The launch theme. The splash screen library hands over to Theme.CleanTemplate.Post when
+    <!-- The launch theme. The splash screen library hands over to Theme.Main.Post when
          the activity is ready, so the window is never light while the phone is dark. It follows
          the phone, not the app's theme setting. -->
-    <style name="Theme.CleanTemplate" parent="Theme.SplashScreen">
+    <style name="Theme.Main" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/window_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
-        <item name="postSplashScreenTheme">@style/Theme.CleanTemplate.Post</item>
+        <item name="postSplashScreenTheme">@style/Theme.Main.Post</item>
         <!-- Dark bar icons on the light splash, light ones on the dark splash. The library's
              theme makes the bars transparent but leaves the icons white, so Android 9 draws
              white icons on the light splash. -->
@@ -14,7 +14,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/light_system_bars</item>
     </style>
 
-    <style name="Theme.CleanTemplate.Post" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Main.Post" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 </resources>

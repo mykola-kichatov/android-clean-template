@@ -37,6 +37,7 @@ app/ (Hilt entry point, navigation host, Application class)
 ### Domain Layer
 - Contains only interfaces (repository contracts) and use cases
 - Use cases are callable classes with `operator fun invoke()`
+- A use case reports a failure by throwing, never by returning `Result`. See [Error handling](#error-handling)
 - No Android or external dependencies — only `javax.inject` and coroutines
 
 ### Data Layer
@@ -112,6 +113,16 @@ private fun TestScope.appIoScope(): CoroutineScope =
     CoroutineScope(backgroundScope.coroutineContext + UnconfinedTestDispatcher(testScheduler))
 ```
 
+A test that makes such a write fail needs the scope with its own `SupervisorJob`, like the real one. On the bare `backgroundScope` job, `runTest` reports the failed write as uncaught and the test fails, though the ViewModel caught the error from `await`. `ElementDetailsViewModelTest` does this:
+
+```kotlin
+private fun TestScope.appIoScope(): CoroutineScope = CoroutineScope(
+    backgroundScope.coroutineContext +
+        SupervisorJob(backgroundScope.coroutineContext.job) +
+        UnconfinedTestDispatcher(testScheduler),
+)
+```
+
 `UnitTestsPlugin` starts every test JVM with Byte Buddy's agent (`-javaagent`), so MockK never attaches one at runtime. That runtime attach can fail at random under load. When MockK changes version, keep `byteBuddy` in `gradle/libs.versions.toml` equal to the byte-buddy version MockK resolves: `./gradlew :ui:common:dependencies --configuration debugUnitTestRuntimeClasspath | grep byte-buddy`.
 
 ## Module Convention Plugins (build-logic)
@@ -170,18 +181,44 @@ Reference: `ui/element-list/.../ElementListContract.kt` + `ElementListViewModel.
 
 Two scopes, different lifetimes:
 - `viewModelScope` — for navigation effects and anything that should cancel if the user leaves the screen
-- `@AppIoScope` (injected `CoroutineScope`) — for fire-and-forget writes (DB/network) that must survive ViewModel death; uses `SupervisorJob + Dispatchers.IO`
+- `@AppIoScope` (injected `CoroutineScope`) — for writes (DB/network) that must survive ViewModel death; uses `SupervisorJob + Dispatchers.IO`
 
 ```kotlin
 // fire-and-forget write: appIoScope so it outlives the ViewModel
-appIoScope.launch { deleteElement(elementId) }
-// navigation: viewModelScope so it cancels if screen is gone
-viewModelScope.launch { _effects.send(Effect.NavigateBack) }
+appIoScope.launch { setThemeMode(themeMode) }
+// a write the screen waits for: still on appIoScope, awaited from viewModelScope
+viewModelScope.launch {
+    appIoScope.async { deleteElement(elementId) }.await()
+    _effects.send(Effect.NavigateBack) // cancels if the screen is gone
+}
 ```
 
-Reference: `ui/element-details/.../ElementDetailsViewModel.kt:47-58`
+Reference: `ui/settings/.../SettingsViewModel.kt` (fire-and-forget), `ui/element-details/.../ElementDetailsViewModel.kt` (`closeAfter` waits, with the error handling below)
 
 Note: the `@AppIoScope` / `@AppDefaultScope` qualifiers are defined in `domain/common/di/Qualifiers.kt` but the actual `CoroutineScope` bindings are provided in `ui/common/di/CoroutinesModule.kt`.
+
+## Error handling
+
+Use cases and repositories report a failure by throwing. No `Result` or `runCatching` wrappers: `runCatching` around a suspend call also catches `CancellationException`.
+
+The ViewModel catches where it calls the use case, and lets cancellation pass first. Cancellation is not an error: the user left, and the coroutine must stop.
+
+```kotlin
+try {
+    pullElement()
+} catch (e: CancellationException) {
+    throw e
+} catch (e: Exception) {
+    _effects.send(ShowError(e.toMessageRes()))
+}
+```
+
+- The user sees a string resource, never `Throwable.message`: that text is technical, English only and can be null. `Effect.ShowError` carries a `@StringRes Int`, picked by `toMessageRes()` in `:ui:common` (`common/extensions/`): an `IOException` gets the no-connection message, anything else the generic one. Here only the network throws `IOException`; DataStore throws one too, for a broken file, so a feature that writes one needs its own message. An HTTP error status gets the generic one. A project that needs more maps it in the data layer, so ui modules stay free of Retrofit.
+- A screen that saves waits for the write, and closes only when it worked. The write runs on `@AppIoScope` with `async`, awaited from `viewModelScope`: it finishes even if the user leaves, and a failure comes back to the screen, which stays open with the user's input and shows the error. Not `launch` + `join`: a failed `launch` goes to the scope's exception handler, never to the caller.
+- While the write runs, `UiState.isSaving` disables the save actions, and the ViewModel ignores a second save, because the keyboard can submit too. Without it, a double tap saved twice and closed twice.
+- The sample's Room flows are not caught: a failing local query is a bug, and the crash shows it. A flow that can fail for an expected reason (network, file) gets `.catch` before `stateIn` and turns the error into state.
+
+Reference: `ElementListViewModel.kt` (pull), `ElementDetailsViewModel.kt` (`closeAfter`)
 
 ## Module file layout
 
@@ -198,7 +235,7 @@ Sub-package conventions inside a module: `component/`, `di/`, `entity/`, `mapper
 
 Visibility rule: ViewModels, Contracts, Repository impls, Room entities/DAOs → `internal`. Domain entities, use cases, repository interfaces → `public`.
 
-Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:auth`). See `ElementDetailsNav.kt:34`.
+Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:auth`). See `ElementDetailsNav.kt`.
 
 ## Adding a new feature module
 

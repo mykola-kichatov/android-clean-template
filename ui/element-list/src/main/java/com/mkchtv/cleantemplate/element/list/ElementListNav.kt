@@ -37,7 +37,8 @@ fun NavGraphBuilder.elementListScreen(
             LaunchedEffect(viewModel) {
                 viewModel.effects.collectLatest { effect ->
                     when (effect) {
-                        is ShowError -> Toast.makeText(context, effect.message, LENGTH_SHORT).show()
+                        is ShowError ->
+                            Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
                         is NavigateToElement -> onElementClick(effect.itemId)
                         NavigateToAddElement -> onAddNewElementClick()
                     }

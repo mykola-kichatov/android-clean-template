@@ -1,10 +1,13 @@
 package com.mkchtv.cleantemplate.element.details
 
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -34,10 +37,13 @@ fun NavGraphBuilder.elementDetailsScreen(
             AuthProtectedScreen {
                 val viewModel = hiltViewModel<ElementDetailsViewModel>()
                 val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+                val context = LocalContext.current
 
                 LaunchedEffect(viewModel) {
                     viewModel.effects.collectLatest { effect ->
                         when (effect) {
+                            is Effect.ShowError ->
+                                Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
                             Effect.NavigateBack -> onBackClick()
                         }
                     }

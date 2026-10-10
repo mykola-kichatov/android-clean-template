@@ -2,6 +2,7 @@ package com.mkchtv.cleantemplate.element.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mkchtv.cleantemplate.common.extensions.toMessageRes
 import com.mkchtv.cleantemplate.domain.element.usecase.ElementsFlow
 import com.mkchtv.cleantemplate.domain.element.usecase.PullElement
 import com.mkchtv.cleantemplate.element.list.Effect.NavigateToAddElement
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -51,9 +53,13 @@ internal class ElementListViewModel @Inject constructor(
     }
 
     private fun pullNewElement() = viewModelScope.launch {
-        pullElement()
-            .onFailure { error ->
-                _effects.send(ShowError(error.message ?: "Unknown error"))
-            }
+        try {
+            pullElement()
+        } catch (e: CancellationException) {
+            // not an error: the user left, so let the coroutine stop
+            throw e
+        } catch (e: Exception) {
+            _effects.send(ShowError(e.toMessageRes()))
+        }
     }
 }

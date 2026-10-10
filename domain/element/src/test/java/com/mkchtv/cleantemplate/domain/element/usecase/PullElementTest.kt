@@ -62,10 +62,9 @@ class PullElementTest {
         )
 
         // [WHEN]
-        val result = pullElement()
+        pullElement()
 
         // [THEN]
-        Assertions.assertTrue(result.isSuccess)
         coVerify {
             mockRepository.create(
                 EditedElementData(
@@ -78,21 +77,20 @@ class PullElementTest {
     }
 
     @Test
-    fun `pull element returns the error and saves nothing when the pull fails`() = runTest {
+    fun `pull element throws the error as is and saves nothing when the pull fails`() = runTest {
         // [GIVEN]
         val error = IOException("test_error")
         coEvery { mockRepository.pull() } throws error
 
         // [WHEN]
-        val result = pullElement()
-
         // [THEN]
-        Assertions.assertSame(error, result.exceptionOrNull())
+        val thrown = assertThrows<IOException> { pullElement() }
+        Assertions.assertSame(error, thrown)
         coVerify(exactly = 0) { mockRepository.create(any()) }
     }
 
     @Test
-    fun `pull element passes cancellation on instead of returning it as an error`() = runTest {
+    fun `pull element passes cancellation on and saves nothing`() = runTest {
         // [GIVEN]
         coEvery { mockRepository.pull() } throws CancellationException("test_cancel")
 

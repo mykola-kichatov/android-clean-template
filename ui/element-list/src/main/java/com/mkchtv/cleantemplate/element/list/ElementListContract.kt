@@ -1,5 +1,6 @@
 package com.mkchtv.cleantemplate.element.list
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import com.mkchtv.cleantemplate.element.list.entity.ElementItem
 
@@ -16,7 +17,7 @@ internal sealed interface Intent {
 }
 
 internal sealed interface Effect {
-    data class ShowError(val message: String) : Effect
+    data class ShowError(@param:StringRes val messageRes: Int) : Effect
     data class NavigateToElement(val itemId: Int) : Effect
     data object NavigateToAddElement : Effect
 }

@@ -39,6 +39,7 @@ internal fun ElementDetailsScreen(
             TopBar(
                 isScreenLoading = uiState.isLoading,
                 element = uiState.element,
+                isSaving = uiState.isSaving,
                 onBackClick = { onIntent(Intent.BackClick) },
                 onDeleteRequested = { showConfirmDeletionDialog = true },
             )
@@ -54,6 +55,7 @@ internal fun ElementDetailsScreen(
             )
 
             uiState.element == null -> CreateNewElement(
+                isSaving = uiState.isSaving,
                 onCreateRequested = { name, desc ->
                     onIntent(Intent.CreateElement(name, desc))
                 },
@@ -63,6 +65,7 @@ internal fun ElementDetailsScreen(
             else -> with(sharedElementScope) {
                 UpdateExistedElement(
                     element = uiState.element,
+                    isSaving = uiState.isSaving,
                     onUpdateRequested = { name, desc, imageUrl ->
                         onIntent(Intent.UpdateElement(name, desc, imageUrl))
                     },

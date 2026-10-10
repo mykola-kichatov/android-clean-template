@@ -20,6 +20,7 @@ import com.mkchtv.cleantemplate.ui.common.R as commonRes
 internal fun TopBar(
     isScreenLoading: Boolean = true,
     element: Element? = null,
+    isSaving: Boolean = false,
     onBackClick: () -> Unit,
     onDeleteRequested: () -> Unit,
 ) {
@@ -45,7 +46,7 @@ internal fun TopBar(
         },
         actions = {
             if (element != null)
-                IconButton(onClick = onDeleteRequested) {
+                IconButton(onClick = onDeleteRequested, enabled = !isSaving) {
                     Icon(Icons.Filled.Delete, stringResource(id = commonRes.string.cd_delete))
                 }
         }

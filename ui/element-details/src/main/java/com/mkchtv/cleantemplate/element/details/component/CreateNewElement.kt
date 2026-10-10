@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +29,7 @@ import com.mkchtv.cleantemplate.ui.common.R as commonRes
 
 @Composable
 internal fun CreateNewElement(
+    isSaving: Boolean,
     onCreateRequested: (name: String, desc: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,9 +74,11 @@ internal fun CreateNewElement(
             onImeAction = onCreateAction,
         )
         Spacer(modifier = Modifier.height(24.dp))
-        ElevatedButton(onClick = onCreateAction) {
-            Text(text = stringResource(id = commonRes.string.create))
-        }
+        SaveButton(
+            text = stringResource(id = commonRes.string.create),
+            isSaving = isSaving,
+            onClick = onCreateAction,
+        )
     }
 }
 
@@ -90,6 +91,7 @@ private fun CreateNewElementPreview() {
             AnimatedVisibility(visible = true) {
                 CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
                     CreateNewElement(
+                        isSaving = false,
                         onCreateRequested = { _, _ -> },
                     )
                 }

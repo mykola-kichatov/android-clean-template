@@ -7,6 +7,10 @@
     <string name="create">Create</string>
     <string name="update">Update</string>
 
+    <!-- errors -->
+    <string name="error_no_connection">Can\'t connect. Check your internet connection and try again.</string>
+    <string name="error_unknown">Something went wrong. Try again.</string>
+
     <!-- content description -->
     <string name="cd_go_back">Go back</string>
     <string name="cd_delete">Delete</string>

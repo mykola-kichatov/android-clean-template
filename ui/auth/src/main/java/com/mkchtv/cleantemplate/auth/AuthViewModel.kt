@@ -21,8 +21,8 @@ internal class AuthViewModel @Inject constructor(
     private val onAuthenticated: OnAuthenticated,
 ) : ViewModel() {
 
-    // A gate that comes back, like the list's after details, reads the last value on its first
-    // frame, so it shows no spinner.
+    // Kept in the ViewModel, so a gate drawn again, after a rotation or when a gated destination
+    // comes back, reads the last value on its first frame and shows no spinner.
     val uiState: StateFlow<UiState> = authStateFlow()
         .map { authState -> UiState(authState = authState) }
         .stateIn(

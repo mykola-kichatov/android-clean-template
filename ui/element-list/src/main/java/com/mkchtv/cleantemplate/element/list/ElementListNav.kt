@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.LaunchedEffect
@@ -29,27 +28,25 @@ fun NavGraphBuilder.elementListScreen(
     onAddNewElementClick: () -> Unit,
 ) {
     composable(route = NAV_DESTINATION_LIST) {
-        AuthProtectedScreen {
-            val viewModel = hiltViewModel<ElementListViewModel>()
-            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-            val context = LocalContext.current
+        val viewModel = hiltViewModel<ElementListViewModel>()
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+        val context = LocalContext.current
 
-            LaunchedEffect(viewModel) {
-                viewModel.effects.collectLatest { effect ->
-                    when (effect) {
-                        is ShowError ->
-                            Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
-                        is NavigateToElement -> onElementClick(effect.itemId)
-                        NavigateToAddElement -> onAddNewElementClick()
-                    }
+        LaunchedEffect(viewModel) {
+            viewModel.effects.collectLatest { effect ->
+                when (effect) {
+                    is ShowError ->
+                        Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
+                    is NavigateToElement -> onElementClick(effect.itemId)
+                    NavigateToAddElement -> onAddNewElementClick()
                 }
             }
-
-            ElementListScreen(
-                uiState = uiState.value,
-                onIntent = viewModel::onIntent,
-            )
         }
+
+        ElementListScreen(
+            uiState = uiState.value,
+            onIntent = viewModel::onIntent,
+        )
     }
 }
 

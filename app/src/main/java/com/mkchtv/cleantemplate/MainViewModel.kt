@@ -16,8 +16,8 @@ internal class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     /**
-     * `null` until the stored appearance has been read. The splash screen stays up for exactly
-     * that long, so the app is drawn once, in the right theme, instead of flashing the phone's.
+     * `null` until the stored appearance has been read. The splash screen stays up at least that
+     * long, so the app is drawn once, in the right theme, instead of flashing the phone's.
      *
      * Eagerly, not Lazily: the splash is held on the value, so nothing may depend on a collector
      * arriving first. If one never did, the app would look hung. Screen ViewModels keep Lazily,

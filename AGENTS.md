@@ -67,7 +67,7 @@ Hilt throughout. Custom coroutine scope qualifiers live in `domain/common/di/Qua
 ## Navigation
 
 Two-level Jetpack Navigation Compose:
-- `AppNavHost` (app module) — top-level: `HOME` and `ElementDetails` destinations
+- `AppNavHost` (app module) — top-level: `HOME` and `ElementDetails` destinations, behind the login gate (see Auth-gating)
 - `HomeNavHost` (ui/home) — nested bottom-nav tabs: `ElementList`, `Settings`
 
 The tab destinations' `navigateToXxx` extensions accept an optional `NavOptions`; tab switching passes the options built by the private `navigateToTab()` in `HomeScreen.kt` — `popUpTo(startDestination) { saveState = true }` + `launchSingleTop` + `restoreState` — so the back stack holds one entry per tab and tab state survives switching. A new tab follows the same pattern.
@@ -82,8 +82,9 @@ Predictive back is on: `android:enableOnBackInvokedCallback="true"` in the app m
 
 - `Color.kt` sets all 48 Material 3 color roles, light and dark, built from one brand color; its header says how to regenerate them. A role left out of `Theme.kt` silently falls back to Material's purple baseline, so `ColorSchemeTest` fails instead.
 - The launch theme in `app/src/main/res/values/themes.xml` builds on the splash screen library (`core-splashscreen`) and hands over to its `.Post` style, which has a `values-night` variant. `MainActivity` calls `installSplashScreen()` before `super.onCreate()`. The launch theme also asks for dark bar icons in light mode, through `@bool/light_system_bars` (`false` in `values-night`): the library's theme leaves them white, and Android 9 draws them white on the light splash.
-- Splash hold: `MainActivity` keeps the splash up (`setKeepOnScreenCondition`) until `MainViewModel` has read the stored settings, so the first frame already has the app's theme, not the phone's.
+- Splash hold: `MainActivity` keeps the splash up (`setKeepOnScreenCondition`) until `MainViewModel` has read the stored settings, so the first frame already has the app's theme, not the phone's. A screen can keep it up longer with `HoldSplashScreen()` (`:ui:common`), so a cold start shows no spinner right after the splash: the login gate holds it until it has read the login state. The hold ends only when that read does, so the repository behind it must always emit (`AuthRepository` promises to); one that never emits keeps the splash up for good.
 - The status and navigation bar icons follow the app theme, not the phone. `MainActivity` calls `enableEdgeToEdge()` in `onCreate`, then again in a `DisposableEffect(darkTheme)`, with androidx's default scrims and dark mode taken from the setting. Without the second call, an app set to Dark on a light phone draws dark icons on its dark status bar.
+- Window insets from the first frame: `setContent` in `MainActivity` reads `WindowInsets.systemBars` before anything else, while the splash is up. Compose starts tracking the bar sizes only when a composable first reads them, and lays out that frame with zeros, so a screen that pads for the bars, shown after one that does not (a loading spinner, a login screen), could draw its first frame under the status bar. Keep the read.
 - Known limitation: the launch window follows the phone, not the setting. An app set to Dark on a light phone shows a light splash, and its first frame still has the phone's bar icons for a few frames while the system fades them. The fix is AppCompat's `AppCompatDelegate.setDefaultNightMode`, which the template does not use.
 - The launch window color, `window_background` in `app/src/main/res/values/colors.xml` and `values-night/colors.xml`, equals the background in `Color.kt`. Keep them in step, or a cold start shows a different color before the first frame.
 - The splash icon is `drawable/ic_splash.xml`, the launcher icon's two vector layers stacked. Not `@mipmap/ic_launcher`: below Android 12 the splash library blows its bitmap up and crops the adaptive icon a second time.
@@ -240,7 +241,7 @@ Sub-package conventions inside a module: `component/`, `di/`, `entity/`, `mapper
 
 Visibility rule: ViewModels, Contracts, Repository impls, Room entities/DAOs → `internal`. Domain entities, use cases, repository interfaces → `public`.
 
-Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:auth`). See `ElementDetailsNav.kt`. `:ui:auth` is not a destination, so it has no Nav file: `AuthProtectedScreen` connects `AuthViewModel` to `AuthScreen`.
+Auth-gating: the whole app sits behind one gate, `AuthProtectedScreen { ... }` (`:ui:auth`), around the navigation in `AppNavHost.kt`. The back stack is created inside the gate, so a logout drops every screen and the next login starts at home. An app with public screens gates only the destinations that need a login instead: it wraps their body in `AuthProtectedScreen { ... }` in their `*Nav.kt`. One or the other, never both: nested gates each add an `AuthViewModel` and a spinner. `:ui:auth` is not a destination, so it has no Nav file: `AuthProtectedScreen` connects `AuthViewModel` to `AuthScreen`.
 
 ## Adding a new feature module
 

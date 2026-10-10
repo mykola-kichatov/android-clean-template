@@ -67,9 +67,9 @@ The `:auth` feature is only a sample: an in-memory login with one "Authenticate"
 
 **Option B — delete it:**
 - Remove the modules `:domain:auth`, `:data:auth` and `:ui:auth`, their `include()` lines from `settings.gradle.kts` and their `implementation(project(...))` lines from `app/build.gradle.kts`.
-- Remove the gate. In `ui/home/.../HomeNav.kt`, replace `AuthProtectedScreen { ... }` with its content and drop the import, then remove the `:ui:auth` line from `ui/home/build.gradle.kts`. If the sample is still there, do the same in its list and details `*Nav.kt` files and their build files.
-- Remove logout from `ui/settings`: the `:domain:auth` line in its `build.gradle.kts`; `Logout` in `SettingsViewModel.kt`; `Intent.LogoutConfirmed` and the logout sentence of the comment in `SettingsContract.kt`; the top-bar button and the confirm dialog in `SettingsScreen.kt`; the strings `confirm_logout` and `cd_logout`, with the comment above `cd_logout`; the `Logout` mock and the logout test in `SettingsViewModelTest.kt`.
-- In `AGENTS.md`, delete the "Auth-gating" line.
+- Remove the gate. In `app/src/main/java/.../AppNavHost.kt`, `AppNavHost` is `= AuthProtectedScreen { ... }`: make it a block body `{ ... }` with the same content, delete the comment about the gate inside it, and drop the import.
+- Remove logout from `ui/settings`: the `:domain:auth` line in its `build.gradle.kts`; in `SettingsViewModel.kt`, the `Logout` parameter and the `Intent.LogoutConfirmed` branch of `onIntent`; `Intent.LogoutConfirmed` and the logout sentence of the comment in `SettingsContract.kt`; in `SettingsScreen.kt`, the top-bar button with `TopBar`'s `onLogoutRequested` parameter, and the confirm dialog with its `showConfirmLogoutDialog` state; the strings `confirm_logout` and `cd_logout`, with the comment above `cd_logout`; in `SettingsViewModelTest.kt`, the `Logout` mock, the `logout = mockLogout` argument and the logout test. Then delete the imports this leaves unused: ktlint fails the build on them.
+- In `AGENTS.md`, delete the "Auth-gating" line, and `, behind the login gate (see Auth-gating)` at the end of the `AppNavHost` line in the Navigation section.
 
 ## 7. Verify the build
 

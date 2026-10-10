@@ -15,7 +15,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.mkchtv.cleantemplate.auth.AuthProtectedScreen
 import com.mkchtv.cleantemplate.common.compositionlocal.LocalAnimatedVisibilityScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -34,26 +33,24 @@ fun NavGraphBuilder.elementDetailsScreen(
         CompositionLocalProvider(
             LocalAnimatedVisibilityScope provides this@composable
         ) {
-            AuthProtectedScreen {
-                val viewModel = hiltViewModel<ElementDetailsViewModel>()
-                val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-                val context = LocalContext.current
+            val viewModel = hiltViewModel<ElementDetailsViewModel>()
+            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+            val context = LocalContext.current
 
-                LaunchedEffect(viewModel) {
-                    viewModel.effects.collectLatest { effect ->
-                        when (effect) {
-                            is Effect.ShowError ->
-                                Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
-                            Effect.NavigateBack -> onBackClick()
-                        }
+            LaunchedEffect(viewModel) {
+                viewModel.effects.collectLatest { effect ->
+                    when (effect) {
+                        is Effect.ShowError ->
+                            Toast.makeText(context, effect.messageRes, LENGTH_SHORT).show()
+                        Effect.NavigateBack -> onBackClick()
                     }
                 }
-
-                ElementDetailsScreen(
-                    uiState = uiState.value,
-                    onIntent = viewModel::onIntent,
-                )
             }
+
+            ElementDetailsScreen(
+                uiState = uiState.value,
+                onIntent = viewModel::onIntent,
+            )
         }
     }
 }

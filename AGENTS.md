@@ -240,7 +240,7 @@ Sub-package conventions inside a module: `component/`, `di/`, `entity/`, `mapper
 
 Visibility rule: ViewModels, Contracts, Repository impls, Room entities/DAOs → `internal`. Domain entities, use cases, repository interfaces → `public`.
 
-Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:auth`). See `ElementDetailsNav.kt`.
+Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:auth`). See `ElementDetailsNav.kt`. `:ui:auth` is not a destination, so it has no Nav file: `AuthProtectedScreen` connects `AuthViewModel` to `AuthScreen`.
 
 ## Adding a new feature module
 
@@ -254,8 +254,3 @@ Auth-gating: wrap the destination body in `AuthProtectedScreen { ... }` (`:ui:au
 Reference feature spanning all layers: `:domain:element` → `:data:element` → `:ui:element-list` + `:ui:element-details`
 
 Second reference: `:domain:settings` → `:data:settings` → `:ui:settings`, with Preferences DataStore instead of Room, wired into the theme by `app/.../MainViewModel.kt`. It is not part of the sample and stays when the sample is deleted.
-
-## Known template debt
-
-This item exists in the template as-is; decide per-project whether to fix or remove it:
-- `ui/auth/AuthViewModel.kt` does not follow the MVI contract — it exposes a plain `fun onAuthClick()` instead of `fun onIntent(intent: Intent)`. Fix for consistency before building on it.

@@ -63,13 +63,13 @@ With Option B this file went with `:data:element`, so skip this step. `DataPlugi
 
 The `:auth` feature is only a sample: an in-memory login with one "Authenticate" button. It shows how to gate screens behind a login. Keep it until your real login replaces it, or delete it.
 
-**Option A — keep it.** Fix its debt before building on it: `ui/auth/AuthViewModel.kt` — convert to MVI contract (add `Intent` sealed interface, rename `onAuthClick()` to `onIntent(intent: Intent)`) for consistency with all other ViewModels.
+**Option A — keep it.** Nothing to do now. When your real login comes, it replaces the in-memory `DefaultAuthRepository` in `:data:auth` and the one-button `AuthScreen.kt` in `:ui:auth`; the gate stays.
 
 **Option B — delete it:**
 - Remove the modules `:domain:auth`, `:data:auth` and `:ui:auth`, their `include()` lines from `settings.gradle.kts` and their `implementation(project(...))` lines from `app/build.gradle.kts`.
 - Remove the gate. In `ui/home/.../HomeNav.kt`, replace `AuthProtectedScreen { ... }` with its content and drop the import, then remove the `:ui:auth` line from `ui/home/build.gradle.kts`. If the sample is still there, do the same in its list and details `*Nav.kt` files and their build files.
 - Remove logout from `ui/settings`: the `:domain:auth` line in its `build.gradle.kts`; `Logout` in `SettingsViewModel.kt`; `Intent.LogoutConfirmed` and the logout sentence of the comment in `SettingsContract.kt`; the top-bar button and the confirm dialog in `SettingsScreen.kt`; the strings `confirm_logout` and `cd_logout`, with the comment above `cd_logout`; the `Logout` mock and the logout test in `SettingsViewModelTest.kt`.
-- In `AGENTS.md`, delete the "Auth-gating" line and the "Known template debt" section.
+- In `AGENTS.md`, delete the "Auth-gating" line.
 
 ## 7. Verify the build
 

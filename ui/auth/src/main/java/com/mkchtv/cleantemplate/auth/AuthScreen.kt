@@ -8,12 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.mkchtv.cleantemplate.common.preview.ScreenPreviews
+import com.mkchtv.cleantemplate.common.preview.ThemedPreview
 import com.mkchtv.cleantemplate.ui.auth.R
 
 @Composable
 internal fun AuthScreen(
-    viewModel: AuthViewModel = hiltViewModel(),
+    onIntent: (Intent) -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -21,10 +22,18 @@ internal fun AuthScreen(
     ) {
         Button(
             onClick = {
-                viewModel.onAuthClick()
+                onIntent(Intent.AuthenticateClick)
             },
         ) {
             Text(text = stringResource(id = R.string.authenticate))
         }
+    }
+}
+
+@ScreenPreviews
+@Composable
+private fun AuthScreenPreview() {
+    ThemedPreview {
+        AuthScreen(onIntent = {})
     }
 }

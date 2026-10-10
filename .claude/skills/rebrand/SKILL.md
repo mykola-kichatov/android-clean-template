@@ -24,10 +24,9 @@ Choices — one AskUserQuestion call:
 4. **Sample `:element` feature** (checklist step 4) — rename into the first real feature (then ask for the domain concept, e.g. `note`) / delete it and start clean. The settings feature is not part of the sample and stays either way.
 5. **Fake login** (checklist step 6) — keep it / delete it.
 
-Then a second AskUserQuestion call, with only the questions that apply:
+Then, only if the sample is renamed, a second AskUserQuestion call:
 
-6. **Networking** (checklist step 5) — only if the sample is renamed: set the real API base URL now (then ask for it) / keep the `dummyjson.com` placeholder / remove the Retrofit wiring. With the sample deleted, checklist step 5 is skipped.
-7. **`AuthViewModel` MVI debt** (checklist step 6) — only if the login is kept: convert to the MVI contract now / leave for later.
+6. **Networking** (checklist step 5) — set the real API base URL now (then ask for it) / keep the `dummyjson.com` placeholder / remove the Retrofit wiring. With the sample deleted, checklist step 5 is skipped.
 
 ## Execute
 

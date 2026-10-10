@@ -4,14 +4,18 @@ import com.mkchtv.cleantemplate.domain.auth.entity.AuthState
 import com.mkchtv.cleantemplate.domain.auth.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/** The sample login: in memory only, so every app start is logged out. */
 @Singleton
 internal class DefaultAuthRepository @Inject constructor() : AuthRepository {
 
     private val _authStateFlow = MutableStateFlow(AuthState.AUTH_REQUIRED)
-    override val authStateFlow: Flow<AuthState> = _authStateFlow
+
+    // Read-only: a caller cannot cast it back and change the state.
+    override val authStateFlow: Flow<AuthState> = _authStateFlow.asStateFlow()
 
     override suspend fun onAuthenticated() {
         _authStateFlow.value = AuthState.AUTHENTICATED
